@@ -4,4 +4,5 @@
    $URL=substr($URL_path, strlen($folder_path));
 
    define("URL", $URL);
+   define("URLSYS","http://localhost/QualityStore/");
 ?>

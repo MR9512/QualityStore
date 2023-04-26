@@ -1,14 +1,27 @@
+<?php foreach($respuesta["id_producto"] as $i=>$id_producto){
+  if(($i == 0) || ($i%5==0)){
+?>
 <div class="container">
   <div class="row">
+<?php } ?>
     <div class="col">
-      <img src="http://localhost/QualityStore/img/cafe.jpeg" width="40%" />
-      <a href="http://localhost/QualityStore/productos/ver?id=1">Ver más</a>
+      <table>
+        <tr>
+             <td><img src="<?= URLSYS.$respuesta["url_imagen"][$i] ?>" width="40%" /></td>
+        </tr>
+        <tr>
+             <td>Nombre: <?= $respuesta["nombre"][$i] ?><br />
+            Descripción: <?= $respuesta["desc_corta"][$i] ?><br />
+                 Precio: <?= $respuesta["precio"][$i] ?><br /></td>
+        </tr> 
+      </table>
+      <a href="<?= URLSYS ?>productos/ver?<?= $respuesta["id_producto"][$i] ?>">Ver más</a>
     </div>
-    <div class="col">
-      Column
-    </div>
-    <div class="col">
-      Column
-    </div>
+  <?php 
+    //if($i%5==0){
+  ?>
+
+<?php } 
+//} ?> 
   </div>
-</div>
+</div> 

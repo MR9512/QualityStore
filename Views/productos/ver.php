@@ -1,0 +1,1 @@
+<img src="http://localhost/QualityStore/img/cafe.jpeg" width="60%" />

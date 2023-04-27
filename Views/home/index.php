@@ -15,7 +15,7 @@
                  Precio: <?= $respuesta["precio"][$i] ?><br /></td>
         </tr> 
       </table>
-      <a href="<?= URLSYS ?>productos/ver?<?= $respuesta["id_producto"][$i] ?>">Ver más</a>
+      <a href="<?= URLSYS ?>productos/ver?producto=<?= $respuesta["id_producto"][$i] ?>">Ver más</a>
     </div>
   <?php 
     //if($i%5==0){

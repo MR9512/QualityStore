@@ -43,7 +43,7 @@
   </div>
   <div class="col-md-6">
   <label for="formFile" class="form-label">Cargar imagen</label>
-  <input class="form-control" name="cargarImg" class="form-control imagen" type="file" id="formFile">
+  <input class="form-control" name="cargarImg" class="form-control imagen" type="file" id="image">
   <div class="error_imagen" style="display:none;color:red">
    Favor de cargar una imagen
   </div>

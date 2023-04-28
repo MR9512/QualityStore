@@ -6,6 +6,8 @@
         require_once("DB/Conect.php");
         $con = new Conect();
         $this->con = $con->conexion();
+        $fecha = getdate();
+        $this->fecha = $fecha['year'] . "-" . $fecha['mon'] . "-" . $fecha['mday'];
     }
 
     public function getProductos($condicion = null){
@@ -59,6 +61,12 @@
        return $data;
     }
 
+    public function saveProducto($datos)
+    {
+        $query = "INSERT INTO productos(nombre,precio,desc_large,desc_corta,url_imagen,url_mercado,url_sams,status,fecha_subida) VALUES ('" . $datos['nombre'] . "','" . $datos['precio'] . "','" . $datos['desc_large'] . "','" . $datos['desc_corta'] . "','" . $datos['url_imagen'] . "','" . $datos['url_mercado'] . "','" . $datos['url_sams'] . "','" . $datos['status'] . "','" . $this->fecha . "')";
+        mysqli_query($this->con, $query);
+        return "Producto registrado";
+    }
  }
 
 ?>

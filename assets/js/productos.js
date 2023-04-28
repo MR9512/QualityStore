@@ -42,16 +42,21 @@ $("#formulario").on("submit",function(){
   if($(".nombre").val() == null || $(".precio").val() == null || $(".descL").val() == null || $(".descC").val() == null || $(".urlML").val() == null || $(".urlSMS").val() == null){
     exit();
   }
-  var formData = new formData();
-  var file = $(".imagen")[0].file[0];
-  formData.append("file",file);
-  var formulario = $("#formulario").serialize();
-  var obj = {};
-  obj.url = "insertarProducto";
-  obj.type = "POST";
-  obj.data = new formData();
-
-  peticionAjax(obj);
+  var formData = new FormData(this);
+        var files = $('#image')[0].files[0];
+        formData.append('file',files);
+        var datos = $('#formulario').serialize();
+  $.ajax({
+    url: 'insertarProducto',
+    type: 'post',
+    data: formData,datos,
+    contentType: false,
+    cache:false,
+    processData: false,
+    success: function(response) {
+        
+    }
+});
 });
 
 }); 

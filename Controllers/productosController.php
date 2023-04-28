@@ -23,6 +23,10 @@
       require_once("Views/templates/footer.php");
     }
 
+    public function insertarProducto(){
+      var_dump($_POST);
+    }
+
   }
 
 ?>

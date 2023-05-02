@@ -24,11 +24,20 @@
     }
 
     public function insertarProducto(){
-        var_dump($_POST);
-        var_dump($_FILES);
-        exit();
-        $respuesta = $this->productosModel->saveProducto($_POST);
+        $imagen = $_FILES["cargarImg"]["name"];
+        
+        $_POST["extensionImagen"] = str_replace("image/","",$_FILES["cargarImg"]["type"]);
 
+        $respuesta = $this->productosModel->saveProducto($_POST);
+        //var_dump($respuesta);
+        //exit();
+        if($imagen != null && $imagen != ""){
+          $temp = $_FILES["cargarImg"]["tmp_name"];
+          $nombreImagen = $respuesta.".". $_POST["extensionImagen"];
+          if(move_uploaded_file($temp, URLIMG.$nombreImagen)){
+            chmod(URLIMG.$imagen,0777);
+          }
+        }
       }
     }
 

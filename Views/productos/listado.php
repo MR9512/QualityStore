@@ -71,3 +71,32 @@
     </form>
   </div>
 </div>
+
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Nombre</th>
+      <th scope="col">Precio</th>
+      <th scope="col">Categoria</th>
+      <th scope="col">Descripcion Corta</th>
+      <th scope="col">Imagen</th>
+      <th scope="col">Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+   <?php
+     foreach($respuesta["id_producto"] as $i=>$id_producto){
+    ?>  
+    <tr>
+       <td><?= $respuesta["nombre"][$i]?></td>
+       <td><?= $respuesta["precio"][$i]?></td>
+       <td><?= $respuesta["categoria"][$i] ?></td>
+       <td><?= $respuesta["desc_corta"][$i]?></td>
+       <td >
+        <img src="<?= URLSYS.$respuesta["url_imagen"][$i] ?>" width="20%"><?= $respuesta["url_imagen"][$i]?></td>
+       <td><?= "acciones" ?></td>
+    </tr> 
+     <?php } ?>
+  </tbody>
+</table>

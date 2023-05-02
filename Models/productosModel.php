@@ -11,7 +11,7 @@
     }
 
     public function getProductos($condicion = null){
-        $query = "SELECT * FROM productos";
+        $query = "SELECT * FROM productos INNER JOIN categoria on productos.id_categoria = categoria.id_categoria";
         if($condicion == 1){
             $query.=" WHERE status = 1";
         }
@@ -19,6 +19,7 @@
         if(mysqli_num_rows($res) > 0){
             $i = 0;
            while($row = mysqli_fetch_assoc($res)){
+               $data["categoria"][$i] = $row["nombreCategoria"];
                $data["id_producto"][$i] = $row["id_producto"];
                $data["nombre"][$i] = $row["nombre"];
                $data["precio"][$i] = $row["precio"];
@@ -63,9 +64,12 @@
 
     public function saveProducto($datos)
     {
-        $query = "INSERT INTO productos(nombre,precio,desc_large,desc_corta,url_imagen,url_mercado,url_sams,status,fecha_subida) VALUES ('" . $datos['nombre'] . "','" . $datos['precio'] . "','" . $datos['desc_large'] . "','" . $datos['desc_corta'] . "','" . $datos['url_imagen'] . "','" . $datos['url_mercado'] . "','" . $datos['url_sams'] . "','" . $datos['status'] . "','" . $this->fecha . "')";
+        $query = "INSERT INTO productos(nombre,precio,desc_large,desc_corta,url_imagen,url_mercado,url_sams,status,fecha_subida) VALUES ('" . $datos['nombre'] . "','" . $datos['precio'] . "','" . $datos['descripcionLarga'] . "','" . $datos['descripcionCorta'] . "','','" . $datos['urlML'] . "','" . $datos['urlSMS'] . "',1,'" . $this->fecha . "')";
         mysqli_query($this->con, $query);
-        return "Producto registrado";
+        $id = mysqli_insert_id($this->con);
+        $queryUpdate = "UPDATE productos SET url_imagen = '".mysqli_insert_id($this->con).'.'.$datos["extensionImagen"]."' WHERE id_producto =".mysqli_insert_id($this->con);
+        mysqli_query($this->con, $queryUpdate);
+        return $id;
     }
  }
 

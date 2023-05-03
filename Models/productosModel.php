@@ -40,7 +40,7 @@
     }
 
     public function getProducto($id){
-       $query = "SELECT * FROM productos WHERE id_producto = $id";
+       $query = "SELECT * , IF(productos.status = 1,'Activo','Inactivo') as estatus FROM productos INNER JOIN categoria ON productos.id_categoria = categoria.id_categoria WHERE id_producto = $id";
        $res = mysqli_query($this->con, $query);
        if(mysqli_num_rows($res) > 0){
         while($row = mysqli_fetch_assoc($res)){
@@ -53,8 +53,9 @@
         $data["url_mercado"] = $row["url_mercado"];
         $data["url_sams"] = $row["url_sams"];
         $data["id_usuario"] = $row["id_usuario"];
-        $data["status"] = $row["status"];
+        $data["status"] = $row["estatus"];
         $data["fecha_subida"]= $row["fecha_subida"];
+        $data["categoria"]= $row["nombreCategoria"];
     }
        }else{
          $data["error"] = "No se encontraron registros";

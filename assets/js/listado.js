@@ -1,5 +1,14 @@
 $(document).ready(function(){
-
+$(".ver").click(function(){
+  id_producto = $(this).data("producto");
+  var obj = {};
+  obj.url = "getProducto";
+  obj.data = {id_producto:id_producto};
+  obj.type = "POST";
+  obj.accion = "getProducto";
+  peticionAjax(obj);
+  $("#infoModal").modal("show");
+});
 $("#formulario").on("submit",function(){
   event.preventDefault();
   var formulario = $("#formulario").serialize();
@@ -66,12 +75,23 @@ function peticionAjax(obj){
     url: obj.url,
     type: obj.type,
     data: obj.data,
-    contentType: false,
-    cache: false,
-    processData: false,
     dataType: "json",
-    sucess: function(res){
-
+    success: function(res){
+       switch(obj.accion){
+          case "getProducto":
+            $(".editarNombre").val(res.nombre);
+            $(".editarPrecio").val(res.precio);
+            $(".editarDescL").val(res.desc_large);
+            $(".editarDescC").val(res.desc_corta);
+            $(".editarImagen").attr("src",$(".urlSys").val()+res.url_imagen);
+            $(".editarUrlML").attr("href",res.url_mercado);
+            $(".editarUrlSams").attr("href",res.url_sams);
+            $(".editarUsuario").val(res.id_usuario);
+            $(".editarStatus").val(res.status);
+            $(".editarFecha").val(res.fecha_subida);
+            $(".editarCategoria").val(res.categoria);
+            break;
+       }
     },
     error: function(xhr, status){
     

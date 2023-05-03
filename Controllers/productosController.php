@@ -5,7 +5,7 @@
     public function __construct(){
         require_once("Models/productosModel.php");
         $this->productosModel = new productosModel();
-        $this->js = "assets/js/productos.js";
+        $this->js = "assets/js/listado.js";
     }
 
     public function ver(){
@@ -29,8 +29,7 @@
         $_POST["extensionImagen"] = str_replace("image/","",$_FILES["cargarImg"]["type"]);
 
         $respuesta = $this->productosModel->saveProducto($_POST);
-        //var_dump($respuesta);
-        //exit();
+        
         if($imagen != null && $imagen != ""){
           $temp = $_FILES["cargarImg"]["tmp_name"];
           $nombreImagen = $respuesta.".". $_POST["extensionImagen"];
@@ -38,6 +37,11 @@
             chmod(URLIMG.$imagen,0777);
           }
         }
+      }
+
+      public function getProducto(){
+        $respuesta = $this->productosModel->getProducto($_POST["id_producto"]);
+        echo json_encode($respuesta);
       }
     }
 

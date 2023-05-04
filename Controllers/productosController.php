@@ -43,6 +43,14 @@
         $respuesta = $this->productosModel->getProducto($_POST["id_producto"]);
         echo json_encode($respuesta);
       }
+
+      public function updateProducto(){
+        $_POST["status"] = 1;
+        $respuesta = $this->productosModel->updateProducto($_POST);
+        echo json_encode($respuesta);
+      }
+
+      
     }
 
   

@@ -40,12 +40,15 @@
     }
 
     public function getProducto($id){
-       $query = "SELECT * , IF(productos.status = 1,'Activo','Inactivo') as estatus FROM productos INNER JOIN categoria ON productos.id_categoria = categoria.id_categoria WHERE id_producto = $id";
+       $query = "SELECT * , IF(productos.status = 1,'Activo','Inactivo') as estatus, usuarios.nombre as nombreAdministrador,
+       productos.nombre as productoNombre 
+       FROM productos INNER JOIN categoria ON productos.id_categoria = categoria.id_categoria
+       INNER JOIN usuarios on usuarios.id_usuario = productos.id_usuario WHERE id_producto = $id";
        $res = mysqli_query($this->con, $query);
        if(mysqli_num_rows($res) > 0){
         while($row = mysqli_fetch_assoc($res)){
         $data["id_producto"] = $row["id_producto"];
-        $data["nombre"] = $row["nombre"];
+        $data["nombre"] = $row["productoNombre"];
         $data["precio"] = $row["precio"];
         $data["desc_large"] = $row["desc_large"];
         $data["desc_corta"] = $row["desc_corta"];
@@ -56,6 +59,7 @@
         $data["status"] = $row["estatus"];
         $data["fecha_subida"]= $row["fecha_subida"];
         $data["categoria"]= $row["nombreCategoria"];
+        $data["nombreAdministrador"]= $row["nombreAdministrador"];
     }
        }else{
          $data["error"] = "No se encontraron registros";
@@ -71,6 +75,12 @@
         $queryUpdate = "UPDATE productos SET url_imagen = '".mysqli_insert_id($this->con).'.'.$datos["extensionImagen"]."' WHERE id_producto =".mysqli_insert_id($this->con);
         mysqli_query($this->con, $queryUpdate);
         return $id;
+    }
+    
+    public function updateProducto($datos){
+        $query = "UPDATE productos SET nombre = '".$datos["editarNombre"]."', precio = '".$datos["editarPrecio"]."',desc_large = '".$datos["editarDescL"]."',desc_corta = '".$datos["editarDescC"]."',url_mercado = '".$datos["editarUrlML"]."',url_sams = '".$datos["editarUrlSams"]."',status = '".$datos["editarStatus"]."', fecha_subida = '".$this->fecha."' WHERE id_producto =".$datos["id_producto"];
+        mysqli_query($this->con, $query);
+        return true;
     }
  }
 

@@ -1,4 +1,13 @@
 $(document).ready(function(){
+  $(".verImagen").click(function(){
+    id_producto = $(this).data("producto");
+    var obj = {};
+    obj.url = "getProducto";
+    obj.data = {id_producto:id_producto};
+    obj.type = "POST";
+    obj.accion = "verImagen";
+    peticionAjax(obj);
+  });
 $(".ver").click(function(){
   id_producto = $(this).data("producto");
   var obj = {};
@@ -34,6 +43,12 @@ $("#formulario").on("submit",function(){
    $(".error_precio").hide();
  }
 
+ if($(".precioAnterior").val() == ""){
+  $(".error_precioAnterior").show();
+}else{
+  $(".error_precioAnterior").hide();
+}
+
  if($(".descL").val() == ""){
    $(".error_descL").show();
  }else{
@@ -58,7 +73,7 @@ $("#formulario").on("submit",function(){
    $(".error_urlSMS").hide();
  }
 
- if($(".nombre").val() == null || $(".precio").val() == null || $(".descL").val() == null || $(".descC").val() == null || $(".urlML").val() == null || $(".urlSMS").val() == null){
+ if($(".nombre").val() == null || $(".precio").val() == null || $(".precioAnterior").val() == null || $(".descL").val() == null || $(".descC").val() == null || $(".urlML").val() == null || $(".urlSMS").val() == null){
    exit();
  }
   var formData = new FormData(this);
@@ -92,6 +107,12 @@ $("#actualizarFormulario").on("submit",function(){
     $(".error_precio").hide();
   }
 
+  if($(".editarPrecioAnterior").val() == ""){
+    $(".error_precioAnterior").show();
+  }else{
+    $(".error_precioAnterior").hide();
+  }
+
   if($(".editarDescL").val() == ""){
     $(".error_descL").show();
   }else{
@@ -116,7 +137,7 @@ $("#actualizarFormulario").on("submit",function(){
     $(".error_urlSMS").hide();
   }
 
-  if($(".editarNombre").val() == "" || $(".editarPrecio").val() == "" || $(".editarDescL").val() == "" || $(".editarDescC").val() == "" || $(".editarUrlML").val() == "" || $(".editarUrlSMS").val() == ""){
+  if($(".editarNombre").val() == "" || $(".editarPrecio").val() == "" || $(".editarPrecioAnterior").val() == "" || $(".editarDescL").val() == "" || $(".editarDescC").val() == "" || $(".editarUrlML").val() == "" || $(".editarUrlSMS").val() == ""){
     
   }
   var formData = new FormData(this);
@@ -148,6 +169,8 @@ function peticionAjax(obj){
           case "getProducto":
             $(".verNombre").val(res.nombre);
             $(".verPrecio").val(res.precio);
+            $(".verPrecioAnterior").val(res.precio_anterior);
+            $(".verAhorro").val(parseFloat(res.precio_anterior)-parseFloat(res.precio));
             $(".verDescL").val(res.desc_large);
             $(".verDescC").val(res.desc_corta);
             $(".verImagen").attr("src",$(".urlSys").val()+res.url_imagen);
@@ -159,19 +182,54 @@ function peticionAjax(obj){
             $(".verCategoria").val(res.categoria);
             break;
            case "updateProducto":
+           var statusActivo = '';
+            var statusInactivo = '';
+            if(res.status == 'Activo'){
+              var statusActivo = 'selected';
+            }
+            if(res.status == 'Inactivo'){
+              var statusInactivo = 'selected';
+            }
+            var selectStatus = "";
+            selectStatus+= '<select class="form-select" name="editarStatus" aria-label="Default select example">';
+            selectStatus+='<option value="1" '+statusActivo+'>Activo</option>';
+            selectStatus+='<option value="0" '+statusInactivo+'>Inactivo</option>';
+            selectStatus+= '</select>';
+            var selectCategoria = "";
+            selectCategoria+= '<select class="form-select" name="editarCategoria" aria-label="Default select example">';
+            $.each(res.listaCategorias.id_categoria,function(key,dato){
+              var selected = "";
+              if(dato == res.id_categoria){
+                 selected = 'selected';
+              }
+              selectCategoria+='<option value="'+dato+'" '+selected+'>'+res.listaCategorias.nombre[key]+'</option>';
+            });
+            selectCategoria+= '</select>';
             $(".editarId_producto").val(res.id_producto);
             $(".editarNombre").val(res.nombre);
             $(".editarPrecio").val(res.precio);
+            $(".editarPrecioAnterior").val(res.precio_anterior);
+            $(".editarAhorro").val(parseFloat($(".editarPrecioAnterior").val()) - parseFloat($(".editarPrecio").val()));
             $(".editarDescL").val(res.desc_large);
             $(".editarDescC").val(res.desc_corta);
             $(".editarImagen").attr("src",$(".urlSys").val()+res.url_imagen);
             $(".editarUrlML").val(res.url_mercado);
             $(".editarUrlSams").val(res.url_sams);
             $(".editarUsuario").val(res.nombreAdministrador);
-            $(".editarStatus").val(res.status);
+            $(".editarStatus").html(selectStatus);
             $(".editarFecha").val(res.fecha_subida);
-            $(".editarCategoria").val(res.categoria);
+            $(".editarCategoria").html(selectCategoria);
             break;
+            case "verImagen":
+              $(".resumenImg").attr("src",$(".urlSys").val()+res.url_imagen);
+              $(".resumenNombre").html(res.nombre);
+              $(".resumenDescripcion").html(res.desc_corta);
+              $(".resumenPrecioAnterior").html(res.precio_anterior);
+              $(".resumenPrecioActual").html(res.precio);
+              $(".resumenAhorro").html(parseFloat(res.precio_anterior)-parseFloat(res.precio));
+              $("#imagenModal").modal("show");
+
+              break;
        }
     },
     error: function(xhr, status){

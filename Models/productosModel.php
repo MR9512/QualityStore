@@ -23,6 +23,7 @@
                $data["id_producto"][$i] = $row["id_producto"];
                $data["nombre"][$i] = $row["nombre"];
                $data["precio"][$i] = $row["precio"];
+               $data["precio_anterior"][$i] = $row["precio_anterior"];
                $data["desc_large"][$i] = $row["desc_large"];
                $data["desc_corta"][$i] = $row["desc_corta"];
                $data["url_imagen"][$i] = $row["url_imagen"];
@@ -60,6 +61,8 @@
         $data["fecha_subida"]= $row["fecha_subida"];
         $data["categoria"]= $row["nombreCategoria"];
         $data["nombreAdministrador"]= $row["nombreAdministrador"];
+        $data["id_categoria"] = $row["id_categoria"];
+        $data["precio_anterior"] = $row["precio_anterior"];
     }
        }else{
          $data["error"] = "No se encontraron registros";
@@ -69,7 +72,7 @@
 
     public function saveProducto($datos)
     {
-        $query = "INSERT INTO productos(nombre,precio,desc_large,desc_corta,url_imagen,url_mercado,url_sams,status,fecha_subida) VALUES ('" . $datos['nombre'] . "','" . $datos['precio'] . "','" . $datos['descripcionLarga'] . "','" . $datos['descripcionCorta'] . "','','" . $datos['urlML'] . "','" . $datos['urlSMS'] . "',1,'" . $this->fecha . "')";
+        $query = "INSERT INTO productos(nombre,precio,precio_anterior,desc_large,desc_corta,url_imagen,url_mercado,url_sams,status,fecha_subida) VALUES ('" . $datos['nombre'] . "','" . $datos['precio'] . "','" . $datos['precio_anterior'] . "','" . $datos['descripcionLarga'] . "','" . $datos['descripcionCorta'] . "','','" . $datos['urlML'] . "','" . $datos['urlSMS'] . "',1,'" . $this->fecha . "')";
         mysqli_query($this->con, $query);
         $id = mysqli_insert_id($this->con);
         $queryUpdate = "UPDATE productos SET url_imagen = '".mysqli_insert_id($this->con).'.'.$datos["extensionImagen"]."' WHERE id_producto =".mysqli_insert_id($this->con);
@@ -78,9 +81,23 @@
     }
     
     public function updateProducto($datos){
-        $query = "UPDATE productos SET nombre = '".$datos["editarNombre"]."', precio = '".$datos["editarPrecio"]."',desc_large = '".$datos["editarDescL"]."',desc_corta = '".$datos["editarDescC"]."',url_mercado = '".$datos["editarUrlML"]."',url_sams = '".$datos["editarUrlSams"]."',status = '".$datos["editarStatus"]."', fecha_subida = '".$this->fecha."' WHERE id_producto =".$datos["id_producto"];
+        $query = "UPDATE productos SET nombre = '".$datos["editarNombre"]."', precio = '".$datos["editarPrecio"]."', precio_anterior = '".$datos["editarPrecioAnterior"]."',desc_large = '".$datos["editarDescL"]."',desc_corta = '".$datos["editarDescC"]."',url_mercado = '".$datos["editarUrlML"]."',url_sams = '".$datos["editarUrlSams"]."',status = '".$datos["editarStatus"]."', fecha_subida = '".$this->fecha."', id_categoria = '".$datos["editarCategoria"]."' WHERE id_producto =".$datos["id_producto"];
         mysqli_query($this->con, $query);
         return true;
+    }
+
+    public function getCategoria(){
+        $query = "SELECT * FROM categoria";
+        $res = mysqli_query($this->con, $query);
+        if(mysqli_num_rows($res) > 0){
+          $i = 0;
+          while($row = mysqli_fetch_assoc($res)){
+            $data["id_categoria"][$i] = $row["id_categoria"];
+            $data["nombre"][$i] = $row["nombreCategoria"];
+            $i++;
+          }
+        }
+        return $data;
     }
  }
 

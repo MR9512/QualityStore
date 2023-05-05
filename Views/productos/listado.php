@@ -95,7 +95,7 @@
        <td><?= $respuesta["categoria"][$i] ?></td>
        <td><?= $respuesta["desc_corta"][$i]?></td>
        <td >
-        <img src="<?= URLSYS.$respuesta["url_imagen"][$i] ?>" width="20%"></td>
+        <img src="<?= URLSYS.$respuesta["url_imagen"][$i] ?>" width="20%" class="verImagen" data-producto="<?= $id_producto ?>"></td>
        <td>  
        <i class="bi bi-eye ver ver_<?= $id_producto ?>" data-producto="<?= $id_producto ?>"></i>&nbsp;&nbsp; 
        <i class="bi bi-pencil editar editar_<?= $id_producto ?>" data-producto="<?= $id_producto ?>"></i>&nbsp;&nbsp; 
@@ -133,6 +133,14 @@
     <div class="error_precio" style="display:none;color:red">
       Favor de ingresar un precio
     </div>
+  </div>
+  <div class="col-md-6">
+    <label for="inputCity" class="form-label">Precio Anterior</label>
+    <input type="text" name="verPrecioAnterior" class="form-control verPrecioAnterior" id="inputCity" disabled>
+  </div>
+  <div class="col-md-6">
+    <label for="inputCity" class="form-label">Ahorro</label>
+    <input type="text" name="verAhorro" class="form-control verAhorro" id="inputCity" disabled>
   </div>
   <div class="col-md-6">
     <label for="inputCity" class="form-label">Descripción Larga</label>
@@ -229,6 +237,17 @@
     </div>
   </div>
   <div class="col-md-6">
+    <label for="inputCity" class="form-label">Precio Anterior</label>
+    <input type="text" name="editarPrecioAnterior" class="form-control editarPrecioAnterior" id="inputCity">
+    <div class="error_precioAnterior" style="display:none;color:red">
+      Favor de ingresar el precio anterior
+    </div>
+  </div>
+  <div class="col-md-6">
+    <label for="inputCity" class="form-label">Ahorro</label>
+    <input type="text" name="editarAhorro" class="form-control editarAhorro" id="inputCity">
+  </div>
+  <div class="col-md-6">
     <label for="inputCity" class="form-label">Descripción Larga</label>
     <input type="text" name="editarDescL" class="form-control editarDescL" id="inputCity">
     <div class="error_descL" style="display:none;color:red">
@@ -272,7 +291,8 @@
      </div>
      <div class="col-md-6">
     <label for="inputCity" class="form-label">Status</label>
-    <input type="text" name="editarStatus" class="form-control editarStatus" id="inputCity">
+    <!--<input type="text" name="editarStatus" class="form-control editarStatus" id="inputCity">-->
+    <div class="editarStatus"></div>
     <input type="hidden" class="editarId_producto" name="id_producto">
     <div class="error_urlSMS" style="display:none;color:red">
      Favor de ingresar el status
@@ -287,7 +307,7 @@
      </div>
      <div class="col-md-6">
     <label for="inputCity" class="form-label">Categoria</label>
-    <input type="text" name="editarCategoria"class="form-control editarCategoria" id="inputCity">
+    <div class="editarCategoria"></div>
     <div class="error_urlSMS" style="display:none;color:red">
      Favor de ingresar la categoria
      </div>
@@ -297,6 +317,33 @@
         <button type="submit" class="btn btn-primary updateProducto">Actualizar</button>
       </div>
       </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="imagenModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Agregar un nuevo producto</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      <div class="col-md-6">
+         <img class="resumenImg" width="20%">
+     </div>
+     <div class="col-md-6">
+      <b class="resumenNombre"></b><br>
+      <Marco class="resumenDescripcion"></Marco><br>
+      <Marco class="resumenPrecioAnterior"></Marco><br>
+      <Marco class="resumenPrecioActual"></Marco><br>
+      <Marco class="resumenAhorro"></Marco><br>
+     </div>
+     </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="submit" class="btn btn-primary updateProducto">Actualizar</button>
+      </div>
       </div>
     </div>
   </div>

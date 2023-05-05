@@ -41,6 +41,7 @@
 
       public function getProducto(){
         $respuesta = $this->productosModel->getProducto($_POST["id_producto"]);
+        $respuesta["listaCategorias"] = $this->productosModel->getCategoria();
         echo json_encode($respuesta);
       }
 

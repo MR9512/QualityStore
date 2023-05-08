@@ -329,20 +329,24 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-      <div class="col-md-6">
-         <img class="resumenImg" width="20%">
-     </div>
-     <div class="col-md-6">
-      <b class="resumenNombre"></b><br>
+      <div class="container text-center">
+      <div class="row align-items-start">
+     <div class="col">
+     <img class="resumenImg" width="20%">
+    </div>
+    <div class="col" style="text-align:left;">
+    <b class="resumenNombre"></b><br>
       <Marco class="resumenDescripcion"></Marco><br>
-      <Marco class="resumenPrecioAnterior"></Marco><br>
-      <Marco class="resumenPrecioActual"></Marco><br>
-      <Marco class="resumenAhorro"></Marco><br>
-     </div>
+      <b>Precio Anterior: </b>$<Marco class="resumenPrecioAnterior"></Marco><br>
+      <b>Precio Actual: </b>$<Marco class="resumenPrecioActual"></Marco><br>
+      <b>Ahorro: </b>$<Marco class="resumenAhorro"></Marco><br>
+    </div>
+  </div>
+</div>
+    
      </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-        <button type="submit" class="btn btn-primary updateProducto">Actualizar</button>
       </div>
       </div>
     </div>

@@ -28,6 +28,16 @@ $(".editar").click(function(){
  peticionAjax(obj);
  $("#updateModal").modal("show");
 });
+$(".eliminar").click(function(){
+  id_producto = $(this).data("producto");
+  var obj = {};
+  obj.id_producto = id_producto;
+  obj.url = "deleteProducto";
+  obj.data = {producto:id_producto};
+  obj.type = "POST";
+  obj.accion = "deleteProducto";
+  peticionAjax(obj);
+ });
 $("#formulario").on("submit",function(){
   event.preventDefault();
   var formulario = $("#formulario").serialize();
@@ -229,6 +239,11 @@ function peticionAjax(obj){
               $(".resumenAhorro").html(parseFloat(res.precio_anterior)-parseFloat(res.precio));
               $("#imagenModal").modal("show");
 
+              break;
+              case "deleteProducto":
+              $(".producto_"+obj.id_producto).hide();
+              $("#mensajeSistema").modal("show");
+              $(".contenidoSistema").html(res.respuesta);
               break;
        }
     },

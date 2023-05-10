@@ -99,6 +99,12 @@
         }
         return $data;
     }
+
+    public function deleteProducto($id_producto){
+        $query = "DELETE FROM productos WHERE id_producto = $id_producto";
+        mysqli_query($this->con, $query);
+        return true;
+    }
  }
 
 ?>

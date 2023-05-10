@@ -89,21 +89,17 @@
    <?php
      foreach($respuesta["id_producto"] as $i=>$id_producto){
     ?>  
-    <tr>
+    <tr class="producto_<?= $id_producto ?>">
        <td><?= $respuesta["nombre"][$i]?></td>
        <td><?= $respuesta["precio"][$i]?></td>
        <td><?= $respuesta["categoria"][$i] ?></td>
        <td><?= $respuesta["desc_corta"][$i]?></td>
        <td >
         <img src="<?= URLSYS.$respuesta["url_imagen"][$i] ?>" width="20%" class="verImagen" data-producto="<?= $id_producto ?>"></td>
-       <td>  
+       <td width="8%">  
        <i class="bi bi-eye ver ver_<?= $id_producto ?>" data-producto="<?= $id_producto ?>"></i>&nbsp;&nbsp; 
        <i class="bi bi-pencil editar editar_<?= $id_producto ?>" data-producto="<?= $id_producto ?>"></i>&nbsp;&nbsp; 
-       <i class="bi bi-cloud-check guardar guardar_<?= $id_producto ?>" data-producto="<?= $id_producto ?>" style="display:none"></i>&nbsp;&nbsp;  
-       <i class="bi bi-file-excel cancelar cancelar_<?= $id_producto ?>" data-producto="<?= $id_producto ?>" style="display:none"></i>&nbsp;&nbsp;  
-       <i class="bi bi-trash eliminar eliminar_<?= $id_producto ?>" data-producto="<?= $id_producto ?>" style="display:none"></i>
-       
-        
+       <i class="bi bi-trash eliminar eliminar_<?= $id_producto ?>" data-producto="<?= $id_producto ?>"></i>
        
        </td>
     </tr> 
@@ -331,8 +327,8 @@
       <div class="modal-body">
       <div class="container text-center">
       <div class="row align-items-start">
-     <div class="col">
-     <img class="resumenImg" width="20%">
+     <div class="col-12">
+     <img class="resumenImg" width="100%">
     </div>
     <div class="col" style="text-align:left;">
     <b class="resumenNombre"></b><br>

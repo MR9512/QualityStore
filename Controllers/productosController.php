@@ -50,7 +50,12 @@
         $respuesta = $this->productosModel->updateProducto($_POST);
         echo json_encode($respuesta);
       }
-
+    
+      public function deleteProducto(){
+        $respuesta = $this->productosModel->deleteProducto($_POST["producto"]);
+        $resp["respuesta"] = 'Producto eliminado correctamente';
+        echo json_encode($resp);
+      }
       
     }
 

@@ -10,10 +10,19 @@
         $this->fecha = $fecha['year'] . "-" . $fecha['mon'] . "-" . $fecha['mday'];
     }
 
-    public function getProductos($condicion = null){
+    public function getProductos($condicion = null, $categoria = null){
         $query = "SELECT * FROM productos INNER JOIN categoria on productos.id_categoria = categoria.id_categoria";
+        if($condicion != null || $categoria != null){
+           $query.= " WHERE"; 
+        }
         if($condicion == 1){
-            $query.=" WHERE status = 1";
+            $query.=" status = 1";
+        }
+        if($categoria != null){
+           if($condicion == 1){
+             $query.= " AND";
+           }
+           $query.= " categoria.id_categoria = $categoria";
         }
         $res = mysqli_query($this->con, $query);
         if(mysqli_num_rows($res) > 0){
@@ -84,20 +93,6 @@
         $query = "UPDATE productos SET nombre = '".$datos["editarNombre"]."', precio = '".$datos["editarPrecio"]."', precio_anterior = '".$datos["editarPrecioAnterior"]."',desc_large = '".$datos["editarDescL"]."',desc_corta = '".$datos["editarDescC"]."',url_mercado = '".$datos["editarUrlML"]."',url_sams = '".$datos["editarUrlSams"]."',status = '".$datos["editarStatus"]."', fecha_subida = '".$this->fecha."', id_categoria = '".$datos["editarCategoria"]."' WHERE id_producto =".$datos["id_producto"];
         mysqli_query($this->con, $query);
         return true;
-    }
-
-    public function getCategoria(){
-        $query = "SELECT * FROM categoria";
-        $res = mysqli_query($this->con, $query);
-        if(mysqli_num_rows($res) > 0){
-          $i = 0;
-          while($row = mysqli_fetch_assoc($res)){
-            $data["id_categoria"][$i] = $row["id_categoria"];
-            $data["nombre"][$i] = $row["nombreCategoria"];
-            $i++;
-          }
-        }
-        return $data;
     }
 
     public function deleteProducto($id_producto){

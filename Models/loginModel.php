@@ -18,7 +18,7 @@ class loginModel
     }
     public function validar($datos)
     {
-        $query = 'SELECT * FROM usuarios WHERE correo = "' . $datos['usuario'] . '" AND password = "' . $datos['contrasena'] . '" AND status = 1';
+        $query = 'SELECT * FROM usuarios INNER JOIN roles on roles.id_rol = usuarios.id_rol WHERE correo = "' . $datos['usuario'] . '" AND password = "' . $datos['contrasena'] . '" AND status = 1';
 
         $respuesta = mysqli_query($this->con, $query);
 
@@ -26,6 +26,7 @@ class loginModel
             while ($row = mysqli_fetch_assoc($respuesta)) {
                 $data['id_usuario'] = $row['id_usuario'];
                 $data['nombre_usuario'] = $row['nombre'];
+                $data['id_rol'] = $row['id_rol'];
             }
         } else {
             $data['error_usuario'] = "El usuario no existe";

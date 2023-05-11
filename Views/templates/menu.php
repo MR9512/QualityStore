@@ -6,6 +6,8 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <?php 
+        if(isset($_SESSION['id_rol']) && $_SESSION['id_rol'] == 1){ ?>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Administrador
@@ -17,6 +19,22 @@
             <li><a class="dropdown-item" href="#">Something else here</a></li>
           </ul>
         </li>
+        <?php } ?>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Categorias
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <?php
+    
+            foreach($this->categoria['id_categoria'] as $i=>$categoria){
+    
+            ?>
+            <li><a class="dropdown-item" href="../productos/categoria?categoria=<?= $categoria ?>"><?= $this->categoria['nombre'][$i] ?></a></li>
+            <?php } ?>
+          </ul>
+        </li>
+
       </ul>
       <form class="d-flex">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">

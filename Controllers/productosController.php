@@ -1,10 +1,13 @@
 <?php 
+  require_once(__DIR__."/../core/coreController.php");
+  class productosController extends coreController{
   
-  class productosController{
-
     public function __construct(){
+        parent::__construct();
         require_once("Models/productosModel.php");
+        require_once("Models/generalesModel.php");
         $this->productosModel = new productosModel();
+        $this->generalesModel = new generalesModel();
         $this->js = "assets/js/listado.js";
     }
 
@@ -41,7 +44,7 @@
 
       public function getProducto(){
         $respuesta = $this->productosModel->getProducto($_POST["id_producto"]);
-        $respuesta["listaCategorias"] = $this->productosModel->getCategoria();
+        $respuesta["listaCategorias"] = $this->generalesModel->getCategoria();
         echo json_encode($respuesta);
       }
 
@@ -55,6 +58,14 @@
         $respuesta = $this->productosModel->deleteProducto($_POST["producto"]);
         $resp["respuesta"] = 'Producto eliminado correctamente';
         echo json_encode($resp);
+      }
+
+      public function categoria(){
+        $respuesta = $this->productosModel->getProductos(1,$_GET['categoria']);
+        require_once("Views/templates/header.php");
+        require_once("Views/templates/menu.php");
+        require_once("Views/productos/categoria.php");
+        require_once("Views/templates/footer.php");
       }
       
     }

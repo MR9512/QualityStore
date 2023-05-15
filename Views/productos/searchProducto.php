@@ -1,9 +1,9 @@
+<?php if(isset($respuesta['mensajeProducto'])){ ?>
+      <div><b><?= $respuesta['mensajeProducto'] ?></b></div>
+<?php } else { ?>    
 <table>
 <?php 
-  if(isset($respuesta['error'])){
-    echo "<tr><td>".$respuesta['error']."</td></tr>";
-  }else{
-  foreach($respuesta["id_producto"] as $i=>$id_producto){
+foreach($respuesta["id_producto"] as $i=>$id_producto){
   if(($i == 0) || ($i%5==0)){
 ?>
   <tr>

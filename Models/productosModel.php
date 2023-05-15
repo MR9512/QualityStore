@@ -43,8 +43,10 @@
                $data["fecha_subida"][$i] = $row["fecha_subida"];
                $i++;
            }
+               $data["valor"] = 1;
         } else {
             $data["error"] = "No se encontraron registros";
+            $data["valor"] = 0;
         }
         return $data;
     }
@@ -99,6 +101,34 @@
         $query = "DELETE FROM productos WHERE id_producto = $id_producto";
         mysqli_query($this->con, $query);
         return true;
+    }
+
+    public function buscarProductos($producto){
+        $query = "SELECT * FROM productos INNER JOIN categoria ON productos.id_categoria = categoria.id_categoria WHERE productos.nombre LIKE '%$producto%' OR productos.desc_large LIKE '%$producto%' OR categoria.nombreCategoria LIKE '%$producto%'";
+        $resp = mysqli_query($this->con, $query);
+        if(mysqli_num_rows($resp) > 0){
+            $i = 0;
+            while($row = mysqli_fetch_assoc($resp)){
+                $data["categoria"][$i] = $row["nombreCategoria"];
+                $data["id_producto"][$i] = $row["id_producto"];
+                $data["nombre"][$i] = $row["nombre"];
+                $data["precio"][$i] = $row["precio"];
+                $data["precio_anterior"][$i] = $row["precio_anterior"];
+                $data["desc_large"][$i] = $row["desc_large"];
+                $data["desc_corta"][$i] = $row["desc_corta"];
+                $data["url_imagen"][$i] = $row["url_imagen"];
+                $data["url_mercado"][$i] = $row["url_mercado"];
+                $data["url_sams"][$i] = $row["url_sams"];
+                $data["id_usuario"][$i] = $row["id_usuario"];
+                $data["status"][$i] = $row["status"];
+                $data["fecha_subida"][$i] = $row["fecha_subida"];
+                $i++;
+            }
+
+        } else {
+            $data["mensajeProducto"] = "No se encontraron productos con tu búsqueda";
+        }
+          return $data;
     }
  }
 

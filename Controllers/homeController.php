@@ -9,7 +9,6 @@
   }
 
   public function index(){
-      session_start();
       $respuesta = $this->productosModel->getProductos(1);
       require_once("Views/templates/header.php");
       require_once("Views/templates/menu.php");

@@ -14,6 +14,7 @@
     public function ver(){
         $respuesta = $this->productosModel->getProducto($_GET["producto"]);
         require_once("Views/templates/header.php");
+        require_once("Views/templates/menu.php");
         require_once("Views/productos/ver.php");
         require_once("Views/templates/footer.php");
     }
@@ -68,6 +69,13 @@
         require_once("Views/templates/footer.php");
       }
       
+      public function searchProducto(){
+        $respuesta = $this->productosModel->buscarProductos($_GET['buscarProducto']);
+        require_once("Views/templates/header.php");
+        require_once("Views/templates/menu.php");
+        require_once("Views/productos/searchProducto.php");
+        require_once("Views/templates/footer.php");
+      }
     }
 
   

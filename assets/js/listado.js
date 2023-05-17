@@ -84,7 +84,7 @@ $("#formulario").on("submit",function(){
  }
 
  if($(".nombre").val() == null || $(".precio").val() == null || $(".precioAnterior").val() == null || $(".descL").val() == null || $(".descC").val() == null || $(".urlML").val() == null || $(".urlSMS").val() == null){
-   exit();
+  return false;
  }
   var formData = new FormData(this);
         var files = $('#image')[0].files[0];
@@ -97,8 +97,11 @@ $("#formulario").on("submit",function(){
     contentType: false,
     cache:false,
     processData: false,
+    dataType: "json",
     success: function(response) {
-        
+      $('#exampleModal').modal('hide');
+      $('.contenidoSistema').html(response.mensaje); 
+      $('#mensajeSistema').modal('show'); 
     }
 });
 });

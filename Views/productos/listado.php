@@ -29,6 +29,13 @@
     </div>
   </div>
   <div class="col-md-6">
+    <label for="inputCity" class="form-label">Precio Anterior</label>
+    <input type="text" name="precio_anterior" class="form-control precioAnterior" id="inputCity">
+    <div class="error_precio" style="display:none;color:red">
+      Favor de ingresar un precio
+    </div>
+  </div>
+  <div class="col-md-6">
     <label for="inputCity" class="form-label">Descripción Larga</label>
     <input type="text" name="descripcionLarga" class="form-control descL" id="inputCity">
     <div class="error_descL" style="display:none;color:red">

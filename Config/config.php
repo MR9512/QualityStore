@@ -5,6 +5,6 @@
    $URL=substr($URL_path, strlen($folder_path));
 
    define("URL", $URL);
-   define("URLSYS","http://192.168.100.55/QualityStore/");
+   define("URLSYS","http://localhost/QualityStore/");
    define("URLIMG","C:/xampp/htdocs/QualityStore/img/");
 ?>

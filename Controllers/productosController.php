@@ -38,9 +38,13 @@
           $temp = $_FILES["cargarImg"]["tmp_name"];
           $nombreImagen = $respuesta.".". $_POST["extensionImagen"];
           if(move_uploaded_file($temp, URLIMG.$nombreImagen)){
-            chmod(URLIMG.$imagen,0777);
+            if(file_exists(URLIMG.$nombreImagen)){
+              chmod(URLIMG.$nombreImagen,0777);
+              $retornar['mensaje'] ="Producto creado correctamente";
+            }
           }
         }
+        echo json_encode($retornar);
       }
 
       public function getProducto(){

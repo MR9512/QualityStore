@@ -7,4 +7,5 @@
    define("URL", $URL);
    define("URLSYS","http://localhost/QualityStore/");
    define("URLIMG","C:/xampp/htdocs/QualityStore/img/");
+   define("URLSYSIMG","http://localhost/QualityStore/img/");
 ?>

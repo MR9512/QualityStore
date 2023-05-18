@@ -1,7 +1,8 @@
 <table class="table">
   <thead>
     <tr>
-      <th scope="col">Vendedor</th>
+      <th scope="col">Rol</th>
+      <th scope="col">Usuario</th>
       <th scope="col">Categoria</th>
       <th scope="col">Producto</th>
       <th scope="col">Precio Vendido</th>
@@ -13,14 +14,15 @@
   </thead>
   <tbody>
    <tr>
-    <td>
-    <select class="form-select" name="vendedor" aria-label="Default select example">
-    <option selected>Selecciona un vendedor:</option>
-    <?php foreach($respuesta['vendedores']['id_usuario'] as $i=>$id_usuario){ ?>
-    <option value="<?= $id_usuario ?>"><?=$respuesta['vendedores']['nombre_usuario'][$i]?></option>
+   <td>
+    <select class="form-select buscarUsuarios" name="rol" aria-label="Default select example">
+    <option selected>Selecciona un Rol:</option>
+    <?php foreach($respuesta['roles']['id_rol'] as $i=>$id_rol){ ?>
+    <option value="<?= $id_rol ?>"><?=$respuesta['roles']['nombreRol'][$i]?></option>
     <?php } ?>
      </select>
     </td>
+    <td class="usuarios"></td>
     <td>
     <select class="form-select buscarProductos" name="categoria" aria-label="Default select example">
     <option selected>Selecciona una categoria:</option>
@@ -29,13 +31,19 @@
     <?php } ?>
      </select>
     </td>
-    <td class="productos">
-    
+    <td class="productos"></td>
+    <td>
+      <input type="text" name="precioVendido"></input>
     </td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
+    <td>
+    <input type="text" name="gananciaProducto"></input>
+    </td>
+    <td>
+    <input type="text" name="ganancia"></input>
+    </td>
+    <td>
+    <input type="text" name="total"></input>
+    </td>
    </tr>
   </tbody>
 </table>

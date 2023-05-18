@@ -12,21 +12,21 @@
         </div>
         <div class="col-6">
           <div class="carousel-item active">
-            <img src="<?= URLSYSIMG.$respuesta["url_imagen"][8] ?>" class="d-block w-30" alt="...">
+            <img src="<?= URLSYSIMG.$respuesta["url_imagen"][0] ?>" class="d-block w-30" alt="...">
             <div class="carousel-caption d-none d-md-block">
               <h5>First slide label</h5>
               <p>Some representative placeholder content for the first slide.</p>
             </div>
           </div>
           <div class="carousel-item">
-            <img src="<?= URLSYSIMG.$respuesta["url_imagen"][8] ?>" class="d-block w-30" alt="...">
+            <img src="<?= URLSYSIMG.$respuesta["url_imagen"][0] ?>" class="d-block w-30" alt="...">
             <div class="carousel-caption d-none d-md-block">
               <h5>Second slide label</h5>
               <p>Some representative placeholder content for the second slide.</p>
             </div>
           </div>
           <div class="carousel-item">
-            <img src="<?= URLSYSIMG.$respuesta["url_imagen"][8] ?>" class="d-block w-30" alt="...">
+            <img src="<?= URLSYSIMG.$respuesta["url_imagen"][0] ?>" class="d-block w-30" alt="...">
             <div class="carousel-caption d-none d-md-block">
               <h5>Third slide label</h5>
               <p>Some representative placeholder content for the third slide.</p>

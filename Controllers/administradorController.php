@@ -12,7 +12,7 @@ class administradorController extends coreController{
     }
 
     public function misProductosVendidos(){
-        $respuesta['vendedores'] = $this->administradorModel->getVendedor();
+        $respuesta['roles'] = $this->generalesModel->getRoles();
         $respuesta['categorias'] = $this->generalesModel->getCategoria();
         require_once("Views/templates/header.php");
         require_once("Views/templates/menu.php");
@@ -24,6 +24,13 @@ class administradorController extends coreController{
         $respuesta = $this->productosModel->getProductos(1,$_POST['id_categoria']);
         echo json_encode($respuesta);
       }
+
+      public function getUsuarios(){
+        $respuesta = $this->administradorModel->getUsuarios($_POST['id_rol']);
+        echo json_encode($respuesta);
+      }
+
+
 
 
 

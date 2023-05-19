@@ -28,10 +28,8 @@ class administradorModel{
       $query = "SELECT * FROM productos WHERE id_producto = $id_producto";
       $res = mysqli_query($this->con, $query);
       if(mysqli_num_rows($res) > 0){
-        $i = 0;
        while($row = mysqli_fetch_assoc($res)){
-       $data["precioProducto"][$i] = $row["precio"];
-       $i++;
+       $data["precioProducto"] = $row["precio"];
    }
       }else{
         $data["error"] = "No se encontraron registros";

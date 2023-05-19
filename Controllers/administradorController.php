@@ -30,7 +30,10 @@ class administradorController extends coreController{
         echo json_encode($respuesta);
       }
 
-
+      public function getprecio(){
+        $respuesta = $this->administradorModel->getPrecio($_POST['id_producto']);
+        echo json_encode($respuesta);
+      }
 
 
 

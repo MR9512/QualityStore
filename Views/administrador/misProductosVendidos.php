@@ -33,16 +33,16 @@
     </td>
     <td class="productos"></td>
     <td>
-      <input type="text" name="precioVendido"></input>
+      <input type="text" name="precio" class="precio_actual"></input>
     </td>
     <td>
-    <input type="text" name="gananciaProducto"></input>
+    <input type="text" name="precio_vendido" class="precio_vendido"></input>
     </td>
     <td>
-    <input type="text" name="ganancia"></input>
+    <input type="text" name="ganancia" class="ganancia"></input>
     </td>
     <td>
-    <input type="text" name="total"></input>
+    <input type="text" name="total" class="total"></input>
     </td>
    </tr>
   </tbody>

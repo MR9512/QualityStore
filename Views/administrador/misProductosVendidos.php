@@ -5,14 +5,16 @@
       <th scope="col">Usuario</th>
       <th scope="col">Categoria</th>
       <th scope="col">Producto</th>
-      <th scope="col">Precio Vendido</th>
-      <th scope="col">Ganancia del producto</th>
+      <th scope="col">Precio</th>
+      <th scope="col">precio vendido</th>
       <th scope="col">Ganancia</th>
       <th scope="col">Total</th>
+      <th scope="col">Acciones</th>
       
     </tr>
   </thead>
   <tbody>
+    <form method="post" id="save_producto_vendedor">
    <tr>
    <td>
     <select class="form-select buscarUsuarios" name="rol" aria-label="Default select example">
@@ -44,6 +46,32 @@
     <td>
     <input type="text" name="total" class="total"></input>
     </td>
+    <td>
+    <i class="bi bi-shield-fill-check save_producto_vendedor" type="submit"></i>
+    </td>
    </tr>
+    </tr>
+   <div class="elementos_agregados">
+    </div>
   </tbody>
+</table>
+
+<br />
+<br />
+<br />
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Rol</th>
+      <th scope="col">Usuario</th>
+      <th scope="col">Categoria</th>
+      <th scope="col">Producto</th>
+      <th scope="col">Precio</th>
+      <th scope="col">precio vendido</th>
+      <th scope="col">Ganancia</th>
+      <th scope="col">Total</th>
+    </tr>
+  </thead>
+    <tbody id="table_pagination">
+    </body>
 </table>

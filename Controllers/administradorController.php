@@ -35,6 +35,11 @@ class administradorController extends coreController{
         echo json_encode($respuesta);
       }
 
+      public function saveProductoVendedor(){
+        $respuesta = $this->administradorModel->saveProductoVendedor($_POST);
+        echo json_decode($_POST);
+      }
+
 
 
 }

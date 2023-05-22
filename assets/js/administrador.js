@@ -19,16 +19,17 @@ $(document).ready(function(){
   peticionAjax(obj);
 });
 
-$(".buscarPrecio").on("change",function(){
-   alert("HOLA");
-   /*var id_rol = $(this).val();
+$('.save_producto_vendedor').on("submit",function(){
+   event.preventDefault();
+   var datos = $(this).serialize();
    var obj = {};
-   obj.url = "getUsuarios";
-   obj.data = {id_rol:id_rol};
+   obj.url = "saveProductoVendedor";
    obj.type = "POST";
-   obj.accion = "getUsuarios";
-   peticionAjax(obj); */
- });
+   obj.data = {datos};
+   obj.accion = "saveProductoVendedor";
+   peticionAjax(obj);
+   
+});
 
  $('.precio_vendido').change(function(){
    var ganancia;
@@ -58,7 +59,7 @@ function getprecio(){
        switch(obj.accion){
           case "getUsuarios":
            var html = "";
-           html+= '<select class="form-select" name="editarCategoria" aria-label="Default select example">';
+           html+= '<select class="form-select" name="id_usuario" aria-label="Default select example">';
            html+='<option>Seleccione:</option>';
            //if(res.valor == 1){
            $.each(res.id_usuario,function(key,dato){
@@ -70,7 +71,7 @@ function getprecio(){
            break;
           case "getProducto":
             var html = "";
-            html+= '<select class="form-select buscarPrecio" name="" onchange="getprecio();" aria-label="Default select example">';
+            html+= '<select class="form-select buscarPrecio" name="id_producto" onchange="getprecio();" aria-label="Default select example">';
             html+='<option>Seleccione:</option>';
             if(res.valor == 1){
             $.each(res.id_producto,function(key,dato){
@@ -83,6 +84,16 @@ function getprecio(){
             case 'getPrecio':
                $('.precio_actual').val(res.precioProducto);
                break;
+            case 'saveProductoVendedor':
+               var html = '';
+               html+='<tr>';
+               html+='<td>';
+               html+='</td>';
+               html+='</tr>';
+               
+               
+
+            break;
        }
     },
     error: function(xhr, status){

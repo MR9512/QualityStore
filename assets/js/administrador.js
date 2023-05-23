@@ -19,13 +19,13 @@ $(document).ready(function(){
   peticionAjax(obj);
 });
 
-$('.save_producto_vendedor').on("submit",function(){
+$("#save_producto_vendedor").on("submit",function(){
    event.preventDefault();
    var datos = $(this).serialize();
    var obj = {};
    obj.url = "saveProductoVendedor";
    obj.type = "POST";
-   obj.data = {datos};
+   obj.data = datos;
    obj.accion = "saveProductoVendedor";
    peticionAjax(obj);
    
@@ -33,7 +33,7 @@ $('.save_producto_vendedor').on("submit",function(){
 
  $('.precio_vendido').change(function(){
    var ganancia;
-   ganancia = parseFloat($('.precio_actual').val())-parseFloat($('.precio_vendido').val());
+   ganancia = parseFloat($('.precio_vendido').val()) - parseFloat($('.precio_actual').val());
    $('.ganancia').val(ganancia);
  });
  
@@ -41,6 +41,7 @@ $('.save_producto_vendedor').on("submit",function(){
 });
 function getprecio(){
    var id_producto = $('.buscarPrecio').val();
+   $(".addId_producto").val(id_producto);
    var obj = {};
    obj.url = "getPrecio";
    obj.type = "POST";
@@ -48,6 +49,24 @@ function getprecio(){
    obj.accion = "getPrecio";
    peticionAjax(obj);
   }
+
+  function getId_usuario(){
+   var id_usuario = $('.buscarId_usuario').val();
+   $(".addId_usuario").val(id_usuario);
+   var obj = {};
+   obj.url = "getProdVend";
+   obj.type = "POST";
+   obj.data = {id_usuario:id_usuario};
+   obj.accion = "getProdVend";
+   peticionAjax(obj);
+  }
+
+  $(".comision").change(function(){
+   var comision = $(this).val();
+   var gananciaTotal = $(".ganancia").val();
+   var total = parseFloat(comision) * parseFloat(gananciaTotal);
+   $(".total").val("$"+total);
+ });
 
   function peticionAjax(obj){
    $.ajax({
@@ -59,7 +78,7 @@ function getprecio(){
        switch(obj.accion){
           case "getUsuarios":
            var html = "";
-           html+= '<select class="form-select" name="id_usuario" aria-label="Default select example">';
+           html+= '<select class="form-select buscarId_usuario" name="id_usuario" onchange="getId_usuario();" aria-label="Default select example">';
            html+='<option>Seleccione:</option>';
            //if(res.valor == 1){
            $.each(res.id_usuario,function(key,dato){
@@ -86,13 +105,29 @@ function getprecio(){
                break;
             case 'saveProductoVendedor':
                var html = '';
-               html+='<tr>';
-               html+='<td>';
-               html+='</td>';
-               html+='</tr>';
-               
-               
-
+               $.each(res.rol,function(key,rol){
+                  html+='<tr>';
+                  html+='<td>';
+                  html+=rol;
+                  html+='</td>';
+                  html+='<td>';
+                  html+=res.usuario[key];
+                  html+='</td>';
+                  html+='<td>';
+                  html+=res.categoria[key];
+                  html+='</td>';
+                  html+='<td>';
+                  html+=res.producto[key];
+                  html+='</td>';
+                  html+='<td>';
+                  html+=res.precio[key];
+                  html+='</td>';
+                  html+='</tr>';
+                });
+                $("#table_pagination").html(html);
+            break;
+            case 'getProdVend':
+               $(".numeroProducto").val(res.numeroProducto);
             break;
        }
     },

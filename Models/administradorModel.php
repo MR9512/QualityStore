@@ -40,10 +40,10 @@ class administradorModel{
     }
 
     public function saveProductoVendedor($datos){
-      $query = "INSER INTO productos_vendidos(id_producto,id_usuario,precio_vendido,fecha) VALUES(".$datos['id_producto']."',".$datos['id_usuario'].",'".$datos['precio_vendido']."','".$this->fecha."')";
+      $query = "INSERT INTO productos_vendidos(id_producto,id_usuario,precio_vendido,fecha) VALUES(".$datos['id_producto'].",".$datos['id_usuario'].",'".$datos['precio_vendido']."','".$this->fecha."')";
       mysqli_query($this->con,$query);
-      $query_select = "SELECT *, p.nombre as productoNombre FROM productos_vendidos pv INNER JOIN productos p ON p.id_producto = pv.id_producto 
-      INNER JOIN categoria c ON c.id_categoria = p.id_categoria INNER JOIN usuarios u ON u.id_usuario = pv.id_usuario
+      $query_select = "SELECT *, p.nombre as productoNombre, c.nombreCategoria as nombrecategoria FROM productos_vendidos pv INNER JOIN productos p ON p.id_producto = pv.id_producto 
+      INNER JOIN categoria c ON c.id_categoria = p.id_categoria INNER JOIN usuarios u ON u.id_usuario = pv.id_usuario INNER JOIN roles r ON r.id_rol = u.id_rol
       ORDER BY pv.id_producto_vendido DESC";
       $respuesta = mysqli_query($this->con,$query_select);    
       $i = 0;
@@ -56,6 +56,23 @@ class administradorModel{
         $i++;
       }
       return $data;
+    }
+
+    public function getProdVend($id_usuario){
+      $query = "SELECT * FROM productos_vendidos WHERE id_usuario = $id_usuario";
+      $respuesta = mysqli_query($this->con, $query);
+      if(mysqli_num_rows($respuesta) > 0){
+        while($row = mysqli_fetch_assoc($respuesta)){
+          if($row['numeroProducto'] == 5){
+             $data['numeroProducto'] = 1;
+          }else{
+            $data['numeroProducto'] = $row['numeroProducto'] + 1;
+          }
+        }
+      }else{
+          $data['numeroProducto'] = 1;
+      }
+       return $data;
     }
 
 }

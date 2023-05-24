@@ -1,53 +1,61 @@
-
-<div id="carouselExampleCaptions" class="carousel slide" style="background-color:var(--bs-border-color)">
-  <div class="carousel-indicators">
-    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
-  </div>
+<style>
+    .carousel-item {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .carousel-item img {
+      max-height: 400px; /* Ajusta el tamaño máximo de las imágenes */
+      width: auto;
+    }
+  </style>
+<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+  <ol class="carousel-indicators">
+    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+  </ol>
   <div class="carousel-inner">
-    <div class="text-center">
-      <div class="row align-items-start">
-        <div class="col-2">
-        </div>
-        <div class="col-6">
-          <div class="carousel-item active">
-            <img src="<?= URLSYSIMG.$respuesta["url_imagen"][0] ?>" class="d-block w-30" alt="...">
-            <div class="carousel-caption d-none d-md-block">
-              <h5>First slide label</h5>
-              <p>Some representative placeholder content for the first slide.</p>
-            </div>
-          </div>
-          <div class="carousel-item">
-            <img src="<?= URLSYSIMG.$respuesta["url_imagen"][0] ?>" class="d-block w-30" alt="...">
-            <div class="carousel-caption d-none d-md-block">
-              <h5>Second slide label</h5>
-              <p>Some representative placeholder content for the second slide.</p>
-            </div>
-          </div>
-          <div class="carousel-item">
-            <img src="<?= URLSYSIMG.$respuesta["url_imagen"][0] ?>" class="d-block w-30" alt="...">
-            <div class="carousel-caption d-none d-md-block">
-              <h5>Third slide label</h5>
-              <p>Some representative placeholder content for the third slide.</p>
-            </div>
-          </div>
-        </div>
-      <div class="col-2"></div>
+    <div class="carousel-item active">
+      <img src="<?= URLSYSIMG.$respuesta["url_imagen"][1] ?>" alt="Image 1">
     </div>
-</div>
-    
+    <div class="carousel-item">
+      <img src="<?= URLSYSIMG.$respuesta["url_imagen"][1] ?>" alt="Image 2">
+    </div>
+    <div class="carousel-item">
+      <img src="<?= URLSYSIMG.$respuesta["url_imagen"][1] ?>" alt="Image 3">
+    </div>
   </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
     <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
+    <span class="sr-only">Next</span>
+  </a>
 </div>
 
+<script>
+  $(document).ready(function(){
+    $('.carousel').carousel({
+      interval: 5000 // Cambio de imagen automático después de 5 segundos
+    });
+  });
+</script>
+
+<script>
+  $(document).ready(function(){
+    $('.carousel').carousel({
+      interval: 5000 // Cambio de imagen automático después de 5 segundos
+    });
+  });
+</script>
+<br>
+<br>
+<br>
+<br>
+<br>
 
 <?php foreach($respuesta["id_producto"] as $i=>$id_producto){
   if(($i == 0) || ($i%5==0)){

@@ -83,7 +83,7 @@
 <br />
 <br />
 <br />
-<table class="table">
+<table class="table tablePaginator">
   <thead>
     <tr>
       <th scope="col">Rol</th>

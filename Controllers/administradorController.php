@@ -14,6 +14,7 @@ class administradorController extends coreController{
     public function misProductosVendidos(){
         $respuesta['roles'] = $this->generalesModel->getRoles();
         $respuesta['categorias'] = $this->generalesModel->getCategoria();
+        $respuesta['datos'] = $this->administradorModel->getProductosVendidos();
         require_once("Views/templates/header.php");
         require_once("Views/templates/menu.php");
         require_once("Views/administrador/misProductosVendidos.php");

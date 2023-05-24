@@ -45,7 +45,7 @@
     <input type="text" name="precio_vendido" class="precio_vendido"></input>
     </td>
     <td>
-    <input type="text" name="ganancia" class="ganancia"></input>
+    <input type="text" name="gananciaProducto" class="gananciaProducto"></input>
     </td>
     <td>
     <select class="form-select comision" name="comision" aria-label="Default select example">
@@ -63,7 +63,7 @@
      </select>
     </td>
     <td>
-    <input type="text" name="total" class="total"></input>
+    <input type="text" name="gananciaVendedor" class="gananciaVendedor"></input>
     </td>
     <td>
       <input type="text" name="numeroProducto" class="numeroProducto">
@@ -99,5 +99,39 @@
     </tr>
   </thead>
     <tbody id="table_pagination">
+    <?php foreach($respuesta['datos']['rol'] as $i=>$rol){ ?>
+    <tr>
+        <td>
+            <?= $rol ?>
+        </td>
+        <td>
+            <?= $respuesta['datos']['usuario'][$i]?>
+        </td>
+        <td>
+            <?= $respuesta['datos']['categoria'][$i]?>
+        </td>
+        <td>
+            <?= $respuesta['datos']['producto'][$i]?>
+        </td>
+        <td>
+            <?= $respuesta['datos']['precio'][$i]?>
+        </td>
+        <td>
+            <?= $respuesta['datos']['precio_vendido'][$i]?>
+        </td>
+        <td>
+            <?= $respuesta['datos']['gananciaProducto'][$i]?>
+        </td>
+        <td>
+            <?= $respuesta['datos']['comision'][$i]?>
+        </td>
+        <td>
+            <?= $respuesta['datos']['gananciaVendedor'][$i]?>
+        </td>
+        <td>
+            <?= $respuesta['datos']['numeroProducto'][$i]?>
+        </td>
+    </tr>
+    <?php } ?>
     </body>
 </table>

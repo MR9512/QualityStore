@@ -40,7 +40,7 @@ class administradorModel{
     }
 
     public function saveProductoVendedor($datos){
-      $query = "INSERT INTO productos_vendidos(id_producto,id_usuario,precio_vendido,fecha) VALUES(".$datos['id_producto'].",".$datos['id_usuario'].",'".$datos['precio_vendido']."','".$this->fecha."')";
+      $query = "INSERT INTO productos_vendidos(id_producto,id_usuario,precio,precio_vendido,gananciaProducto,comision,gananciaVendedor,numeroProducto,fecha) VALUES(".$datos['id_producto'].",".$datos['id_usuario'].",'".$datos['precio']."','".$datos['precio_vendido']."','".$datos['gananciaProducto']."','".$datos['comision']."','".$datos['gananciaVendedor']."','".$datos['numeroProducto']."','".$this->fecha."')";
       mysqli_query($this->con,$query);
       $query_select = "SELECT *, p.nombre as productoNombre, c.nombreCategoria as nombrecategoria FROM productos_vendidos pv INNER JOIN productos p ON p.id_producto = pv.id_producto 
       INNER JOIN categoria c ON c.id_categoria = p.id_categoria INNER JOIN usuarios u ON u.id_usuario = pv.id_usuario INNER JOIN roles r ON r.id_rol = u.id_rol
@@ -53,6 +53,11 @@ class administradorModel{
         $data['categoria'][$i] = $row['nombrecategoria'];
         $data['producto'][$i] = $row['productoNombre'];
         $data['precio'][$i] = $row['precio'];
+        $data['precio_vendido'][$i] = $row['precio_vendido'];
+        $data['gananciaProducto'][$i] = $row['gananciaProducto'];
+        $data['comision'][$i] = $row['comision'];
+        $data['gananciaVendedor'][$i] = $row['gananciaVendedor'];
+        $data['numeroProducto'][$i] = $row['numeroProducto'];
         $i++;
       }
       return $data;
@@ -75,5 +80,26 @@ class administradorModel{
        return $data;
     }
 
+    public function getProductosVendidos(){
+      $query_select = "SELECT *, p.nombre as productoNombre, c.nombreCategoria as nombrecategoria FROM productos_vendidos pv INNER JOIN productos p ON p.id_producto = pv.id_producto 
+      INNER JOIN categoria c ON c.id_categoria = p.id_categoria INNER JOIN usuarios u ON u.id_usuario = pv.id_usuario INNER JOIN roles r ON r.id_rol = u.id_rol
+      ORDER BY pv.id_producto_vendido DESC";
+      $respuesta = mysqli_query($this->con,$query_select);    
+      $i = 0;
+      while($row = mysqli_fetch_assoc($respuesta)){
+        $data['rol'][$i] = $row['rol'];
+        $data['usuario'][$i] = $row['nombre'].' '.$row['apellidos'];
+        $data['categoria'][$i] = $row['nombrecategoria'];
+        $data['producto'][$i] = $row['productoNombre'];
+        $data['precio'][$i] = $row['precio'];
+        $data['precio_vendido'][$i] = $row['precio_vendido'];
+        $data['gananciaProducto'][$i] = $row['gananciaProducto'];
+        $data['comision'][$i] = $row['comision'];
+        $data['gananciaVendedor'][$i] = $row['gananciaVendedor'];
+        $data['numeroProducto'][$i] = $row['numeroProducto'];
+        $i++;
+      }
+      return $data;
+    }
 }
 ?>

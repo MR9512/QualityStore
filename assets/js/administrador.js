@@ -60,9 +60,10 @@ $("#save_producto_vendedor").on("submit",function(){
 });
 
  $('.precio_vendido').change(function(){
-   var ganancia;
-   ganancia = parseFloat($('.precio_vendido').val()) - parseFloat($('.precio_actual').val());
-   $('.ganancia').val(ganancia);
+  alert("HOLA");
+   var gananciaProducto;
+   gananciaProducto = parseFloat($('.precio_vendido').val()) - parseFloat($('.precio_actual').val());
+   $('.gananciaProducto').val(gananciaProducto);
  });
  
 

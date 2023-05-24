@@ -60,7 +60,6 @@ $("#save_producto_vendedor").on("submit",function(){
 });
 
  $('.precio_vendido').change(function(){
-  alert("HOLA");
    var gananciaProducto;
    gananciaProducto = parseFloat($('.precio_vendido').val()) - parseFloat($('.precio_actual').val());
    $('.gananciaProducto').val(gananciaProducto);
@@ -92,9 +91,9 @@ function getprecio(){
 
   $(".comision").change(function(){
    var comision = $(this).val();
-   var gananciaTotal = $(".ganancia").val();
-   var total = parseFloat(comision) * parseFloat(gananciaTotal);
-   $(".total").val("$"+total);
+   var gananciaProducto = $(".gananciaProducto").val();
+   var total = parseFloat(comision) * parseFloat(gananciaProducto);
+   $(".gananciaVendedor").val("$"+total);
  });
 
   function peticionAjax(obj){
@@ -151,9 +150,25 @@ function getprecio(){
                   html+='<td>';
                   html+=res.precio[key];
                   html+='</td>';
+                  html+='<td>';
+                  html+=res.precio_vendido[key];
+                  html+='</td>';
+                  html+='<td>';
+                  html+=res.gananciaProducto[key];
+                  html+='</td>';
+                  html+='<td>';
+                  html+=res.comision[key];
+                  html+='</td>';
+                  html+='<td>';
+                  html+=res.gananciaVendedor[key];
+                  html+='</td>';
+                  html+='<td>';
+                  html+=res.numeroProducto[key];
+                  html+='</td>';
                   html+='</tr>';
                 });
                 $("#table_pagination").html(html);
+                $("#save_producto_vendedor")[0].reset();
             break;
             case 'getProdVend':
                $(".numeroProducto").val(res.numeroProducto);

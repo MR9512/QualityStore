@@ -3,6 +3,7 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Roboto', sans-serif;
+    
 }
 
 body {
@@ -10,11 +11,10 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-image: url(img/3.jpg);
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    color: #fff;
+    
 }
 
 .container-form {
@@ -23,12 +23,14 @@ body {
     display: flex;
     justify-content: space-around;
     transition:  all .5s ease-out;
+    color: #fff;
 }
 
 .welcome-back {
     display: flex;
     align-items: center;
     text-align: center;
+    color: #aaa;
 }
 
 .message {
@@ -61,7 +63,7 @@ body {
 .formulario {
     width: 400px;
     padding: 1rem;
-    margin: 2rem;
+    margin: -5rem;
     background-color: rgb(51, 51, 51, 0.602);
     text-align: center;
 }
@@ -113,6 +115,21 @@ body {
     padding: .2rem 0;
     font-size: .9rem;
     color: white;
+}
+
+.formulario select {
+    width: 70%;
+    display: block;
+    margin: auto;
+    margin-bottom: 2rem;
+    background-color: transparent;
+    border: none;
+    border-bottom: white thin solid;
+    text-align: center;
+    outline: none;
+    padding: .2rem 0;
+    font-size: .9rem;
+    color: black;
 }
 
 .formulario input[type="button"] {

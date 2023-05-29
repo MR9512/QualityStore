@@ -1,8 +1,9 @@
 
   <div class="row">
     <div class="col-2">
-    <label for="exampleInputPassword1" class="form-label">Producto</label>
-        <select class="select-search" style="width:100%">
+    <label for="exampleInputPassword1" name="id_producto" class="addId_producto">Producto</label>
+        <select class="select-search buscarPrecio" onchange="getprecio();" style="width:100%">
+        <option>Seleccione:</option>
             <?php
             $productos = $respuesta['productos'];
             //var_dump($productos['id_producto']);exit;
@@ -16,7 +17,8 @@
     </div>
     <div class="col-2">
         <label for="exampleInputPassword1" class="form-label">Vendedor</label>
-        <select class="select-search" style="width:100%">
+        <select class="select-search buscarId_usuario" onchange="getId_usuario();" style="width:100%">
+        <option>Seleccione:</option>
             <?php
             $usuarios = $respuesta['usuarios'];
             //var_dump($productos['id_producto']);exit;
@@ -60,8 +62,9 @@
       <div class="col">
           <label for="exampleInputPassword1" class="form-label">% de ganancia <br>al vendedor</label>
           <br>
-          <select class="select-search">
-              <option value=".10">10 porciento</option>
+          <select class="select-search comision">
+              <option>Seleccione:</option>
+              <option value=".10">10% porciento</option>
               <option value=".20">20% porciento</option>
               <option value=".30">30% porciento</option>
               <option value=".40">40% porciento</option>
@@ -81,19 +84,23 @@
   <div class="row">
     <div class="col">
         <label for="exampleInputPassword1" class="form-label">precio</label>
-        <input type="text">
+        <input type="text" class="precio_actual">
     </div>
       <div class="col">
           <label for="exampleInputPassword1" class="form-label">precio vendido</label>
-          <input type="text">
+          <input type="text" class="precio_vendido">
       </div>
       <div class="col">
           <label for="exampleInputPassword1" class="form-label">ganancia del producto</label>
-          <input type="text">
+          <input type="text" class="gananciaProducto">
+      </div>
+      <div class="col">
+          <label for="exampleInputPassword1" class="form-label">ganancia del vendedor</label>
+          <input type="text" class="gananciaVendedor">
       </div>
       <div class="col">
           <label for="exampleInputPassword1" class="form-label">No. de producto <br>vendido de este vendedor</label>
-          <input type="text">
+          <input type="text" name="numeroProducto" class="numeroProducto">
       </div>
   </div>
   <input type="submit" value="GUARDAR">

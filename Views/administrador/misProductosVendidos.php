@@ -1,3 +1,111 @@
+
+  <div class="row">
+    <div class="col-2">
+    <label for="exampleInputPassword1" class="form-label">Producto</label>
+        <select class="select-search" style="width:100%">
+            <?php
+            $productos = $respuesta['productos'];
+            //var_dump($productos['id_producto']);exit;
+            foreach ($productos['id_producto'] as $i => $producto){
+                ?>
+                <option value="<?= $producto ?>"><?= $productos['nombre'][$i] ?></option>
+                <?php
+            }
+            ?>
+            </select>
+    </div>
+    <div class="col-2">
+        <label for="exampleInputPassword1" class="form-label">Vendedor</label>
+        <select class="select-search" style="width:100%">
+            <?php
+            $usuarios = $respuesta['usuarios'];
+            //var_dump($productos['id_producto']);exit;
+            foreach ($usuarios['id_usuario'] as $i => $usuario){
+                ?>
+                <option value="<?= $usuario ?>"><?= $usuarios['nombre_usuario'][$i] ?></option>
+                <?php
+            }
+            ?>
+        </select>
+    </div>
+    <div class="col">
+        <label for="exampleInputPassword1" class="form-label">Este producto <br>fue pasado</label>
+        <div class="form-check">
+            <input class="form-check-input check-producto" type="checkbox" value="1">
+            <label class="form-check-label" for="flexCheckDefault">
+                Si
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input check-producto" type="checkbox" value="0">
+            <label class="form-check-label" for="flexCheckChecked">
+                No
+            </label>
+        </div>
+    </div>
+    <div class="col producto-pasado" style="display: none">
+        <label for="exampleInputPassword1" class="form-label">Quien paso <br>el producto</label>
+        <select class="select-search" style="width:100%">
+            <?php
+            $usuarios = $respuesta['usuarios'];
+            //var_dump($productos['id_producto']);exit;
+            foreach ($usuarios['id_usuario'] as $i => $usuario){
+                ?>
+                <option value="<?= $usuario ?>"><?= $usuarios['nombre_usuario'][$i] ?></option>
+                <?php
+            }
+            ?>
+        </select>
+    </div>
+      <div class="col">
+          <label for="exampleInputPassword1" class="form-label">% de ganancia <br>al vendedor</label>
+          <br>
+          <select class="select-search">
+              <option value=".10">10 porciento</option>
+              <option value=".20">20% porciento</option>
+              <option value=".30">30% porciento</option>
+              <option value=".40">40% porciento</option>
+          </select>
+      </div>
+      <div class="col producto-pasado" style="display: none">
+          <label for="exampleInputPassword1" class="form-label">% a quien paso <br>el producto</label>
+          <br>
+          <select class="select-search">
+              <option value=".10">10% porciento</option>
+              <option value=".20">20% porciento</option>
+              <option value=".30">30% porciento</option>
+              <option value=".40">40% porciento</option>
+          </select>
+      </div>
+  </div>
+  <div class="row">
+    <div class="col">
+        <label for="exampleInputPassword1" class="form-label">precio</label>
+        <input type="text">
+    </div>
+      <div class="col">
+          <label for="exampleInputPassword1" class="form-label">precio vendido</label>
+          <input type="text">
+      </div>
+      <div class="col">
+          <label for="exampleInputPassword1" class="form-label">ganancia del producto</label>
+          <input type="text">
+      </div>
+      <div class="col">
+          <label for="exampleInputPassword1" class="form-label">No. de producto <br>vendido de este vendedor</label>
+          <input type="text">
+      </div>
+  </div>
+  <input type="submit" value="GUARDAR">
+
+
+
+
+
+
+
+
+
 <table class="table">
   <thead>
     <tr>
@@ -19,7 +127,7 @@
     <form method="post" id="save_producto_vendedor">
    <tr>
    <td>
-    <select class="form-select buscarUsuarios" name="rol" aria-label="Default select example">
+    <select class="form-select buscarUsuarios select-search" name="rol" aria-label="Default select example">
     <option selected>Selecciona un Rol:</option>
     <?php foreach($respuesta['roles']['id_rol'] as $i=>$id_rol){ ?>
     <option value="<?= $id_rol ?>"><?=$respuesta['roles']['nombreRol'][$i]?></option>
@@ -133,5 +241,25 @@
         </td>
     </tr>
     <?php } ?>
-    </body>
+    </tbody>
 </table>
+<br />
+<br />
+<br />
+<br />
+    <table>
+      <thead>
+        <th scope="col"><?= $respuesta['titulos']['titulo_producto'] ?></th>
+        <th scope="col"><?= $respuesta['titulos']['titulo_precio'] ?></th>
+        <th scope="col"><?= $respuesta['titulos']['admonNombre'].' '.$respuesta['titulos']['admonApellidos'] ?></th>
+        <th scope="col"><?= $respuesta['titulos']['gerenteNombre1'].' '.$respuesta['titulos']['gerenteApellidos1'] ?></th>
+        <th scope="col"><?= $respuesta['titulos']['gerenteNombre2'].' '.$respuesta['titulos']['gerenteApellidos2'] ?></th>
+        <th scope="col"><?= $respuesta['titulos']['vendedorNombre1'].' '.$respuesta['titulos']['vendedorApellidos1'] ?></th>
+        <th scope="col"><?= $respuesta['titulos']['vendedorNombre2'].' '.$respuesta['titulos']['vendedorApellidos2'] ?></th>
+        <th scope="col"><?= $respuesta['titulos']['vendedorNombre3'].' '.$respuesta['titulos']['vendedorApellidos3'] ?></th>
+    </thead>
+    <tbody id="tabla_ganancias">
+
+    </tbody>
+    </table>
+

@@ -24,6 +24,7 @@
            }
            $query.= " categoria.id_categoria = $categoria";
         }
+
         $res = mysqli_query($this->con, $query);
         if(mysqli_num_rows($res) > 0){
             $i = 0;

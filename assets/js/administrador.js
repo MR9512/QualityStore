@@ -1,5 +1,5 @@
 $(document).ready(function(){
-   
+  $('.select-search').select2();
       $('.tablePaginator').DataTable({
         "language": {
           "decimal": "",
@@ -36,6 +36,18 @@ $(document).ready(function(){
    obj.accion = "getProducto";
    peticionAjax(obj);
  });
+
+    $('.check-producto').click(function() {
+        if ($(this).is(':checked') && $(this).val() == 1) {
+            $('.check-producto').prop('checked', false);
+            $(this).prop('checked', true);
+            $('.producto-pasado').show();
+        } else {
+            $('.check-producto').prop('checked', false);
+            $(this).prop('checked', true);
+            $('.producto-pasado').hide();
+        }
+    });
 
  $(".buscarUsuarios").change(function(){
   var id_rol = $(this).val();
@@ -168,7 +180,7 @@ function getprecio(){
                   html+='</tr>';
                 });
                 $("#table_pagination").html(html);
-                $("#save_producto_vendedor")[0].reset();
+                //$("#save_producto_vendedor")[0].reset();
             break;
             case 'getProdVend':
                $(".numeroProducto").val(res.numeroProducto);

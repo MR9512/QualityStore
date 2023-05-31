@@ -95,24 +95,24 @@ class administradorController extends coreController
             if (isset($_POST['id_intermediario']) && $_POST['intermediario'] > 0 ) {
                 if ($usuariosGanancias['rol'][$i] == 1) {
                     $data['rol'][$i] = "administrador";
-                    $data['ganancia'][$i] = $_POST['ganancia'] * 0.50;
+                    $data['ganancia'][$i] = $_POST['ganancia'] * 0.60;
                 }
                 if ($usuariosGanancias['rol'][$i] == 2) {
                     $data['rol'][$i] = "gerente";
-                    $data['ganancia'][$i] = $_POST['ganancia'] * 0.20;
+                    $data['ganancia'][$i] = $_POST['ganancia'] * 0.10;
                 }
                 if ($usuariosGanancias['rol'][$i] == 3) {
                     $data['rol'][$i] = "vendedor";
-                    $data['ganancia'][$i] = $_POST['ganancia'] * 0.10;
+                    $data['ganancia'][$i] = $_POST['ganancia'] * 0.20;
                 }
             }else{
                 if ($usuariosGanancias['rol'][$i] == 1 && $id_usuario == $_POST['id_usuario']) {
                     $data['rol'][$i] = "administrador";
-                    $data['ganancia'][$i] = $_POST['ganancia'] * 0.80;
+                    $data['ganancia'][$i] = $_POST['ganancia'] * 0.60;
                 }else{
                     if ($usuariosGanancias['rol'][$i] == 1) {
                         $data['rol'][$i] = "administrador";
-                        $data['ganancia'][$i] = $_POST['ganancia'] * 0.60;
+                        $data['ganancia'][$i] = $_POST['ganancia'] * 0.20;
                     }
                 }
                 if ($usuariosGanancias['rol'][$i] == 2 && $id_usuario == $_POST['id_usuario']) {

@@ -17,13 +17,13 @@
   </ol>
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <img src="<?= URLSYSIMG.$respuesta["url_imagen"][1] ?>" alt="Image 1">
+      <img src="<?= URLSYSIMG.$respuesta["url_imagen"][0] ?>" alt="Image 1">
     </div>
     <div class="carousel-item">
-      <img src="<?= URLSYSIMG.$respuesta["url_imagen"][1] ?>" alt="Image 2">
+      <img src="<?= URLSYSIMG.$respuesta["url_imagen"][0] ?>" alt="Image 2">
     </div>
     <div class="carousel-item">
-      <img src="<?= URLSYSIMG.$respuesta["url_imagen"][1] ?>" alt="Image 3">
+      <img src="<?= URLSYSIMG.$respuesta["url_imagen"][0] ?>" alt="Image 3">
     </div>
   </div>
   <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">

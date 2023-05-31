@@ -1,6 +1,6 @@
-
+<form method="post" id="save_producto_vendedor">
   <div class="row">
-    <div class="col-2">
+    <div class="col-3">
     <label for="exampleInputPassword1" name="id_producto" class="addId_producto">Producto</label>
         <select class="select-search buscarPrecio" onchange="getprecio();" style="width:100%">
         <option>Seleccione:</option>
@@ -15,9 +15,9 @@
             ?>
             </select>
     </div>
-    <div class="col-2">
+    <div class="col-3">
         <label for="exampleInputPassword1" class="form-label">Vendedor</label>
-        <select class="select-search buscarId_usuario" onchange="getId_usuario();" style="width:100%">
+        <select class="select-search buscarId_usuario" name="id_usuario" onchange="getId_usuario();" style="width:100%">
         <option>Seleccione:</option>
             <?php
             $usuarios = $respuesta['usuarios'];
@@ -30,8 +30,8 @@
             ?>
         </select>
     </div>
-    <div class="col">
-        <label for="exampleInputPassword1" class="form-label">Este producto <br>fue pasado</label>
+    <div class="col-2">
+        <label for="exampleInputPassword1" class="form-label">Intermediario</label>
         <div class="form-check">
             <input class="form-check-input check-producto" type="checkbox" value="1">
             <label class="form-check-label" for="flexCheckDefault">
@@ -46,8 +46,8 @@
         </div>
     </div>
     <div class="col producto-pasado" style="display: none">
-        <label for="exampleInputPassword1" class="form-label">Quien paso <br>el producto</label>
-        <select class="select-search" style="width:100%">
+        <label for="exampleInputPassword1" class="form-label">Nombre Intermediario</label>
+        <select class="select-search id_intermediario" name="id_intermediario" style="width:100%">
             <?php
             $usuarios = $respuesta['usuarios'];
             //var_dump($productos['id_producto']);exit;
@@ -59,142 +59,70 @@
             ?>
         </select>
     </div>
-      <div class="col">
-          <label for="exampleInputPassword1" class="form-label">% de ganancia <br>al vendedor</label>
-          <br>
-          <select class="select-search comision">
-              <option>Seleccione:</option>
-              <option value=".10">10% porciento</option>
-              <option value=".20">20% porciento</option>
-              <option value=".30">30% porciento</option>
-              <option value=".40">40% porciento</option>
-          </select>
-      </div>
-      <div class="col producto-pasado" style="display: none">
-          <label for="exampleInputPassword1" class="form-label">% a quien paso <br>el producto</label>
-          <br>
-          <select class="select-search">
-              <option value=".10">10% porciento</option>
-              <option value=".20">20% porciento</option>
-              <option value=".30">30% porciento</option>
-              <option value=".40">40% porciento</option>
-          </select>
-      </div>
+
   </div>
   <div class="row">
     <div class="col">
+        <br>
         <label for="exampleInputPassword1" class="form-label">precio</label>
-        <input type="text" class="precio_actual">
+        <br>
+        <input type="text" name="precio" class="precio_actual deshabilitar">
     </div>
       <div class="col">
+          <br>
           <label for="exampleInputPassword1" class="form-label">precio vendido</label>
-          <input type="text" class="precio_vendido">
+
+          <input type="text" name="precio_vendido" class="precio_vendido">
       </div>
       <div class="col">
+          <br>
           <label for="exampleInputPassword1" class="form-label">ganancia del producto</label>
-          <input type="text" class="gananciaProducto">
+
+          <input type="text" name="gananciaProducto" class="gananciaProducto deshabilitar">
       </div>
       <div class="col">
+          <br>
           <label for="exampleInputPassword1" class="form-label">ganancia del vendedor</label>
-          <input type="text" class="gananciaVendedor">
+          <input type="text" name="gananciaVendedor" class="gananciaVendedor deshabilitar">
       </div>
       <div class="col">
           <label for="exampleInputPassword1" class="form-label">No. de producto <br>vendido de este vendedor</label>
-          <input type="text" name="numeroProducto" class="numeroProducto">
+          <br>
+          <input type="text" name="numeroProducto" class="numeroProducto deshabilitar">
       </div>
   </div>
-  <input type="submit" value="GUARDAR">
-
-
-
-
-
-
-
-
-
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">Rol</th>
-      <th scope="col">Usuario</th>
-      <th scope="col">Categoria</th>
-      <th scope="col">Producto</th>
-      <th scope="col">Precio</th>
-      <th scope="col">Precio vendido</th>
-      <th scope="col">Ganancia del producto</th>
-      <th scope="col">Comisión</th>
-      <th scope="col">Ganancia del vendedor</th>
-      <th scope="col">N° de producto</th>
-      <th scope="col">Acciones</th>
-      
-    </tr>
-  </thead>
-  <tbody>
-    <form method="post" id="save_producto_vendedor">
-   <tr>
-   <td>
-    <select class="form-select buscarUsuarios select-search" name="rol" aria-label="Default select example">
-    <option selected>Selecciona un Rol:</option>
-    <?php foreach($respuesta['roles']['id_rol'] as $i=>$id_rol){ ?>
-    <option value="<?= $id_rol ?>"><?=$respuesta['roles']['nombreRol'][$i]?></option>
-    <?php } ?>
-     </select>
-    </td>
-    <td class="usuarios"></td>
-    <input type="hidden" name="id_usuario" class="addId_usuario">
-    <td>
-    <select class="form-select buscarProductos" name="categoria" aria-label="Default select example">
-    <option selected>Selecciona una categoria:</option>
-    <?php foreach($respuesta['categorias']['id_categoria'] as $i=>$id_categoria){ ?>
-    <option value="<?= $id_categoria ?>"><?=$respuesta['categorias']['nombre'][$i]?></option>
-    <?php } ?>
-     </select>
-    </td>
-    <td class="productos"></td>
-    <input type="hidden" name="id_producto" class="addId_producto">
-    <td>
-      <input type="text" name="precio" class="precio_actual"></input>
-    </td>
-    <td>
-    <input type="text" name="precio_vendido" class="precio_vendido"></input>
-    </td>
-    <td>
-    <input type="text" name="gananciaProducto" class="gananciaProducto"></input>
-    </td>
-    <td>
-    <select class="form-select comision" name="comision" aria-label="Default select example">
-    <option selected>Seleccione:</option>
-    <option value=".10">10%</option> 
-    <option value=".20">20%</option>  
-    <option value=".30">30%</option> 
-    <option value=".40">40%</option>  
-    <option value=".50">50%</option> 
-    <option value=".60">60%</option>  
-    <option value=".70">70%</option> 
-    <option value=".80">80%</option>  
-    <option value=".90">90%</option> 
-    <option value=".100">100%</option>  
-     </select>
-    </td>
-    <td>
-    <input type="text" name="gananciaVendedor" class="gananciaVendedor"></input>
-    </td>
-    <td>
-      <input type="text" name="numeroProducto" class="numeroProducto">
-    </td>
-    <td>
-    <button type="submit">
-    <i class="bi bi-shield-fill-check save_producto_vendedor" type="submit"></i>
-    </td>
-   </tr>
-    </tr>
-   <div class="elementos_agregados">
+    <div class="row showhide-ganancias" style="display: none">
+        <div class="col">
+            <label for="exampleInputPassword1" class="form-label">Ganancias Roles</label>
+        </div>
     </div>
-    </form>
-  </tbody>
-</table>
-
+    <div class="row showhide-ganancias" style="display: none">
+        <div class="col">
+            <label for="exampleInputPassword1" class="form-label nombreAdministrador"></label>
+            <input type="hidden" class="id_administrador" />
+            <input type="text" name="gananciaAdminsitrador" class="gananciaAdministrador deshabilitar">
+        </div>
+        <div class="col">
+            <label for="exampleInputPassword1" class="form-label gerente1"></label>
+            <input type="hidden" class="id_gerente1" />
+            <input type="text" name="gananciaGerente1" class="gananciaGerente1">
+        </div>
+        <div class="col">
+            <label for="exampleInputPassword1" class="form-label gerente2"></label>
+            <input type="hidden" class="id_gerente2" />
+            <input type="text" name="gananciaGerente2" class="gananciaGerente2" />
+        </div>
+        <div class="col showhide-intermediario" style="display: none">
+            <label for="exampleInputPassword1" class="form-label nombreIntermediario"></label>
+            <input type="text" name="gananciaIntermediario" class="gananciaIntermediario deshabilitar">
+        </div>
+        <div class="col showhide-intermediario" style="display: none">
+        </div>
+    </div>
+    <br />
+    <br />
+  <input type="submit" value="GUARDAR">
+</form>
 <br />
 <br />
 <br />

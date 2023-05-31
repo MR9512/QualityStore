@@ -174,5 +174,45 @@ class administradorModel{
       return $data;
       
     }
+
+    public function getInfoIntermediario($id_usuario){
+        $query = "SELECT ur.id_rol AS id_rol_recomendo, urec.id_rol AS id_rol_recomendado 
+                    FROM recomendaciones_vendedores recomendacion
+                    INNER JOIN usuarios ur ON ur.id_usuario = recomendacion.id_usuarioRecomendo
+                    INNER JOIN usuarios urec ON urec.id_usuario = recomendacion.id_usuarioRecomendado
+                    WHERE recomendacion.id_usuarioRecomendado = $id_usuario";
+        $respuesta = mysqli_query($this->con,$query);
+        while($row = mysqli_fetch_assoc($respuesta)){
+            $data['rol_recomendo'] = $row['id_rol_recomendo'];
+            $data['rol_recomendado'] = $row['id_rol_recomendado'];
+        }
+        return $data;
+    }
+
+    public function getUsuariosGanancias(){
+        $query = "SELECT * 
+                    FROM usuarios limit 3";
+        $respuesta = mysqli_query($this->con,$query);
+        $i=0;
+        while($row = mysqli_fetch_assoc($respuesta)){
+            $data['nombre'][$i] = $row['nombre'].' '.$row['apellidos'];
+            $data['rol'][$i] = $row['id_rol'];
+            $i++;
+        }
+        return $data;
+    }
+
+    public function getRolUsuarioVendio($id_usuario, $intermediario){
+        $query = "CALL getUsuariosGanancias($id_usuario,$intermediario)";
+        $res = mysqli_query($this->con,$query);
+        $i=0;
+        while($row = mysqli_fetch_assoc($res)){
+            $data['id_usuario'][$i] = $row['id_usuario'];
+            $data['nombre'][$i] = $row['nombre'].' '.$row['apellidos'];
+            $data['rol'][$i] = $row['id_rol'];
+            $i++;
+        }
+        return $data;
+    }
 }
 ?>

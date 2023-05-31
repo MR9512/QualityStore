@@ -1,5 +1,6 @@
 $(document).ready(function(){
-  $('.select-search').select2();
+    $('.deshabilitar').prop('readonly', true);
+    $('.select-search').select2();
       $('.tablePaginator').DataTable({
         "language": {
           "decimal": "",
@@ -39,13 +40,17 @@ $(document).ready(function(){
 
     $('.check-producto').click(function() {
         if ($(this).is(':checked') && $(this).val() == 1) {
+            $('.check-producto').removeAttr('name');
             $('.check-producto').prop('checked', false);
             $(this).prop('checked', true);
             $('.producto-pasado').show();
+            $(this).attr('name','value_intermediario');
         } else {
+            $('.check-producto').removeAttr('name');
             $('.check-producto').prop('checked', false);
             $(this).prop('checked', true);
             $('.producto-pasado').hide();
+            $(this).attr('name','value_intermediario');
         }
     });
 
@@ -73,8 +78,26 @@ $("#save_producto_vendedor").on("submit",function(){
 
  $('.precio_vendido').change(function(){
    var gananciaProducto;
-   gananciaProducto = parseFloat($('.precio_vendido').val()) - parseFloat($('.precio_actual').val());
-   $('.gananciaProducto').val(gananciaProducto);
+     gananciaProducto = parseFloat($('.precio_vendido').val()) - parseFloat($('.precio_actual').val());
+     $('.gananciaProducto').val(gananciaProducto);
+   id_usuario = $('.buscarId_usuario').val();
+   ganancia = gananciaProducto;
+   intermediario = $('input[name="value_intermediario"]').val();
+   if(intermediario == 1){
+       id_intermediario = $('.id_intermediario').val()
+   }else{
+       id_intermediario = 0;
+   }
+
+   var obj = {};
+   obj.intermediario = id_intermediario;
+   obj.vendedor = id_usuario;
+     obj.url = "getGananciasUsuarios";
+     obj.type = "POST";
+     obj.data = {id_usuario:id_usuario,ganancia:ganancia,intermediario:intermediario,id_intermediario:id_intermediario};
+     obj.accion = "getGananciasUsuarios";
+     peticionAjax(obj);
+
  });
  
 
@@ -185,6 +208,33 @@ function getprecio(){
             case 'getProdVend':
                $(".numeroProducto").val(res.numeroProducto);
             break;
+           case 'getGananciasUsuarios':
+               console.log(res.nombre_usuario);
+                $('.nombreAdministrador').html(res.nombre_usuario[0]);
+                $('.id_administrador').val(res.id_usuario[0]);
+                $('.gananciaAdministrador').val(res.ganancia[0]);
+               $('.gerente1').html(res.nombre_usuario[1]);
+               $('.id_gerente1').val(res.id_usuario[1]);
+               $('.gananciaGerente1').val(res.ganancia[1]);
+               $('.gerente2').html(res.nombre_usuario[2]);
+               $('.id_gerente2').val(res.id_usuario[2]);
+               $('.gananciaGerente2').val(res.ganancia[2]);
+               if(obj.vendedor == res.id_usuario[0]){
+                   $('.gananciaVendedor').val(res.ganancia[0]);
+               }
+               if(obj.vendedor == res.id_usuario[1]){
+                   $('.gananciaVendedor').val(res.ganancia[1]);
+               }
+               if(obj.vendedor == res.id_usuario[2]){
+                   $('.gananciaVendedor').val(res.ganancia[2]);
+               }
+               if(obj.intermediario > 0){
+                   $('.nombreIntermediario').html(res.nombre_usuario[3]);
+                   $('.gananciaIntermediario').val(res.ganancia[3]);
+                   $('.showhide-intermediario').show();
+               }
+               $('.showhide-ganancias').show();
+           break;
        }
     },
     error: function(xhr, status){

@@ -214,5 +214,51 @@ class administradorModel{
         }
         return $data;
     }
+
+    public function getUsuarioRecomendo($id_usuario){
+        $query="SELECT * FROM recomendacion_vendedores rv WHERE rv.id_usuarioRecomendado = $id_usuario";
+        $res = mysqli_query($this->con,$query);
+        while($row = mysqli_fetch_assoc($res)){
+            $data['id_usuario'] = $row['id_usuarioRecomendo'];
+        }
+        return $data;
+    }
+
+    public function getRol($id_usuario){
+        $query="SELECT * FROM usuarios u
+                LEFT JOIN recomendacion_vendedores rv ON rv.id_usuarioRecomendado = u.id_usuario 
+                WHERE id_usuario = $id_usuario";
+        $res = mysqli_query($this->con,$query);
+        while($row = mysqli_fetch_assoc($res)){
+            $data['id_rol'] = $row['id_rol'];
+            $data['id_recomendado'] = $row['id_usuarioRecomendado'];
+            $data['id_recomendo'] = $row['id_usuarioRecomendo'];
+         }
+        return $data;
+    }
+
+    public function getInfoQuienVendio($id_usuario){
+        $query="SELECT * FROM usuarios WHERE id_usuario = $id_usuario";
+        $res = mysqli_query($this->con,$query);
+        while($row = mysqli_fetch_assoc($res)){
+            if($row['id_rol'] == 3){
+                $query2="SELECT u.id_rol AS rol_recomendo, u.id_usuario AS id_usuarioRecomendo, u.id_rol as id_rol 
+                        FROM recomendacion_vendedores rv
+                        INNER JOIN usuarios u ON rv.id_usuarioRecomendo = u.id_usuario
+                        WHERE id_usuarioRecomendado = $id_usuario";
+                $res2 = mysqli_query($this->con,$query2);
+                while($row2 = mysqli_fetch_assoc($res2)){
+                    $data['id_usuarioRecomendo'] = $row2['id_usuarioRecomendo'];
+                    $data['id_rolRecomendo'] = $row2['id_rol'];
+                    $data['id_usuarioVendio'] = $row['id_usuario'];
+                    $data['id_rolVendio'] = $row['id_rol'];
+                }
+            }else{
+                $data['id_usuarioVendio'] = $row['id_usuario'];
+                $data['id_rolVendio'] = $row['id_rol'];
+            }
+        }
+        return $data;
+    }
 }
 ?>

@@ -260,5 +260,18 @@ class administradorModel{
         }
         return $data;
     }
+
+    public function getAdminGeren(){
+        $query = "SELECT * FROM usuarios WHERE id_rol = 1 OR id_rol = 2";
+        $res = mysqli_query($this->con,$query);
+        $i = 0;
+        while($row = mysqli_fetch_assoc($res)){
+            $data['id_usuarioAdminGeren'][$i] = $row['id_usuario'];
+            $data['id_rolUsuarioAdminGeren'][$i] = $row['id_rol'];
+            $data['nombre_usuarioAdminGeren'][$i] = $row['nombre'].' '.$row['apellidos'];
+        $i++;
+        }
+        return $data;
+    }
 }
 ?>

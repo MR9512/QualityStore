@@ -85,127 +85,89 @@ class administradorController extends coreController
     {
         //var_dump($_POST);exit;
         $datosVendio = $this->administradorModel->getInfoQuienVendio($_POST['id_usuario']);
-        if($_POST['intermediario'] == 1){
-            $recomendo = $this->administradorModel->getUsuarioRecomendo($_POST['id_intermediario']);
-        }else{
-            $usuariosGanancias = $this->administradorModel->getRolUsuarioVendio($_POST['id_intermediario'],true);
-        }
-        //var_dump($datosVendio);exit;
-        if($datosVendio['id_rolRecomendo'] == 1){
-            $id_usuario_recomendo = $datosVendio['id_usuarioRecomendo'];
-            $gananciaRecomendo = 0.50;
-        }else{
-            if($datosVendio['id_rolRecomendo'] == 2){
-                $id_usuario_recomendo = $datosVendio['id_usuarioRecomendo'];
-                $gananciaRecomendo = 0.20;
-            }
-        }
-        foreach ($usuariosGanancias['id_usuario'] as $i => $id_usuario_ganancias){
-            //echo $usuariosGanancias['rol'][$i]."<br>";
-            if($usuariosGanancias['rol'][$i] == 1 && $id_usuario_ganancias == $id_usuario_recomendo){
-                $data['ganancia'][$i] = $_POST['ganancia'] * $gananciaRecomendo;
-                //$data['ganancia_rol_vendedor'] = $_POST['ganancia'] * .30;
-            }else{
-                if($usuariosGanancias['rol'][$i] == 1){
-                    $data['ganancia'][$i] = $_POST['ganancia'] * 0.60;
+        $getAdminGeren = $this->administradorModel->getAdminGeren();
+        if($datosVendio['id_rolVendio'] == 3){
+            $retorno['rol'][] = "vendedor";
+            $retorno['porcentaje'][] = 0.30;
+            $retorno['ganancia'][] = $_POST['ganancia']*0.30;
+            $datosRetorno['id_usuarioVendio'][] = $datosVendio['id_usuarioVendio'];
+            $datosRetorno['id_rolVendio'][] = $datosVendio['id_rolVendio'];
+            foreach ($getAdminGeren['id_usuarioAdminGeren'] as $i => $id_usuario){
+                $id_rol = $getAdminGeren['id_rolUsuarioAdminGeren'][$i];
+                $nombre = $getAdminGeren['nombre_usuarioAdminGeren'][$i];
+                if($id_rol == 1 && (isset($datosVendio['id_usuarioRecomendo']) && $id_usuario == $datosVendio['id_usuarioRecomendo'])){
+                    $retorno['rol'][] = "administrador";
+                    $retorno['porcentaje'][] = 0.50;
+                    $retorno['ganancia'][] = $_POST['ganancia']*0.50;
                 }else{
-                    if($usuariosGanancias['rol'][$i] == 2 && $id_usuario_ganancias == $id_usuario_recomendo){
-                        $data['ganancia'][$i] = $_POST['ganancia'] * $gananciaRecomendo;
-                        //$data['ganancia_rol_vendedor'][$i + 1] = $_POST['ganancia'] * .20;
+                    if($id_rol == 1){
+                        $retorno['rol'][] = "administrador";
+                        $retorno['porcentaje'][] = 0.50;
+                        $retorno['ganancia'][] = $_POST['ganancia']*0.50;
                     }else{
-                        if($usuariosGanancias['rol'][$i] == 2){
-                            $data['ganancia'][$i] = $_POST['ganancia'] * 0.10;
+                        if($id_rol == 2 && (isset($datosVendio['id_usuarioRecomendo']) && $id_usuario == $datosVendio['id_usuarioRecomendo'])){
+                            $retorno['rol'][] = "gerente";
+                            $retorno['porcentaje'][] = 0.20;
+                            $retorno['ganancia'][] = $_POST['ganancia']*0.20;
                         }else{
-                            if($usuariosGanancias['rol'][$i] == 3){
-                                $data['ganancia'][$i] = $_POST['ganancia'] * $gananciaRecomendo;
+                            if($id_rol == 2) {
+                                $retorno['rol'][] = "gerente";
+                                $retorno['porcentaje'][] = 0.10;
+                                $retorno['ganancia'][] = $_POST['ganancia'] * 0.10;
                             }
                         }
                     }
                 }
             }
-        }
-        if($datosVendio['id_rolVendio'] == 3) {
-
-        }
-        var_dump($data);exit;
-        /*if ($_POST['intermediario'] == 1) {
-            $recomendo = $this->administradorModel->getUsuarioRecomendo($_POST['id_intermediario']);
-            $id_recomendo = $recomendo['id_usuario'];
-           // echo $id_recomendo." ----->recomendo<br>";
-            $usuariosGanancias = $this->administradorModel->getRolUsuarioVendio($_POST['id_intermediario'],true);
-
         }else{
-            $usuariosGanancias = $this->administradorModel->getRolUsuarioVendio($_POST['id_usuario'],0);
-        }
-        foreach ($usuariosGanancias['id_usuario'] as $i => $id_usuario) {
-            //echo $id_usuario." --> ".$id_recomendo." --> rol -->".$usuariosGanancias['rol'][$i]."<br>";
-            $data['id_usuario'][$i] = $id_usuario;
-            $data['nombre_usuario'][$i] = $usuariosGanancias['nombre'][$i];
-            if (isset($_POST['id_intermediario']) && $_POST['intermediario'] > 0 ) {
-                //si el administrador recomendo al vendedor se lleva el 50 el recomendado el 10 y los gerentes 20
-                if ($usuariosGanancias['rol'][$i] == 1 && $id_usuario == $id_recomendo) {
-                    //echo $id_usuario." ----->administrador recomendo<br>";
-
-                    $data['rol'][$i] = "administrador";
-                    $data['ganancia'][$i] = $_POST['ganancia'] * 0.60;
-                }else{
-                    if ($usuariosGanancias['rol'][$i] == 1) {
-                      //  echo $id_usuario." ----->administrador no recomendo<br>";
-
-                        $data['rol'][$i] = "administrador";
-                        $data['ganancia'][$i] = $_POST['ganancia'] * 0.50;
-                    }
-                }
-                if ($usuariosGanancias['rol'][$i] == 2 && $id_usuario == $id_recomendo) {
-                    //echo $id_usuario." ----->gerente recomendo<br>";
-
-                    $data['rol'][$i] = "gerente";
-                    $data['ganancia'][$i] = $_POST['ganancia'] * 0.20;
-                }else{
-                    if ($usuariosGanancias['rol'][$i] == 2) {
-                        //echo $id_usuario." ----->gerente recomendo<br>";
-
-                        $data['rol'][$i] = "gerente";
-                        $data['ganancia'][$i] = $_POST['ganancia'] * 0.10;
-                    }   
-                }
-                if ($usuariosGanancias['rol'][$i] == 3) {
-                    $data['rol'][$i] = "vendedor";
-                    $data['ganancia'][$i] = $_POST['ganancia'] * 0.20;
-                }
-            }else{
-                if ($usuariosGanancias['rol'][$i] == 1 && $id_usuario == $_POST['id_usuario']) {
-                    $data['rol'][$i] = "administrador";
-                    $data['ganancia'][$i] = $_POST['ganancia'] * 0.60;
-                }else{
-                    if ($usuariosGanancias['rol'][$i] == 1) {
-                        $data['rol'][$i] = "administrador";
-                        $data['ganancia'][$i] = $_POST['ganancia'] * 0.60;
-                    }
-                }
-                //echo "rol -->".$usuariosGanancias['rol'][$i]." --- vendedor -->".$_POST['id_usuario']."<br>";
-                if ($usuariosGanancias['rol'][$i] == 2 && $id_usuario == $_POST['id_usuario']) {
-                    //echo "gerente vendio";
-                    $data['rol'][$i] = "gerente";
-                    $data['ganancia'][$i] = $_POST['ganancia'] * 0.30;
-                }else{
-                    if ($usuariosGanancias['rol'][$i] == 2 && $_POST['id_usuario'] == 1) {
-                        $data['rol'][$i] = "gerente";
-                        $data['ganancia'][$i] = $_POST['ganancia'] * 0.20;
+            if($datosVendio['id_rolVendio'] == 2){
+                foreach ($getAdminGeren['id_usuarioAdminGeren'] as $i => $id_usuario){
+                    $id_rol = $getAdminGeren['id_rolUsuarioAdminGeren'][$i];
+                    $nombre = $getAdminGeren['nombre_usuarioAdminGeren'][$i];
+                    if($datosVendio['id_rolVendio'] == 1 && $datosVendio['id_usuarioVendio'] == $id_usuario){
+                        $retorno['rol'][] = "administrdor";
+                        $retorno['porcentaje'][] = 0.80;
+                        $retorno['ganancia'][] = $_POST['ganancia']*0.80;
                     }else{
-                        if ($usuariosGanancias['rol'][$i] == 2) {
-                            $data['rol'][$i] = "gerente";
-                            $data['ganancia'][$i] = $_POST['ganancia'] * 0.10;
+                        if($id_rol == 1){
+                            $retorno['rol'][] = "administrador";
+                            $retorno['porcentaje'][] = 0.60;
+                            $retorno['ganancia'][] = $_POST['ganancia']*0.60;
+                        }else{
+                            if($datosVendio['id_rolVendio'] == 2 && $datosVendio['id_usuarioVendio'] == $id_usuario){
+                                $retorno['rol'][] = "gerente";
+                                $retorno['porcentaje'][] = 0.30;
+                                $retorno['ganancia'][] = $_POST['ganancia']*0.30;
+                            }else{
+                                if($id_rol == 2){
+                                    $retorno['porcentaje'][] = 0.10;
+                                    $retorno['ganancia'][] = $_POST['ganancia']*0.10;
+                                }
+                            }
                         }
                     }
                 }
-                if ($usuariosGanancias['rol'][$i] == 3 && $id_usuario == $_POST['id_usuario']) {
-                    $data['rol'][$i] = "vendedor";
-                    $data['ganancia'][$i] = $_POST['ganancia'] * 0.20;
-                }
+            }else{
+                if($datosVendio['id_rolVendio'] == 1){
+                    foreach ($getAdminGeren['id_usuarioAdminGeren'] as $i => $id_usuario){
+                            if($datosVendio['id_rolVendio'] == 1 && $datosVendio['id_usuarioVendio'] == $id_usuario){
+                                $retorno['porcentaje'][] = 0.80;
+                                $retorno['ganancia'][] = $_POST['ganancia']*0.60;
+                            }else{
+                                $retorno['porcentaje'][] = 0.10;
+                                $retorno['ganancia'][] = $_POST['ganancia']*0.20;
+                            }
+                        }
+                    }
             }
         }
-        echo json_encode($data);*/
+
+        var_dump($retorno);exit;
+        if($_POST['intermediario'] == 1){
+            $recomendo = $this->administradorModel->getUsuarioRecomendo($_POST['id_intermediario']);
+        }else{
+            $usuariosGanancias = $this->administradorModel->getRolUsuarioVendio($_POST['id_intermediario'],true);
+        }
     }
 
 

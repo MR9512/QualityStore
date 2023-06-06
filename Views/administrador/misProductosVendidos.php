@@ -99,21 +99,21 @@
     <div class="row showhide-ganancias" style="display: none">
         <div class="col">
             <label for="exampleInputPassword1" class="form-label nombreAdministrador"></label>
-            <input type="hidden" class="id_administrador" />
+            <input type="hidden" class="id_administrador" /><br>
             <input type="text" name="gananciaAdminsitrador" class="gananciaAdministrador deshabilitar">
         </div>
         <div class="col">
             <label for="exampleInputPassword1" class="form-label gerente1"></label>
-            <input type="hidden" class="id_gerente1" />
+            <input type="hidden" class="id_gerente1" /><br>
             <input type="text" name="gananciaGerente1" class="gananciaGerente1">
         </div>
         <div class="col">
             <label for="exampleInputPassword1" class="form-label gerente2"></label>
-            <input type="hidden" class="id_gerente2" />
+            <input type="hidden" class="id_gerente2" /><br>
             <input type="text" name="gananciaGerente2" class="gananciaGerente2" />
         </div>
         <div class="col showhide-intermediario" style="display: none">
-            <label for="exampleInputPassword1" class="form-label nombreIntermediario"></label>
+            <label for="exampleInputPassword1" class="form-label nombreIntermediario"></label><br>
             <input type="text" name="gananciaIntermediario" class="gananciaIntermediario deshabilitar">
         </div>
         <div class="col showhide-intermediario" style="display: none">

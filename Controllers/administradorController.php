@@ -84,90 +84,156 @@ class administradorController extends coreController
     public function getGananciasUsuarios()
     {
         //var_dump($_POST);exit;
-        $datosVendio = $this->administradorModel->getInfoQuienVendio($_POST['id_usuario']);
-        $getAdminGeren = $this->administradorModel->getAdminGeren();
-        if($datosVendio['id_rolVendio'] == 3){
-            $retorno['rol'][] = "vendedor";
-            $retorno['porcentaje'][] = 0.30;
-            $retorno['ganancia'][] = $_POST['ganancia']*0.30;
-            $datosRetorno['id_usuarioVendio'][] = $datosVendio['id_usuarioVendio'];
-            $datosRetorno['id_rolVendio'][] = $datosVendio['id_rolVendio'];
-            foreach ($getAdminGeren['id_usuarioAdminGeren'] as $i => $id_usuario){
+        if($_POST['intermediario'] == 1){
+            $datosInter = $this->administradorModel->getInfoQuienVendio($_POST['id_intermediario']);
+            //var_dump($datosInter);exit;
+            $getAdminGeren = $this->administradorModel->getAdminGeren();
+            if($datosInter['id_rolRecomendado'] == 4){
+                $retorno['rol'][] = "intermediario";
+                $retorno['id_usuario'][] = $datosInter['id_rolRecomendo'];
+                $retorno['ganancia'][] = $_POST['ganancia']*0.20;
+                $retorno['porcentaje'][] = 0.20;
+                $retorno['nombre_usuario'][] = $datosInter['nombre_usuario'];
+            }
+            //var_dump($getAdminGeren);exit;
+            $i = 0;
+            foreach($getAdminGeren['id_usuarioAdminGeren'] as $i => $id_usuario){
                 $id_rol = $getAdminGeren['id_rolUsuarioAdminGeren'][$i];
                 $nombre = $getAdminGeren['nombre_usuarioAdminGeren'][$i];
-                if($id_rol == 1 && (isset($datosVendio['id_usuarioRecomendo']) && $id_usuario == $datosVendio['id_usuarioRecomendo'])){
+                if(($datosInter['id_rolRecomendo'] == 1) && ($id_usuario == $datosInter['id_usuarioRecomendo'])){
                     $retorno['rol'][] = "administrador";
-                    $retorno['porcentaje'][] = 0.50;
-                    $retorno['ganancia'][] = $_POST['ganancia']*0.50;
+                    $retorno['id_usuario'][] = $id_usuario;
+                    $retorno['ganancia'][] = $_POST['ganancia']*0.60;
+                    $retorno['porcentaje'][] = 0.60;
+                    $retorno['nombre_usuario'][] = $getAdminGeren['nombre_usuarioAdminGeren'][$i];
                 }else{
                     if($id_rol == 1){
                         $retorno['rol'][] = "administrador";
+                        $retorno['id_usuario'][] = $id_usuario;
                         $retorno['porcentaje'][] = 0.50;
                         $retorno['ganancia'][] = $_POST['ganancia']*0.50;
+                        $retorno['nombre_usuario'][] = $getAdminGeren['nombre_usuarioAdminGeren'][$i];
                     }else{
-                        if($id_rol == 2 && (isset($datosVendio['id_usuarioRecomendo']) && $id_usuario == $datosVendio['id_usuarioRecomendo'])){
+                        if(($datosInter['id_rolRecomendo'] == 2) && ($id_usuario == $datosInter['id_usuarioRecomendo'])){
                             $retorno['rol'][] = "gerente";
-                            $retorno['porcentaje'][] = 0.20;
+                            $retorno['id_usuario'][] = $id_usuario;
                             $retorno['ganancia'][] = $_POST['ganancia']*0.20;
+                            $retorno['porcentaje'][] = 0.20;
+                            $retorno['nombre_usuario'][] = $getAdminGeren['nombre_usuarioAdminGeren'][$i];
                         }else{
-                            if($id_rol == 2) {
+                            if($id_rol == 2){
                                 $retorno['rol'][] = "gerente";
+                                $retorno['id_usuario'][] = $id_usuario;
+                                $retorno['ganancia'][] = $_POST['ganancia']*0.10;
                                 $retorno['porcentaje'][] = 0.10;
-                                $retorno['ganancia'][] = $_POST['ganancia'] * 0.10;
+                                $retorno['nombre_usuario'][] = $getAdminGeren['nombre_usuarioAdminGeren'][$i];
                             }
                         }
                     }
                 }
             }
-        }else{
-            if($datosVendio['id_rolVendio'] == 2){
-                foreach ($getAdminGeren['id_usuarioAdminGeren'] as $i => $id_usuario){
+
+        }else {
+            $datosVendio = $this->administradorModel->getInfoQuienVendio($_POST['id_usuario']);
+            $getAdminGeren = $this->administradorModel->getAdminGeren();
+            if ($datosVendio['id_rolVendio'] == 3) {
+                $retorno['rol'][] = "vendedor";
+                $retorno['porcentaje'][] = 0.30;
+                $retorno['ganancia'][] = $_POST['ganancia'] * 0.30;
+                $retorno['id_usuario'][] = $datosVendio['id_usuarioVendio'];
+                $datosRetorno['id_usuarioVendio'][] = $datosVendio['id_usuarioVendio'];
+                $datosRetorno['id_rolVendio'][] = $datosVendio['id_rolVendio'];
+                foreach ($getAdminGeren['id_usuarioAdminGeren'] as $i => $id_usuario) {
                     $id_rol = $getAdminGeren['id_rolUsuarioAdminGeren'][$i];
                     $nombre = $getAdminGeren['nombre_usuarioAdminGeren'][$i];
-                    if($datosVendio['id_rolVendio'] == 1 && $datosVendio['id_usuarioVendio'] == $id_usuario){
-                        $retorno['rol'][] = "administrdor";
-                        $retorno['porcentaje'][] = 0.80;
-                        $retorno['ganancia'][] = $_POST['ganancia']*0.80;
-                    }else{
-                        if($id_rol == 1){
+                    if ($id_rol == 1 && (isset($datosVendio['id_usuarioRecomendo']) && $id_usuario == $datosVendio['id_usuarioRecomendo'])) {
+                        $retorno['rol'][] = "administrador";
+                        $retorno['id_usuario'][] = $id_usuario;
+                        $retorno['porcentaje'][] = 0.50;
+                        $retorno['nombre_usuario'][] = $getAdminGeren['nombre_usuarioAdminGeren'][$i];
+                        $retorno['ganancia'][] = $_POST['ganancia'] * 0.50;
+                    } else {
+                        if ($id_rol == 1) {
                             $retorno['rol'][] = "administrador";
-                            $retorno['porcentaje'][] = 0.60;
-                            $retorno['ganancia'][] = $_POST['ganancia']*0.60;
-                        }else{
-                            if($datosVendio['id_rolVendio'] == 2 && $datosVendio['id_usuarioVendio'] == $id_usuario){
+                            $retorno['id_usuario'][] = $id_usuario;
+                            $retorno['porcentaje'][] = 0.50;
+                            $retorno['nombre_usuario'][] = $getAdminGeren['nombre_usuarioAdminGeren'][$i];
+                            $retorno['ganancia'][] = $_POST['ganancia'] * 0.50;
+                        } else {
+                            if ($id_rol == 2 && (isset($datosVendio['id_usuarioRecomendo']) && $id_usuario == $datosVendio['id_usuarioRecomendo'])) {
                                 $retorno['rol'][] = "gerente";
-                                $retorno['porcentaje'][] = 0.30;
-                                $retorno['ganancia'][] = $_POST['ganancia']*0.30;
-                            }else{
-                                if($id_rol == 2){
+                                $retorno['nombre_usuario'][] = $getAdminGeren['nombre_usuarioAdminGeren'][$i];
+                                $retorno['porcentaje'][] = 0.20;
+                                $retorno['id_usuario'][] = $id_usuario;
+                                $retorno['ganancia'][] = $_POST['ganancia'] * 0.20;
+                            } else {
+                                if ($id_rol == 2) {
+                                    $retorno['rol'][] = "gerente";
+                                    $retorno['id_usuario'][] = $id_usuario;
+                                    $retorno['nombre_usuario'][] = $getAdminGeren['nombre_usuarioAdminGeren'][$i];
                                     $retorno['porcentaje'][] = 0.10;
-                                    $retorno['ganancia'][] = $_POST['ganancia']*0.10;
+                                    $retorno['ganancia'][] = $_POST['ganancia'] * 0.10;
                                 }
                             }
                         }
                     }
                 }
-            }else{
-                if($datosVendio['id_rolVendio'] == 1){
-                    foreach ($getAdminGeren['id_usuarioAdminGeren'] as $i => $id_usuario){
-                            if($datosVendio['id_rolVendio'] == 1 && $datosVendio['id_usuarioVendio'] == $id_usuario){
-                                $retorno['porcentaje'][] = 0.80;
-                                $retorno['ganancia'][] = $_POST['ganancia']*0.60;
-                            }else{
-                                $retorno['porcentaje'][] = 0.10;
-                                $retorno['ganancia'][] = $_POST['ganancia']*0.20;
+            } else {
+                if ($datosVendio['id_rolVendio'] == 2) {
+                    foreach ($getAdminGeren['id_usuarioAdminGeren'] as $i => $id_usuario) {
+                        $id_rol = $getAdminGeren['id_rolUsuarioAdminGeren'][$i];
+                        $nombre = $getAdminGeren['nombre_usuarioAdminGeren'][$i];
+                        if ($datosVendio['id_rolVendio'] == 1 && $datosVendio['id_usuarioVendio'] == $id_usuario) {
+                            $retorno['rol'][] = "administrdor";
+                            $retorno['id_usuario'][] = $id_usuario;
+                            $retorno['nombre_usuario'][] = $getAdminGeren['nombre_usuarioAdminGeren'][$i];
+                            $retorno['porcentaje'][] = 0.80;
+                            $retorno['ganancia'][] = $_POST['ganancia'] * 0.80;
+                        } else {
+                            if ($id_rol == 1) {
+                                $retorno['rol'][] = "administrador";
+                                $retorno['id_usuario'][] = $id_usuario;
+                                $retorno['porcentaje'][] = 0.60;
+                                $retorno['nombre_usuario'][] = $getAdminGeren['nombre_usuarioAdminGeren'][$i];
+                                $retorno['ganancia'][] = $_POST['ganancia'] * 0.60;
+                            } else {
+                                if ($datosVendio['id_rolVendio'] == 2 && $datosVendio['id_usuarioVendio'] == $id_usuario) {
+                                    $retorno['rol'][] = "gerente";
+                                    $retorno['id_usuario'][] = $id_usuario;
+                                    $retorno['porcentaje'][] = 0.30;
+                                    $retorno['nombre_usuario'][] = $getAdminGeren['nombre_usuarioAdminGeren'][$i];
+                                    $retorno['ganancia'][] = $_POST['ganancia'] * 0.30;
+                                } else {
+                                    if ($id_rol == 2) {
+                                        $retorno['porcentaje'][] = 0.10;
+                                        $retorno['id_usuario'][] = $id_usuario;
+                                        $retorno['nombre_usuario'][] = $getAdminGeren['nombre_usuarioAdminGeren'][$i];
+                                        $retorno['ganancia'][] = $_POST['ganancia'] * 0.10;
+                                    }
+                                }
                             }
                         }
                     }
+                } else {
+                    if ($datosVendio['id_rolVendio'] == 1) {
+                        foreach ($getAdminGeren['id_usuarioAdminGeren'] as $i => $id_usuario) {
+                            if ($datosVendio['id_rolVendio'] == 1 && $datosVendio['id_usuarioVendio'] == $id_usuario) {
+                                $retorno['porcentaje'][] = 0.80;
+                                $retorno['id_usuario'][] = $id_usuario;
+                                $retorno['nombre_usuario'][] = $getAdminGeren['nombre_usuarioAdminGeren'][$i];
+                                $retorno['ganancia'][] = $_POST['ganancia'] * 0.60;
+                            } else {
+                                $retorno['porcentaje'][] = 0.10;
+                                $retorno['id_usuario'][] = $id_usuario;
+                                $retorno['ganancia'][] = $_POST['ganancia'] * 0.20;
+                                $retorno['nombre_usuario'][] = $getAdminGeren['nombre_usuarioAdminGeren'][$i];
+                            }
+                        }
+                    }
+                }
             }
         }
-
-        var_dump($retorno);exit;
-        if($_POST['intermediario'] == 1){
-            $recomendo = $this->administradorModel->getUsuarioRecomendo($_POST['id_intermediario']);
-        }else{
-            $usuariosGanancias = $this->administradorModel->getRolUsuarioVendio($_POST['id_intermediario'],true);
-        }
+        echo json_encode($retorno);
     }
 
 

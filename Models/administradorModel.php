@@ -241,7 +241,7 @@ class administradorModel{
         $query="SELECT * FROM usuarios WHERE id_usuario = $id_usuario";
         $res = mysqli_query($this->con,$query);
         while($row = mysqli_fetch_assoc($res)){
-            if($row['id_rol'] == 3){
+            if($row['id_rol'] == 4){
                 $query2="SELECT u.id_rol AS rol_recomendo, u.id_usuario AS id_usuarioRecomendo, u.id_rol as id_rol 
                         FROM recomendacion_vendedores rv
                         INNER JOIN usuarios u ON rv.id_usuarioRecomendo = u.id_usuario
@@ -252,6 +252,9 @@ class administradorModel{
                     $data['id_rolRecomendo'] = $row2['id_rol'];
                     $data['id_usuarioVendio'] = $row['id_usuario'];
                     $data['id_rolVendio'] = $row['id_rol'];
+                    $data['id_rolRecomendado'] = $row['id_rol'];
+                    $data['nombre_usuario'] = $row['nombre'].' '.$row['apellidos'];
+
                 }
             }else{
                 $data['id_usuarioVendio'] = $row['id_usuario'];

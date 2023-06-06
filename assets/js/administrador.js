@@ -210,28 +210,50 @@ function getprecio(){
             break;
            case 'getGananciasUsuarios':
                console.log(res.nombre_usuario);
-                $('.nombreAdministrador').html(res.nombre_usuario[0]);
-                $('.id_administrador').val(res.id_usuario[0]);
-                $('.gananciaAdministrador').val(res.ganancia[0]);
-               $('.gerente1').html(res.nombre_usuario[1]);
-               $('.id_gerente1').val(res.id_usuario[1]);
-               $('.gananciaGerente1').val(res.ganancia[1]);
-               $('.gerente2').html(res.nombre_usuario[2]);
-               $('.id_gerente2').val(res.id_usuario[2]);
-               $('.gananciaGerente2').val(res.ganancia[2]);
-               if(obj.vendedor == res.id_usuario[0]){
-                   $('.gananciaVendedor').val(res.ganancia[0]);
-               }
-               if(obj.vendedor == res.id_usuario[1]){
-                   $('.gananciaVendedor').val(res.ganancia[1]);
-               }
-               if(obj.vendedor == res.id_usuario[2]){
-                   $('.gananciaVendedor').val(res.ganancia[2]);
-               }
-               if(obj.intermediario > 0){
-                   $('.nombreIntermediario').html(res.nombre_usuario[3]);
-                   $('.gananciaIntermediario').val(res.ganancia[3]);
-                   $('.showhide-intermediario').show();
+               if(obj.intermediario > 0) {
+                   $('.nombreAdministrador').html(res.nombre_usuario[1]);
+                   $('.id_administrador').val(res.id_usuario[1]);
+                   $('.gananciaAdministrador').val(res.ganancia[1]);
+                   $('.gerente1').html(res.nombre_usuario[2]);
+                   $('.id_gerente1').val(res.id_usuario[2]);
+                   $('.gananciaGerente1').val(res.ganancia[2]);
+                   $('.gerente2').html(res.nombre_usuario[3]);
+                   $('.id_gerente2').val(res.id_usuario[3]);
+                   $('.gananciaGerente2').val(res.ganancia[3]);
+                   if (obj.vendedor == res.id_usuario[1]) {
+                       $('.gananciaVendedor').val(res.ganancia[1]);
+                   }
+                   if (obj.vendedor == res.id_usuario[2]) {
+                       $('.gananciaVendedor').val(res.ganancia[2]);
+                   }
+                   if (obj.vendedor == res.id_usuario[3]) {
+                       $('.gananciaVendedor').val(res.ganancia[3]);
+                   }
+                   if (obj.intermediario > 0) {
+                       $('.nombreIntermediario').html(res.nombre_usuario[0]);
+                       $('.gananciaIntermediario').val(res.ganancia[0]);
+                       $('.showhide-intermediario').show();
+                   }
+               }else{
+                   $('.nombreAdministrador').html(res.nombre_usuario[0]);
+                   $('.id_administrador').val(res.id_usuario[0]);
+                   $('.gananciaAdministrador').val(res.ganancia[0]);
+                   $('.gerente1').html(res.nombre_usuario[1]);
+                   $('.id_gerente1').val(res.id_usuario[1]);
+                   $('.gananciaGerente1').val(res.ganancia[1]);
+                   $('.gerente2').html(res.nombre_usuario[2]);
+                   $('.id_gerente2').val(res.id_usuario[2]);
+                   $('.gananciaGerente2').val(res.ganancia[2]);
+                   if (obj.vendedor == res.id_usuario[0]) {
+                       $('.gananciaVendedor').val(res.ganancia[0]);
+                   }
+                   if (obj.vendedor == res.id_usuario[1]) {
+                       $('.gananciaVendedor').val(res.ganancia[1]);
+                   }
+                   if (obj.vendedor == res.id_usuario[2]) {
+                       $('.gananciaVendedor').val(res.ganancia[2]);
+                   }
+
                }
                $('.showhide-ganancias').show();
            break;

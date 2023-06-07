@@ -40,29 +40,10 @@ class administradorModel{
     }
 
     public function saveProductoVendedor($datos){
-      //var_dump($datos['id_usuario_ganancia'][0]);exit;
-      $query = "INSERT INTO productos_vendidos(id_producto,id_usuario,precio,precio_vendido,gananciaProducto,comision,gananciaVendedor,numeroProducto,fecha,id_administrador,admin_ganancia,id_gerente1,gerente1_ganancia,id_gerente2,ganancia2_gerente,id_vendedor1,ven_ganancia1,id_vendedor2,ven_ganancia2,id_vendedor3,ven_ganancia3) VALUES(".$datos['id_producto'].",".$datos['id_usuario'].",'".$datos['precio']."','".$datos['precio_vendido']."','".$datos['gananciaProducto']."','".$datos['comision']."','".$datos['gananciaVendedor']."','".$datos['numeroProducto']."','".$this->fecha."',".$datos['id_usuario_ganancia'][0].",'".$datos['ganancia_total'][0]."',".$datos['id_usuario_ganancia'][1].",'".$datos['ganancia_total'][1]."',".$datos['id_usuario_ganancia'][2].",'".$datos['ganancia_total'][2]."',".$datos['id_usuario_ganancia'][3].",'".$datos['ganancia_total'][3]."',".$datos['id_usuario_ganancia'][4].",'".$datos['ganancia_total'][4]."'
-      ,".$datos['id_usuario_ganancia'][5].",'".$datos['ganancia_total'][5]."')";
-      //echo $query;exit;
-      mysqli_query($this->con,$query);
-      $query_select = "SELECT *, p.nombre as productoNombre, c.nombreCategoria as nombrecategoria FROM productos_vendidos pv INNER JOIN productos p ON p.id_producto = pv.id_producto 
-      INNER JOIN categoria c ON c.id_categoria = p.id_categoria INNER JOIN usuarios u ON u.id_usuario = pv.id_usuario INNER JOIN roles r ON r.id_rol = u.id_rol
-      ORDER BY pv.id_producto_vendido DESC";
-      $respuesta = mysqli_query($this->con,$query_select);    
-      $i = 0;
-      while($row = mysqli_fetch_assoc($respuesta)){
-        $data['rol'][$i] = $row['rol'];
-        $data['usuario'][$i] = $row['nombre'].' '.$row['apellidos'];
-        $data['categoria'][$i] = $row['nombrecategoria'];
-        $data['producto'][$i] = $row['productoNombre'];
-        $data['precio'][$i] = $row['precio'];
-        $data['precio_vendido'][$i] = $row['precio_vendido'];
-        $data['gananciaProducto'][$i] = $row['gananciaProducto'];
-        $data['comision'][$i] = $row['comision'];
-        $data['gananciaVendedor'][$i] = $row['gananciaVendedor'];
-        $data['numeroProducto'][$i] = $row['numeroProducto'];
-        $i++;
-      }
+      $query = "INSERT INTO productos_vendidos (id_producto,id_usuario, value_intermediario, id_intermediario, precio, precio_vendido, gananciaProducto, gananciaVendedor, numeroProducto, id_administrador, gananciaAdministrador, id_gerente1, gananciaGerente1, id_gerente2, gananciaGerente2, gananciaIntermediario)
+                VALUES ('{$datos['id_producto_vendido']}','{$datos['id_usuario']}', '{$datos['value_intermediario']}', '{$datos['id_intermediario_select']}', '{$datos['precio']}', '{$datos['precio_vendido']}', '{$datos['gananciaProducto']}', '{$datos['gananciaVendedor']}', '{$datos['numeroProducto']}', '{$datos['id_administrador']}', '{$datos['gananciaAdminsitrador']}', '{$datos['id_gerente1']}', '{$datos['gananciaGerente1']}', '{$datos['id_gerente2']}', '{$datos['gananciaGerente2']}', '{$datos['gananciaIntermediario']}')";
+        mysqli_query($this->con,$query);
+        $data = $this->getProductosVendidos();
       return $data;
     }
 
@@ -83,25 +64,50 @@ class administradorModel{
        return $data;
     }
 
-    public function getProductosVendidos(){
-      $query_select = "SELECT *, p.nombre as productoNombre, c.nombreCategoria as nombrecategoria FROM productos_vendidos pv INNER JOIN productos p ON p.id_producto = pv.id_producto 
-      INNER JOIN categoria c ON c.id_categoria = p.id_categoria INNER JOIN usuarios u ON u.id_usuario = pv.id_usuario INNER JOIN roles r ON r.id_rol = u.id_rol
-      ORDER BY pv.id_producto_vendido DESC";
+    public function getProductosVendidos($id_usuario = NULL){
+      $query_select = "SELECT pv.*, p.nombre AS nombreProducto, p.precio AS precioComprado, vendedor.nombre AS nombreVendedor, 
+                        vendedor.apellidos AS apellidosVendedor 
+                        FROM productos_vendidos pv 
+                       INNER JOIN productos p ON p.id_producto = pv.id_producto
+                       INNER JOIN usuarios vendedor ON vendedor.id_usuario = pv.id_usuario";
+      if($id_usuario != NULL) {
+          if (!empty($id_usuario)) {
+              $query_select .= " WHERE pv.id_usuario = $id_usuario AND pagado_vend = 0 ORDER BY pv.id_producto_vendido DESC  limit 5";
+          }
+      }
+      //echo $query_select;exit;
       $respuesta = mysqli_query($this->con,$query_select);    
       $i = 0;
-      while($row = mysqli_fetch_assoc($respuesta)){
-        $data['rol'][$i] = $row['rol'];
-        $data['usuario'][$i] = $row['nombre'].' '.$row['apellidos'];
-        $data['categoria'][$i] = $row['nombrecategoria'];
-        $data['producto'][$i] = $row['productoNombre'];
-        $data['precio'][$i] = $row['precio'];
-        $data['precio_vendido'][$i] = $row['precio_vendido'];
-        $data['gananciaProducto'][$i] = $row['gananciaProducto'];
-        $data['comision'][$i] = $row['comision'];
-        $data['gananciaVendedor'][$i] = $row['gananciaVendedor'];
-        $data['numeroProducto'][$i] = $row['numeroProducto'];
-        $i++;
-      }
+      //echo $query_select;exit;
+        if(mysqli_num_rows($respuesta) > 0) {
+            while ($row = mysqli_fetch_assoc($respuesta)) {
+                $data['producto'][$i] = $row['nombreProducto'];
+                $data['precio_comprado'][$i] = $row['precioComprado'];
+                $data['precio_vendido'][$i] = $row['precio_vendido'];
+                $data['ganancia'][$i] = $row['gananciaProducto'];
+                $data['vendedor'][$i] = $row['nombreVendedor'] . ' ' . $row['apellidosVendedor'];
+                $data['ganancia_vendedor'][$i] = $row['gananciaVendedor'];
+                $data['ganancia_admin'][$i] = $row['gananciaAdministrador'];
+                $data['ganancia_geren1'][$i] = $row['gananciaGerente1'];
+                $data['ganancia_geren2'][$i] = $row['gananciaGerente2'];
+                $data['fecha'][$i] = $row['fecha'];
+                $data['resultado'] = 1;
+                $data['numeroProducto'][$i] = $row['numeroProducto'];
+                if($row['numeroProducto'] == 5) {
+                    $data['numProdTotal'] = $row['numeroProducto'];
+                }
+                $i++;
+            }
+            //echo $data['numProdTotal'];exit;
+            if($data['numProdTotal'] == 5){
+                //echo $data['numeroProducto'][0];exit;
+                $total = $data['ganancia_vendedor'][0]+$data['ganancia_vendedor'][1]+$data['ganancia_vendedor'][2]+$data['ganancia_vendedor'][3]+$data['ganancia_vendedor'][4];
+                $data['ganancia5prod'] = $total*0.50;
+            }
+        }else{
+            $data['resultado'] = 0;
+        }
+
       return $data;
     }
 
@@ -131,45 +137,29 @@ class administradorModel{
     }
 
     public function getTitulos(){
-      $query = "SELECT ganancias.*,  
-      admon.nombre AS admonNombre, 
-      admon.apellidos AS admonApellidos,
-      gerente1.nombre AS gerenteNombre1,
-      gerente1.apellidos AS gerenteApellidos1, 
-      gerente2.nombre AS gerenteNombre2,
-      gerente2.apellidos AS gerenteApellidos2, 
-      vendedor1.nombre AS vendedorNombre1, 
-      vendedor1.apellidos AS vendedorApellidos1,
-      vendedor2.nombre AS vendedorNombre2,
-      vendedor2.apellidos AS vendedorApellidos2,
-      vendedor3.nombre AS vendedorNombre3,
-      vendedor3.apellidos AS vendedorApellidos3
-      FROM tabla_titulos_ganancias_usuario ganancias 
-      INNER JOIN usuarios admon ON admon.id_usuario = ganancias.id_usuario_admin
-      INNER JOIN usuarios gerente1 ON gerente1.id_usuario = ganancias.id_usuario_gerent1
-      INNER JOIN usuarios gerente2 ON gerente2.id_usuario = ganancias.id_usuario_gerent2
-      INNER JOIN usuarios vendedor1 ON vendedor1.id_usuario = ganancias.id_vend1
-      INNER JOIN usuarios vendedor2 ON vendedor2.id_usuario = ganancias.id_vend2
-      INNER JOIN usuarios vendedor3 ON vendedor3.id_usuario = ganancias.id_vend3
-      WHERE ganancias.status = 1";
+      $query = "SELECT t.*, admin.nombre AS nombreAdmin, admin.apellidos AS apellidosAdmin,
+                geren1.nombre AS nombreGerente1, geren1.apellidos AS apellidosGerente1,
+                geren2.nombre AS nombreGerente2, geren2.apellidos AS apellidosGerente2
+                FROM cat_titulos t
+                INNER JOIN usuarios admin ON admin.id_usuario = t.id_admin
+                INNER JOIN usuarios geren1 ON geren1.id_usuario = t.id_gerent1
+                INNER JOIN usuarios geren2 ON geren2.id_usuario = t.id_gerent2";
       //echo $query;exit;
       $respuesta = mysqli_query($this->con,$query);
       while($row = mysqli_fetch_assoc($respuesta)){
-        $data['titulo_producto'] = $row['titulo_producto'];
-        $data['titulo_precio'] = $row['titulo_precio'];
-        $data['admonNombre'] = $row['admonNombre'];
-        $data['admonApellidos'] = $row['admonApellidos'];
-        $data['gerenteNombre1'] = $row['gerenteNombre1'];
-        $data['gerenteApellidos1'] = $row['gerenteApellidos1'];
-        $data['gerenteNombre1'] = $row['gerenteNombre1'];
-        $data['gerenteApellidos2'] = $row['gerenteApellidos2'];
-        $data['vendedorNombre1'] = $row['vendedorNombre1'];
-        $data['vendedorApellidos1'] = $row['vendedorApellidos1'];
-        $data['vendedorNombre2'] = $row['vendedorNombre2'];
-        $data['vendedorApellidos2'] = $row['vendedorApellidos2'];
-        $data['vendedorNombre3'] = $row['vendedorNombre3'];
-        $data['vendedorApellidos'] = $row['vendedorApellidos'];
-        
+            $data['titulo_producto'] = $row['producto'];
+            $data['titulo_pre_com'] = $row['precio_comprado'];
+            $data['titulo_pre_vend'] = $row['precio_vendido'];
+            $data['nombre_admin'] = $row['nombreAdmin']." ".$row['apellidosAdmin'];
+            $data['ganancia_admin'] = $row['ganancia_admin'];
+            $data['nombre_geren1'] = $row['nombreGerente1']." ".$row['apellidosGerente1'];
+            $data['ganancia_geren1'] = $row['ganancia_geren1'];
+            $data['nombre_geren2'] = $row['nombreGerente2']." ".$row['apellidosGerente2'];
+            $data['ganancia_geren2'] = $row['ganancia_geren2'];
+            $data['ganancia'] = $row['ganancia_producto'];
+            $data['vendedor'] = $row['Vendedor'];
+            $data['ganancia_vend'] = $row['ganancia_vendedor'];
+            $data['fecha'] = $row['fecha'];
       }
       return $data;
       

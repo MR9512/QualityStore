@@ -22,7 +22,7 @@ class administradorController extends coreController
         $respuesta['productos'] = $this->productosModel->getProductos();
         $respuesta['datos'] = $this->administradorModel->getProductosVendidos();
         $respuesta['usuarios'] = $this->generalesModel->getUsuarios();
-        //$respuesta['titulos'] = $this->administradorModel->getTitulos();
+        $respuesta['titulos'] = $this->administradorModel->getTitulos();
         require_once("Views/templates/header.php");
         require_once("Views/templates/menu.php");
         require_once("Views/administrador/misProductosVendidos.php");
@@ -49,28 +49,7 @@ class administradorController extends coreController
 
     public function saveProductoVendedor()
     {
-        $rol = $this->administradorModel->getRolUsuario($_POST['id_usuario']);
-        foreach ($rol['id_usuario'] as $i => $id_usuarios_ganancias) {
-            if ($_POST['id_usuario'] != $id_usuarios_ganancias) {
-                $_POST['id_usuario_ganancia'][$i] = $id_usuarios_ganancias;
-                if ($rol['id_rol'][$i] == 1) {
-                    $decimal = 0.50;
-                    $_POST['ganancia_total'][$i] = $_POST['gananciaProducto'] * $decimal;
-                }
-                if ($rol['id_rol'][$i] == 2) {
-                    $decimal = 0.30;
-                    $_POST['ganancia_total'][$i] = $_POST['gananciaProducto'] * $decimal;
-                }
-                if ($rol['id_rol'][$i] == 3) {
-                    $decimal = 0.10;
-                    $_POST['ganancia_total'][$i] = $_POST['gananciaProducto'] * $decimal;
-                }
-            } else {
-                $_POST['id_usuario_ganancia'][$i] = 0;
-                $_POST['ganancia_total'][$i] = 0;
-            }
-
-        }
+        //var_dump($_POST);exit;
         $respuesta = $this->administradorModel->saveProductoVendedor($_POST);
         echo json_encode($respuesta);
     }
@@ -234,6 +213,12 @@ class administradorController extends coreController
             }
         }
         echo json_encode($retorno);
+    }
+
+    public function getUsuarioProductos(){
+        $respuesta = $this->administradorModel->getProductosVendidos($_POST['id_usuario']);
+
+        echo json_encode($respuesta);
     }
 
 

@@ -99,7 +99,16 @@ $("#save_producto_vendedor").on("submit",function(){
      peticionAjax(obj);
 
  });
- 
+
+ $('.id_usuario_ventas').change(function(){
+     id_usuario = $(this).val();
+     var obj = {};
+     obj.url = "getUsuarioProductos";
+     obj.type = "POST";
+     obj.data = {id_usuario:id_usuario};
+     obj.accion = "getUsuarioProductos";
+     peticionAjax(obj);
+ });
 
 });
 function getprecio(){
@@ -168,42 +177,43 @@ function getprecio(){
                break;
             case 'saveProductoVendedor':
                var html = '';
-               $.each(res.rol,function(key,rol){
+               $.each(res.producto,function(key,producto){
                   html+='<tr>';
                   html+='<td>';
-                  html+=rol;
+                  html+=producto;
                   html+='</td>';
-                  html+='<td>';
-                  html+=res.usuario[key];
+                  html+='<td style="text-align: center">';
+                  html+=res.precio_comprado[key];
                   html+='</td>';
-                  html+='<td>';
-                  html+=res.categoria[key];
-                  html+='</td>';
-                  html+='<td>';
-                  html+=res.producto[key];
-                  html+='</td>';
-                  html+='<td>';
-                  html+=res.precio[key];
-                  html+='</td>';
-                  html+='<td>';
+                  html+='<td style="text-align: center">';
                   html+=res.precio_vendido[key];
                   html+='</td>';
-                  html+='<td>';
-                  html+=res.gananciaProducto[key];
+                  html+='<td style="text-align: center">';
+                  html+=res.ganancia[key];
                   html+='</td>';
                   html+='<td>';
-                  html+=res.comision[key];
+                  html+=res.vendedor[key];
                   html+='</td>';
-                  html+='<td>';
-                  html+=res.gananciaVendedor[key];
+                  html+='<td style="text-align: center">';
+                  html+=res.ganancia_vendedor[key];
                   html+='</td>';
-                  html+='<td>';
-                  html+=res.numeroProducto[key];
+                  html+='<td style="text-align: center">';
+                  html+=res.ganancia_admin[key];
                   html+='</td>';
+                  html+='<td style="text-align: center">';
+                  html+=res.ganancia_geren1[key];
+                  html+='</td>';
+                  html+='<td style="text-align: center">';
+                  html+=res.ganancia_geren2[key];
+                  html+='</td>';
+                   html+='<td style="text-align: center">';
+                   html+=res.fecha[key];
+                   html+='</td>';
                   html+='</tr>';
                 });
                 $("#table_pagination").html(html);
-                //$("#save_producto_vendedor")[0].reset();
+                $('.select-search').select2();
+                $("#save_producto_vendedor")[0].reset();
             break;
             case 'getProdVend':
                $(".numeroProducto").val(res.numeroProducto);
@@ -257,6 +267,60 @@ function getprecio(){
                }
                $('.showhide-ganancias').show();
            break;
+           case 'getUsuarioProductos':
+               console.log(res);
+               var html = '';
+               if(res.resultado == 1) {
+                   $.each(res.producto, function (key, producto) {
+                       html += '<tr>';
+                       html += '<td>';
+                       html += producto;
+                       html += '</td>';
+                       html += '<td style="text-align: center">';
+                       html += res.precio_comprado[key];
+                       html += '</td>';
+                       html += '<td style="text-align: center">';
+                       html += res.precio_vendido[key];
+                       html += '</td>';
+                       html += '<td style="text-align: center">';
+                       html += res.ganancia[key];
+                       html += '</td>';
+                       html += '<td>';
+                       html += res.vendedor[key];
+                       html += '</td>';
+                       html += '<td style="text-align: center">';
+                       html += res.ganancia_vendedor[key];
+                       html += '</td>';
+                       html += '<td style="text-align: center">';
+                       html += res.ganancia_admin[key];
+                       html += '</td>';
+                       html += '<td style="text-align: center">';
+                       html += res.ganancia_geren1[key];
+                       html += '</td>';
+                       html += '<td style="text-align: center">';
+                       html += res.ganancia_geren2[key];
+                       html += '</td>';
+                       html += '<td style="text-align: center">';
+                       html += res.fecha[key];
+                       html += '</td>';
+                       html += '</tr>';
+                   });
+                   if(res.numProdTotal ==5){
+                       html+='<tr>';
+                       html+='<td colspan="5">';
+                       html+="Ganancia por 5 productos vendidos:";
+                       html+='</td>';
+                       html+='<td colspan="1">';
+                       html+=res.ganancia5prod;
+                       html+='</td>';
+                       html+='</tr>';
+                   }
+               }else{
+                   html+='<td colspan="10"></td>';
+               }
+               $("#table_pagination_vendedor").html(html);
+               $('.select-search').select2();
+               break;
        }
     },
     error: function(xhr, status){

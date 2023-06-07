@@ -1,8 +1,8 @@
 <form method="post" id="save_producto_vendedor">
   <div class="row">
     <div class="col-3">
-    <label for="exampleInputPassword1" name="id_producto" class="addId_producto">Producto</label>
-        <select class="select-search buscarPrecio" onchange="getprecio();" style="width:100%">
+    <label for="exampleInputPassword1"  class="addId_producto">Producto</label>
+        <select class="select-search buscarPrecio" name="id_producto_vendido" onchange="getprecio();" style="width:100%">
         <option>Seleccione:</option>
             <?php
             $productos = $respuesta['productos'];
@@ -47,10 +47,10 @@
     </div>
     <div class="col producto-pasado" style="display: none">
         <label for="exampleInputPassword1" class="form-label">Nombre Intermediario</label>
-        <select class="select-search id_intermediario" name="id_intermediario" style="width:100%">
+        <select class="select-search id_intermediario" name="id_intermediario_select" style="width:100%">
+            <option ></option>
             <?php
             $usuarios = $respuesta['usuarios'];
-            //var_dump($productos['id_producto']);exit;
             foreach ($usuarios['id_usuario'] as $i => $usuario){
                 ?>
                 <option value="<?= $usuario ?>"><?= $usuarios['nombre_usuario'][$i] ?></option>
@@ -99,21 +99,22 @@
     <div class="row showhide-ganancias" style="display: none">
         <div class="col">
             <label for="exampleInputPassword1" class="form-label nombreAdministrador"></label>
-            <input type="hidden" class="id_administrador" /><br>
+            <input type="hidden" name="id_administrador" class="id_administrador" /><br>
             <input type="text" name="gananciaAdminsitrador" class="gananciaAdministrador deshabilitar">
         </div>
         <div class="col">
             <label for="exampleInputPassword1" class="form-label gerente1"></label>
-            <input type="hidden" class="id_gerente1" /><br>
+            <input type="hidden" name="id_gerente1" class="id_gerente1" /><br>
             <input type="text" name="gananciaGerente1" class="gananciaGerente1">
         </div>
         <div class="col">
             <label for="exampleInputPassword1" class="form-label gerente2"></label>
-            <input type="hidden" class="id_gerente2" /><br>
+            <input type="hidden" name="id_gerente2" class="id_gerente2" /><br>
             <input type="text" name="gananciaGerente2" class="gananciaGerente2" />
         </div>
         <div class="col showhide-intermediario" style="display: none">
             <label for="exampleInputPassword1" class="form-label nombreIntermediario"></label><br>
+            <input type="hidden" name="id_intermediario" class="" >
             <input type="text" name="gananciaIntermediario" class="gananciaIntermediario deshabilitar">
         </div>
         <div class="col showhide-intermediario" style="display: none">
@@ -126,6 +127,7 @@
 <br />
 <br />
 <br />
+<!--
 <table class="table tablePaginator">
   <thead>
     <tr>
@@ -182,19 +184,77 @@
 <br />
 <br />
 <br />
-    <table>
-      <thead>
+-->
+    <table class="table tablePaginator">
+      <thead style="font-size: 15px; text-align: center">
         <th scope="col"><?= $respuesta['titulos']['titulo_producto'] ?></th>
-        <th scope="col"><?= $respuesta['titulos']['titulo_precio'] ?></th>
-        <th scope="col"><?= $respuesta['titulos']['admonNombre'].' '.$respuesta['titulos']['admonApellidos'] ?></th>
-        <th scope="col"><?= $respuesta['titulos']['gerenteNombre1'].' '.$respuesta['titulos']['gerenteApellidos1'] ?></th>
-        <th scope="col"><?= $respuesta['titulos']['gerenteNombre2'].' '.$respuesta['titulos']['gerenteApellidos2'] ?></th>
-        <th scope="col"><?= $respuesta['titulos']['vendedorNombre1'].' '.$respuesta['titulos']['vendedorApellidos1'] ?></th>
-        <th scope="col"><?= $respuesta['titulos']['vendedorNombre2'].' '.$respuesta['titulos']['vendedorApellidos2'] ?></th>
-        <th scope="col"><?= $respuesta['titulos']['vendedorNombre3'].' '.$respuesta['titulos']['vendedorApellidos3'] ?></th>
-    </thead>
-    <tbody id="tabla_ganancias">
+        <th scope="col"><?= $respuesta['titulos']['titulo_pre_com'] ?></th>
+        <th scope="col"><?= $respuesta['titulos']['titulo_pre_vend'] ?></th>
+        <th scope="col"><?= $respuesta['titulos']['ganancia'] ?></th>
+        <th scope="col"><?= $respuesta['titulos']['vendedor'] ?></th>
+        <th scope="col"><?= $respuesta['titulos']['ganancia_vend'] ?></th>
+        <th scope="col"><?= $respuesta['titulos']['nombre_admin'] ?></th>
+        <!--<th scope="col"><?= $respuesta['titulos']['ganancia_admin'] ?></th>-->
+        <th scope="col"><?= $respuesta['titulos']['nombre_geren1'] ?></th>
+        <!--<th scope="col"><?= $respuesta['titulos']['ganancia_geren1'] ?></th>-->
+        <th scope="col"><?= $respuesta['titulos']['nombre_geren2'] ?></th>
+        <!--<th scope="col"><?= $respuesta['titulos']['ganancia_geren2'] ?></th>-->
+        <th scope="col"><?= $respuesta['titulos']['fecha'] ?></th>
 
+      </thead>
+    <tbody id="table_pagination" >
+        <?php
+        $proVend = $respuesta['datos'];
+        foreach ($proVend['producto'] as $i => $productoVendido){ ?>
+            <tr>
+                <td><?= $productoVendido ?></td>
+                <td style="text-align: center"><?= $proVend['precio_comprado'][$i] ?></td>
+                <td style="text-align: center"><?= $proVend['precio_vendido'][$i] ?></td>
+                <td style="text-align: center"><?= $proVend['ganancia'][$i] ?></td>
+                <td ><?= $proVend['vendedor'][$i] ?></td>
+                <td style="text-align: center"><?= $proVend['ganancia_vendedor'][$i] ?></td>
+                <td style="text-align: center"><?= $proVend['ganancia_admin'][$i] ?></td>
+                <td style="text-align: center"><?= $proVend['ganancia_geren1'][$i] ?></td>
+                <td style="text-align: center"><?= $proVend['ganancia_geren2'][$i] ?></td>
+                <td style="text-align: center"><?= $proVend['fecha'][$i] ?></td>
+            </tr>
+    <?php } ?>
     </tbody>
     </table>
 
+<br><br><br>
+<div class="col producto-pasado">
+    <label for="exampleInputPassword1" class="form-label">Nombre del Vendedor</label>
+    <select class="select-search id_usuario_ventas" name="id_usuario_ventas" style="width:100%">
+        <option ></option>
+        <?php
+        $usuarios = $respuesta['usuarios'];
+        foreach ($usuarios['id_usuario'] as $i => $usuario){
+            ?>
+            <option value="<?= $usuario ?>"><?= $usuarios['nombre_usuario'][$i] ?></option>
+            <?php
+        }
+        ?>
+    </select>
+</div>
+<br><br><br>
+<table class="table tablePaginator">
+    <thead style="font-size: 15px; text-align: center">
+    <th scope="col"><?= $respuesta['titulos']['titulo_producto'] ?></th>
+    <th scope="col"><?= $respuesta['titulos']['titulo_pre_com'] ?></th>
+    <th scope="col"><?= $respuesta['titulos']['titulo_pre_vend'] ?></th>
+    <th scope="col"><?= $respuesta['titulos']['ganancia'] ?></th>
+    <th scope="col"><?= $respuesta['titulos']['vendedor'] ?></th>
+    <th scope="col"><?= $respuesta['titulos']['ganancia_vend'] ?></th>
+    <th scope="col"><?= $respuesta['titulos']['nombre_admin'] ?></th>
+    <!--<th scope="col"><?= $respuesta['titulos']['ganancia_admin'] ?></th>-->
+    <th scope="col"><?= $respuesta['titulos']['nombre_geren1'] ?></th>
+    <!--<th scope="col"><?= $respuesta['titulos']['ganancia_geren1'] ?></th>-->
+    <th scope="col"><?= $respuesta['titulos']['nombre_geren2'] ?></th>
+    <!--<th scope="col"><?= $respuesta['titulos']['ganancia_geren2'] ?></th>-->
+    <th scope="col"><?= $respuesta['titulos']['fecha'] ?></th>
+
+    </thead>
+    <tbody id="table_pagination_vendedor" >
+    </tbody>
+</table>

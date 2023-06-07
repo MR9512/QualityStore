@@ -313,6 +313,65 @@ function getprecio(){
                        html+='<td colspan="1">';
                        html+=res.ganancia5prod;
                        html+='</td>';
+                       html+='<td colspan="1">';
+                       html+='<input type="button" value="PAGAR" class="pagar" onclick="pagarVendedor();">';
+                       html+='</td>';
+                       html+='</tr>';
+                   }
+               }else{
+                   html+='<td colspan="10"></td>';
+               }
+               $("#table_pagination_vendedor").html(html);
+               $('.select-search').select2();
+               break;
+           case 'updatePagarVendedor':
+               var html = '';
+               if(res.resultado == 1) {
+                   $.each(res.producto, function (key, producto) {
+                       html += '<tr>';
+                       html += '<td>';
+                       html += producto;
+                       html += '</td>';
+                       html += '<td style="text-align: center">';
+                       html += res.precio_comprado[key];
+                       html += '</td>';
+                       html += '<td style="text-align: center">';
+                       html += res.precio_vendido[key];
+                       html += '</td>';
+                       html += '<td style="text-align: center">';
+                       html += res.ganancia[key];
+                       html += '</td>';
+                       html += '<td>';
+                       html += res.vendedor[key];
+                       html += '</td>';
+                       html += '<td style="text-align: center">';
+                       html += res.ganancia_vendedor[key];
+                       html += '</td>';
+                       html += '<td style="text-align: center">';
+                       html += res.ganancia_admin[key];
+                       html += '</td>';
+                       html += '<td style="text-align: center">';
+                       html += res.ganancia_geren1[key];
+                       html += '</td>';
+                       html += '<td style="text-align: center">';
+                       html += res.ganancia_geren2[key];
+                       html += '</td>';
+                       html += '<td style="text-align: center">';
+                       html += res.fecha[key];
+                       html += '</td>';
+                       html += '</tr>';
+                   });
+                   if(res.numProdTotal ==5){
+                       html+='<tr>';
+                       html+='<td colspan="5">';
+                       html+="Ganancia por 5 productos vendidos:";
+                       html+='</td>';
+                       html+='<td colspan="1">';
+                       html+=res.ganancia5prod;
+                       html+='</td>';
+                       html+='<td colspan="1">';
+                       html+='<input type="button" value="PAGAR" class="pagar" onclick="pagarVendedor();">';
+                       html+='</td>';
                        html+='</tr>';
                    }
                }else{
@@ -327,4 +386,14 @@ function getprecio(){
     
     }
    });
+}
+
+function pagarVendedor(){
+      var id_usuario=$('.id_usuario_ventas').val();
+    var obj = {};
+    obj.url = "updatePagarVendedor";
+    obj.type = "POST";
+    obj.data = {id_usuario:id_usuario};
+    obj.accion = "updatePagarVendedor";
+    peticionAjax(obj);
 }

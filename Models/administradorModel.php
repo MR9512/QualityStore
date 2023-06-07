@@ -266,5 +266,12 @@ class administradorModel{
         }
         return $data;
     }
+
+    public function updatePagarVendedor($id_usuario){
+        $query="UPDATE productos_vendidos SET pagado_vend = 1 WHERE id_usuario = $id_usuario";
+        mysqli_query($this->con,$query);
+        $data = $this->getProductosVendidos($id_usuario);
+        return $data;
+    }
 }
 ?>

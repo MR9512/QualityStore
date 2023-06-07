@@ -221,6 +221,11 @@ class administradorController extends coreController
         echo json_encode($respuesta);
     }
 
+    public function updatePagarVendedor(){
+        $respuesta = $this->administradorModel->updatePagarVendedor($_POST['id_usuario']);
+        echo json_encode($respuesta);
+    }
+
 
 }
 

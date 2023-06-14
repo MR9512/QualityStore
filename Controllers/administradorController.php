@@ -62,7 +62,120 @@ class administradorController extends coreController
 
     public function getGananciasUsuarios()
     {
-        //var_dump($_POST);exit;
+        $getAdminGeren = $this->administradorModel->getAdminGeren();
+        if($_POST['intermediario'] == 1){
+            $intermediario = $this->administradorModel->getInfoIntermediario2($_POST['id_intermediario']);
+
+            if($intermediario['id_rolRecomendo'] == 1) {
+                $ganancia['id_usuario'][] = $intermediario['id_usuario'];
+                $ganancia['nombre_usuario'][] = $intermediario['nombre'];
+                $ganancia['ganancia'][] = $_POST['ganancia'] * 0.30;
+            }else{
+                $ganancia['nombre_usuario'][] = $intermediario['nombre'];
+                $ganancia['ganancia'][] = $_POST['ganancia'] * 0.20;
+            }
+                foreach ($getAdminGeren['id_usuarioAdminGeren'] AS $i => $id_usuario){
+                    $id_rol = $getAdminGeren['id_rolUsuarioAdminGeren'][$i];
+                    if($id_rol == 1 && $intermediario['id_rolRecomendo'] == $id_rol){
+                        $ganancia['id_usuario'][] = $id_usuario;
+                        $ganancia['nombre_usuario'][] = $getAdminGeren['nombre_usuarioAdminGeren'][$i];
+                        $ganancia['ganancia'][] = $_POST['ganancia'] * 0.50;
+                    }else{
+                        if($id_rol == 1){
+                            $ganancia['id_usuario'][] = $id_usuario;
+                            $ganancia['nombre_usuario'][] = $getAdminGeren['nombre_usuarioAdminGeren'][$i];
+                            $ganancia['ganancia'][] = $_POST['ganancia'] * 0.60;
+                        }else{
+                            if($id_rol == 2 && $intermediario['id_rolRecomendo'] == $id_rol){
+                                $ganancia['id_usuario'][] = $id_usuario;
+                                $ganancia['nombre_usuario'][] = $getAdminGeren['nombre_usuarioAdminGeren'][$i];
+                                $ganancia['ganancia'][] = $_POST['ganancia'] * 0.20;
+                            }else{
+                                if($id_rol == 2 ){
+                                    $ganancia['id_usuario'][] = $id_usuario;
+                                    $ganancia['nombre_usuario'][] = $getAdminGeren['nombre_usuarioAdminGeren'][$i];
+                                    $ganancia['ganancia'][] = $_POST['ganancia'] * 0.10;
+                                }
+                            }
+                        }
+                    }
+                }
+                //var_dump($ganancia);
+        }else{
+            $infoUsuario = $this->administradorModel->getInfoUsuario($_POST['id_usuario']);
+
+            if($infoUsuario['id_rol'] == 3){
+                $ganancia['nombre_usuario'][] = $infoUsuario['nombre'];
+                $ganancia['id_usuario'][] = $_POST['id_usuario'];
+                $ganancia['ganancia'][] = $_POST['ganancia'] * 0.20;
+            }
+            if($infoUsuario['id_rol'] == 4){
+                $ganancia['nombre_usuario'][] = $infoUsuario['nombre'];
+                $ganancia['id_usuario'][] = $_POST['id_usuario'];
+                $ganancia['ganancia'][] = $_POST['ganancia'] * 0.20;
+            }
+            foreach ($getAdminGeren['id_usuarioAdminGeren'] AS $i => $id_usuario){
+                $id_rol = $getAdminGeren['id_rolUsuarioAdminGeren'][$i];
+                if($id_rol == 1 && $infoUsuario['id_rol'] == $id_rol){
+                    $ganancia['nombre_usuario'][] = $getAdminGeren['nombre_usuarioAdminGeren'][$i];
+                    $ganancia['id_usuario'][] = $id_usuario;
+                    $ganancia['ganancia'][] = $_POST['ganancia'] * 0.80;
+                }else{
+                    if($id_rol == 1){
+                        $ganancia['nombre_usuario'][] = $getAdminGeren['nombre_usuarioAdminGeren'][$i];
+                        $ganancia['id_usuario'][] = $id_usuario;
+                        $ganancia['ganancia'][] = $_POST['ganancia'] * 0.60;
+                    }else{
+                        if($id_rol == 2 && $infoUsuario['id_rol'] == $id_rol){
+                            $ganancia['nombre_usuario'][] = $getAdminGeren['nombre_usuarioAdminGeren'][$i];
+                            $ganancia['id_usuario'][] = $id_usuario;
+                            $ganancia['ganancia'][] = $_POST['ganancia'] * 0.30;
+                        }else{
+                            if($id_rol == 2 ){
+                                $ganancia['nombre_usuario'][] = $getAdminGeren['nombre_usuarioAdminGeren'][$i];
+                                $ganancia['id_usuario'][] = $id_usuario;
+                                $ganancia['ganancia'][] = $_POST['ganancia'] * 0.10;
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
+        $retorno = $ganancia;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /*var_dump($_POST);exit;
         if($_POST['intermediario'] == 1){
             $datosInter = $this->administradorModel->getInfoQuienVendio($_POST['id_intermediario']);
             //var_dump($datosInter);exit;
@@ -211,7 +324,7 @@ class administradorController extends coreController
                     }
                 }
             }
-        }
+        }*/
         echo json_encode($retorno);
     }
 

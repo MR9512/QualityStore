@@ -273,5 +273,52 @@ class administradorModel{
         $data = $this->getProductosVendidos($id_usuario);
         return $data;
     }
+
+    public function getIntermediario2($id_usuario){
+        $query = "SELECT u.*,rv.*, recom.id_rol AS id_rolRecomendo FROM usuarios u 
+                LEFT JOIN recomendacion_vendedores rv ON rv.id_usuarioRecomendado = u.id_usuario
+                LEFT JOIN usuarios recom ON recom.id_usuario = rv.id_usuarioRecomendo
+                WHERE u.id_usuario = $id_usuario";
+        $res = mysqli_query($this->con,$query);
+        while($row = mysqli_fetch_assoc($res)){
+            $data['id_usuarioRecomendado'] = $row['id_usuario'];
+            $data['id_usuarioRecomendo'] = (empty($row['id_usuarioRecomendo'])) ? "0":$row['id_usuarioRecomendo'];
+            $data['id_rolRecomendado'] = $row['id_rol'];
+            $data['id_rolRecomendo'] = (empty($row['id_rolRecomendo'])) ? "0":$row['id_rolRecomendo'];
+        }
+        return $data;
+    }
+
+    public function getInfoIntermediario2($id_usuario){
+        $query="SELECT u.*,rv.*, recomendo.id_rol AS id_rolRecomendo FROM usuarios u 
+        LEFT JOIN recomendacion_vendedores rv ON rv.id_usuarioRecomendado = u.id_usuario
+        LEFT JOIN usuarios recomendo ON recomendo.id_usuario = rv.id_usuarioRecomendo
+        WHERE u.id_usuario = $id_usuario";
+        //echo $query;exit;
+        $res = mysqli_query($this->con,$query);
+        while($row = mysqli_fetch_assoc($res)){
+            $data['id_usuarioRecomendado'] = $row['id_usuario'];
+            $data['id_usuarioRecomendo'] = (empty($row['id_usuarioRecomendo'])) ? "0":$row['id_usuarioRecomendo'];
+            $data['id_rolRecomendado'] = $row['id_rol'];
+            $data['id_rolRecomendo'] = (empty($row['id_rolRecomendo'])) ? "0":$row['id_rolRecomendo'];
+            $data['id_usuario_vendedor'] = $row['id_usuario'];
+            $data['id_rol_vendedor'] = $row['id_rol'];
+            $data['nombre'] = $row['nombre'].' '.$row['apellidos'];
+            $data['id_usuario'] = $row['id_usuario'];
+        }
+        return $data;
+    }
+
+    public function getInfoUsuario($id_usuario){
+        $query="SELECT * FROM usuarios u 
+        WHERE u.id_usuario = $id_usuario";
+        //echo $query;exit;
+        $res = mysqli_query($this->con,$query);
+        while($row = mysqli_fetch_assoc($res)){
+            $data['id_rol'] = $row['id_rol'];
+            $data['nombre'] = $row['nombre'].' '.$row['apellidos'];
+        }
+        return $data;
+    }
 }
 ?>

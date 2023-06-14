@@ -213,7 +213,7 @@ function getprecio(){
                 });
                 $("#table_pagination").html(html);
                 $('.select-search').select2();
-                $("#save_producto_vendedor")[0].reset();
+                //$("#save_producto_vendedor")[0].reset();
             break;
             case 'getProdVend':
                $(".numeroProducto").val(res.numeroProducto);

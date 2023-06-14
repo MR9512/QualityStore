@@ -316,6 +316,7 @@ class administradorModel{
         $res = mysqli_query($this->con,$query);
         while($row = mysqli_fetch_assoc($res)){
             $data['id_rol'] = $row['id_rol'];
+            $data['id_usuario'] = $row['id_usuario'];
             $data['nombre'] = $row['nombre'].' '.$row['apellidos'];
         }
         return $data;

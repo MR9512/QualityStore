@@ -1,7 +1,7 @@
 <input type="hide" value="<?= URLSYS ?>" class="urlSys"/>
 <!-- Button trigger modal -->
 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-  Agregar nuevo producto
+  Agregar nuevo usuario
 </button>
 
 <!-- Modal -->
@@ -9,65 +9,56 @@
   <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Agregar un nuevo producto</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Agregar un nuevo usuario</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
       <form class="row g-3 needs-validation" novalidate id="formulario">
   <div class="col-md-6">
     <label for="inputCity" class="form-label">Nombre</label>
-    <input type="text" name="nombre" class="form-control nombre" id="inputCity" required>
-    <div class="error_nombre" style="display:none;color:red">
+    <input type="text" name="nombreUsuario" class="form-control nombreUsuario" id="inputCity" required>
+    <div class="error_nombreUsuario" style="display:none;color:red">
       Favor de ingresar un nombre
     </div>
   </div>
   <div class="col-md-6">
-    <label for="inputCity" class="form-label">Precio</label>
-    <input type="text" name="precio" class="form-control precio" id="inputCity">
-    <div class="error_precio" style="display:none;color:red">
-      Favor de ingresar un precio
+    <label for="inputCity" class="form-label">Apellidos</label>
+    <input type="text" name="apellidosUsuario" class="form-control apellidosUsuario" id="inputCity">
+    <div class="error_apellidosUsuario" style="display:none;color:red">
+      Favor de ingresar los apellidos
     </div>
   </div>
   <div class="col-md-6">
-    <label for="inputCity" class="form-label">Precio Anterior</label>
-    <input type="text" name="precio_anterior" class="form-control precioAnterior" id="inputCity">
-    <div class="error_precio" style="display:none;color:red">
-      Favor de ingresar un precio
+    <label for="inputCity" class="form-label">Correo</label>
+    <input type="text" name="correoUsuario" class="form-control correoUsuario" id="inputCity">
+    <div class="error_correoUsuario" style="display:none;color:red">
+      Favor de ingresar un correo
     </div>
   </div>
   <div class="col-md-6">
-    <label for="inputCity" class="form-label">Descripción Larga</label>
-    <input type="text" name="descripcionLarga" class="form-control descL" id="inputCity">
-    <div class="error_descL" style="display:none;color:red">
-    Favor de ingresar una descripción larga
+    <label for="inputCity" class="form-label">Contraseña</label>
+    <input type="text" name="passwordUsuario" class="form-control passwordUsuario" id="inputCity">
+    <div class="error_passwordUsuario" style="display:none;color:red">
+    Favor de ingresar una contraseña
     </div>
   </div>
   <div class="col-md-6">
-    <label for="inputCity" class="form-label">Descripción Corta</label>
-    <input type="text" name="descripcionCorta" class="form-control descC" id="inputCity">
-    <div class="error_descC" style="display:none;color:red">
-    Favor de ingresar una descripción corta
+    <label for="inputCity" class="form-label">Telefono</label>
+    <input type="text" name="telefonoUsuario" class="form-control telefonoUsuario" id="inputCity">
+    <div class="error_telefonoUsuario" style="display:none;color:red">
+    Favor de ingresar un número telefonico
     </div>
   </div>
   <div class="col-md-6">
-  <label for="formFile" class="form-label">Cargar imagen</label>
-  <input class="form-control" name="cargarImg" class="form-control imagen" type="file" id="image">
-  <div class="error_imagen" style="display:none;color:red">
-   Favor de cargar una imagen
+  <label for="formFile" class="form-label">Rol</label>
+  <select name="id_rol" name="id_rol" class="form-control id_rol" placeholder="Rol:">
+                <?php foreach($resp['id_rol'] as $i=>$id_rol){ ?>
+			<option value="<?= $id_rol ?>"><?= $resp['nombreRol'][$i] ?></option>
+            <?php } ?>
+		     </select>
+  <div class="error_rolUsuario" style="display:none;color:red">
+   Favor de ingresar un rol
   </div>
-  </div>
-  <div class="col-md-6">
-    <label for="inputCity" class="form-label">URL de MercadoLibre</label>
-    <input type="text" name="urlML"class="form-control urlML" id="inputCity">
-    <div class="error_urlML" style="display:none;color:red">
-   Favor de ingresar la URL de MercadoLibre
-  </div>
-  </div>
-  <div class="col-md-6">
-    <label for="inputCity" class="form-label">URL de Sams</label>
-    <input type="text" name="urlSMS"class="form-control urlSMS" id="inputCity">
-    <div class="error_urlSMS" style="display:none;color:red">
-   Favor de ingresar la URL de Sams
   </div>
   </div>
       </div>
@@ -85,29 +76,29 @@
   <thead>
     <tr>
       <th scope="col">Nombre</th>
-      <th scope="col">Precio</th>
-      <th scope="col">Categoria</th>
-      <th scope="col">Descripcion Corta</th>
-      <th scope="col">Imagen</th>
+      <th scope="col">Apellidos</th>
+      <th scope="col">Correo</th>
+      <th scope="col">Contraseña</th>
+      <th scope="col">Telefono</th>
+      <th scope="col">Rol</th>
       <th scope="col">Acciones</th>
     </tr>
   </thead>
   <tbody>
    <?php
-     foreach($respuesta["id_producto"] as $i=>$id_producto){
+     foreach($respuesta["id_usuario"] as $i=>$id_usuario){
     ?>  
-    <tr class="producto_<?= $id_producto ?>">
+    <tr class="usuario_<?= $id_usuario ?>">
        <td><?= $respuesta["nombre"][$i]?></td>
-       <td><?= $respuesta["precio"][$i]?></td>
-       <td><?= $respuesta["categoria"][$i] ?></td>
-       <td><?= $respuesta["desc_corta"][$i]?></td>
-       <td >
-        <img src="<?= URLSYS.$respuesta["url_imagen"][$i] ?>" width="20%" class="verImagen" data-producto="<?= $id_producto ?>"></td>
+       <td><?= $respuesta["apellidos"][$i]?></td>
+       <td><?= $respuesta["correo"][$i] ?></td>
+       <td><?= $respuesta["password"][$i]?></td>
+       <td><?= $respuesta["telefono"][$i]?></td>
+       <td><?= $respuesta["rol"][$i]?></td>
        <td width="8%">  
-       <i class="bi bi-eye ver ver_<?= $id_producto ?>" data-producto="<?= $id_producto ?>"></i>&nbsp;&nbsp; 
-       <i class="bi bi-pencil editar editar_<?= $id_producto ?>" data-producto="<?= $id_producto ?>"></i>&nbsp;&nbsp; 
-       <i class="bi bi-trash eliminar eliminar_<?= $id_producto ?>" data-producto="<?= $id_producto ?>"></i>
-       
+       <i class="bi bi-eye ver ver_<?= $id_usuario ?>" data-usuario="<?= $id_usuario ?>"></i>&nbsp;&nbsp; 
+       <i class="bi bi-pencil editar editar_<?= $id_usuario ?>" data-usuario="<?= $id_usuario ?>"></i>&nbsp;&nbsp; 
+       <i class="bi bi-trash eliminar eliminar_<?= $id_usuario ?>" data-usuario="<?= $id_usuario ?>"></i>
        </td>
     </tr> 
      <?php } ?>
@@ -118,96 +109,43 @@
   <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Agregar un nuevo producto</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Agregar un nuevo usuario</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
       <form class="row g-3 needs-validation" novalidate id="formulario">
   <div class="col-md-6">
     <label for="inputCity" class="form-label">Nombre</label>
-    <input type="text" name="verNombre" class="form-control verNombre" id="inputCity" disabled>
-    <div class="error_nombre" style="display:none;color:red">
-      Favor de ingresar un nombre
-    </div>
+    <input type="text" name="verNombreUsuario" class="form-control verNombreUsuario" id="inputCity" disabled>
   </div>
   <div class="col-md-6">
-    <label for="inputCity" class="form-label">Precio</label>
-    <input type="text" name="verPrecio" class="form-control verPrecio" id="inputCity" disabled>
-    <div class="error_precio" style="display:none;color:red">
-      Favor de ingresar un precio
-    </div>
+    <label for="inputCity" class="form-label">Apellidos</label>
+    <input type="text" name="verApellidosUsuario" class="form-control verApellidosUsuario" id="inputCity" disabled>
   </div>
   <div class="col-md-6">
-    <label for="inputCity" class="form-label">Precio Anterior</label>
-    <input type="text" name="verPrecioAnterior" class="form-control verPrecioAnterior" id="inputCity" disabled>
+    <label for="inputCity" class="form-label">Correo</label>
+    <input type="text" name="verCorreoUsuario" class="form-control verCorreoUsuario" id="inputCity" disabled>
   </div>
   <div class="col-md-6">
-    <label for="inputCity" class="form-label">Ahorro</label>
-    <input type="text" name="verAhorro" class="form-control verAhorro" id="inputCity" disabled>
+    <label for="inputCity" class="form-label">Contraseña</label>
+    <input type="text" name="verContrasenaUsuario" class="form-control verContrasenaUsuario" id="inputCity" disabled>
   </div>
   <div class="col-md-6">
-    <label for="inputCity" class="form-label">Descripción Larga</label>
-    <input type="text" name="verDescL" class="form-control verDescL" id="inputCity" disabled>
-    <div class="error_descL" style="display:none;color:red">
-    Favor de ingresar una descripción larga
-    </div>
+    <label for="inputCity" class="form-label">Telefono</label>
+    <input type="text" name="verTelefonoUsuario" class="form-control verTelefonoUsuario" id="inputCity" disabled>
   </div>
   <div class="col-md-6">
-    <label for="inputCity" class="form-label">Descripción Corta</label>
-    <input type="text" name="verDescC" class="form-control verDescC" id="inputCity" disabled>
-    <div class="error_descC" style="display:none;color:red">
-    Favor de ingresar una descripción corta
-    </div>
+    <label for="inputCity" class="form-label">Rol</label>
+    <input type="text" name="verRolUsuario" class="form-control verRolUsuario" id="inputCity" disabled>
   </div>
-  <div class="col-md-6">
-  <label for="formFile" class="form-label">Cargar imagen</label>
-  <img width="20%" class="form-control verImagen">
-  <div class="error_imagen" style="display:none;color:red">
-   Favor de cargar una imagen
-  </div>
-  </div>
-  <div class="col-md-6">
-    <label for="inputCity" class="form-label">URL de MercadoLibre</label>
-    <a class="form-control verUrlML" target="_blank">Ir a Mercado Libre</a>
-    <div class="error_urlML" style="display:none;color:red">
-   Favor de ingresar la URL de MercadoLibre
-  </div>
-  </div>
-  <div class="col-md-6">
-    <label for="inputCity" class="form-label">URL de Sams</label>
-    <a class="form-control verUrlSams" target="_blank">Ir a Sams</a>
-    <div class="error_urlSMS" style="display:none;color:red">
-   Favor de ingresar la URL de Sams
-     </div>
-     </div>
-     <div class="col-md-6">
-    <label for="inputCity" class="form-label">Nombre del Vendedor</label>
-    <input type="text" name="editarUsuario"class="form-control verUsuario" id="inputCity" disabled>
-    <div class="error_urlSMS" style="display:none;color:red">
-     Favor de ingresar el nombre del Vendedor
-     </div>
-     </div>
      <div class="col-md-6">
     <label for="inputCity" class="form-label">Status</label>
     <input type="text" name="editarStatus" class="form-control verStatus" id="inputCity" disabled>
-    <div class="error_urlSMS" style="display:none;color:red">
-     Favor de ingresar el status
-     </div>
-     </div>
      <div class="col-md-6">
     <label for="inputCity" class="form-label">Fecha de Subida</label>
     <input type="text" name="editarFecha"class="form-control verFecha" id="inputCity" disabled>
-    <div class="error_urlSMS" style="display:none;color:red">
-    Favor de ingresar la Fecha de Subida
-     </div>
-     </div>
-     <div class="col-md-6">
-    <label for="inputCity" class="form-label">Categoria</label>
-    <input type="text" name="editarCategoria"class="form-control verCategoria" id="inputCity" disabled>
-    <div class="error_urlSMS" style="display:none;color:red">
-     Favor de ingresar la categoria
-     </div>
-     </div>
+
+
      </form>
       </div>
       <div class="modal-footer">

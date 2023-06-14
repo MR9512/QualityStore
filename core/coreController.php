@@ -4,6 +4,7 @@
        require_once("Models/generalesModel.php");  
        $generalesModel = new generalesModel();
        $this->categoria = $generalesModel->getCategoria();
+       $this->roles = $generalesModel->getRoles();
     }
     
  }

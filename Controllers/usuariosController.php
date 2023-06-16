@@ -7,7 +7,7 @@
         require_once("Models/usuariosModel.php");
         $this->usuariosModel = new usuariosModel();
         $this->generalesModel = new generalesModel();
-        $this->js = "assets/js/listado.js"; //Editar esta parte
+        $this->js = "assets/js/listadoUsuario.js"; //Editar esta parte
     }
 
     public function ver(){

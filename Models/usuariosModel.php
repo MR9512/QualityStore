@@ -48,28 +48,22 @@
     }
 
     public function getUsuario($id){
-       $query = "SELECT * , IF(productos.status = 1,'Activo','Inactivo') as estatus, usuarios.nombre as nombreAdministrador,
-       productos.nombre as productoNombre 
-       FROM productos INNER JOIN categoria ON productos.id_categoria = categoria.id_categoria
-       INNER JOIN usuarios on usuarios.id_usuario = productos.id_usuario WHERE id_producto = $id";
+       $query = "SELECT * , IF(usuarios.status = 1,'Activo','Inactivo') as estatus, usuarios.nombre as nombreAdministrador,
+       roles.rol as rolNombre 
+       FROM usuarios INNER JOIN roles ON usuarios.id_rol = roles.id_rol
+       WHERE id_usuario = $id";
        $res = mysqli_query($this->con, $query);
        if(mysqli_num_rows($res) > 0){
         while($row = mysqli_fetch_assoc($res)){
-        $data["id_producto"] = $row["id_producto"];
-        $data["nombre"] = $row["productoNombre"];
-        $data["precio"] = $row["precio"];
-        $data["desc_large"] = $row["desc_large"];
-        $data["desc_corta"] = $row["desc_corta"];
-        $data["url_imagen"] = $row["url_imagen"];
-        $data["url_mercado"] = $row["url_mercado"];
-        $data["url_sams"] = $row["url_sams"];
-        $data["id_usuario"] = $row["id_usuario"];
-        $data["status"] = $row["estatus"];
-        $data["fecha_subida"]= $row["fecha_subida"];
-        $data["categoria"]= $row["nombreCategoria"];
-        $data["nombreAdministrador"]= $row["nombreAdministrador"];
-        $data["id_categoria"] = $row["id_categoria"];
-        $data["precio_anterior"] = $row["precio_anterior"];
+            $data["rol"] = $row["rol"];
+            $data["id_usuario"] = $row["id_usuario"];
+            $data["nombre"] = $row["nombre"];
+            $data["apellidos"] = $row["apellidos"];
+            $data["correo"] = $row["correo"];
+            $data["password"] = $row["password"];
+            $data["telefono"] = $row["telefono"];
+            $data["status"] = $row["status"];
+            $data["fecha_altaUsuario"] = $row["fecha_altaUsuario"];
     }
        }else{
          $data["error"] = "No se encontraron registros";

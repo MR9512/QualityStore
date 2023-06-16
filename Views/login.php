@@ -26,6 +26,7 @@
             <input type="password" name="password" class="form-control password" id="password" placeholder="Password">
             <input type="text" name="telefono" class="form-control telefono" id="telefono" placeholder="Telefono">
             <select name="id_rol" class="form-control id_rol" placeholder="Rol:">
+            <option>Seleccione:</option>
                 <?php foreach($resp['id_rol'] as $i=>$id_rol){ ?>
 			<option value="<?= $id_rol ?>"><?= $resp['rol'][$i] ?></option>
             <?php } ?>

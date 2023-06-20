@@ -36,43 +36,48 @@
   </a>
 </div>
 
-<script>
-  $(document).ready(function(){
-    $('.carousel').carousel({
-      interval: 5000 // Cambio de imagen automático después de 5 segundos
-    });
-  });
-</script>
 <br>
 <br>
 <br>
 <br>
 <br>
-
-<?php foreach($respuesta["id_producto"] as $i=>$id_producto){
-  if(($i == 0) || ($i%5==0)){
-?>
-<div class="">
-  <div class="row">
-<?php } ?>
-    <div class="col">
+<?php
+$total_productos = count($respuesta["id_producto"]);
+foreach ($respuesta["id_producto"] as $i => $id_producto) {
+  if ($i % 5 === 0) {
+    if ($i > 0) {
+      echo '</div>'; // Cierra la fila anterior si no es la primera
+    }
+    echo '<div class="row">'; // Inicia una nueva fila
+  }
+  ?>
+  <div class="col">
+    <?php if ($i < $total_productos) { ?>
       <table>
         <tr>
-             <td><img src="<?= URLSYSIMG.$respuesta["url_imagen"][$i] ?>" width="40%" /></td>
+          <td><img src="<?= URLSYSIMG . $respuesta["url_imagen"][$i] ?>" width="40%" /></td>
         </tr>
         <tr>
-             <td>Nombre: <?= $respuesta["nombre"][$i] ?><br />
+          <td>Nombre: <?= $respuesta["nombre"][$i] ?><br />
             Descripción: <?= $respuesta["desc_corta"][$i] ?><br />
-                 Precio: <?= $respuesta["precio"][$i] ?><br /></td>
-        </tr> 
+            Precio: <?= $respuesta["precio"][$i] ?><br /></td>
+        </tr>
       </table>
       <a href="<?= URLSYS ?>productos/ver?producto=<?= $respuesta["id_producto"][$i] ?>">Ver más</a>
-    </div>
-  <?php 
-    //if($i%5==0){
-  ?>
-
-<?php } 
-//} ?> 
+    <?php } ?>
   </div>
-</div> 
+  <?php
+}
+if ($total_productos % 5 !== 0) {
+  $celdas_vacias = 5 - ($total_productos % 5);
+  for ($i = 0; $i < $celdas_vacias; $i++) {
+    ?>
+    <div class="col"></div>
+  <?php
+  }
+}
+if (!empty($respuesta["id_producto"])) {
+  echo '</div>'; // Cierra la última fila si hay productos
+}
+?>
+</div>

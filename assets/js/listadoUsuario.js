@@ -10,12 +10,12 @@ $(document).ready(function(){
     $("#infoModal").modal("show");
   });
   $(".editar").click(function(){
-   id_producto = $(this).data("producto");
+   id_usuario = $(this).data("usuario");
    var obj = {};
-   obj.url = "getProducto";
-   obj.data = {id_producto:id_producto};
+   obj.url = "getUsuario";
+   obj.data = {id_usuario:id_usuario};
    obj.type = "POST";
-   obj.accion = "updateProducto";
+   obj.accion = "updateUsuario";
    peticionAjax(obj);
    $("#updateModal").modal("show");
   });
@@ -170,6 +170,15 @@ $(document).ready(function(){
       dataType: "json",
       success: function(res){
          switch(obj.accion){
+             case 'updateUsuario':
+                 console.log(res);
+                 $(".editarNombreUsuario").val(res.nombre);
+                 $(".editarApellidosUsuario").val(res.apellidos);
+                 $(".editarCorreoUsuario").val(res.correo);
+                 $(".editarContrasenaUsuario").val(res.password);
+                 $(".editarTelefonoUsuario").val(res.telefono);
+
+                 break;
             case "getUsuario":
               $(".verNombreUsuario").val(res.nombre);
               $(".verApellidosUsuario").val(res.apellidos);

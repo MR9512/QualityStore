@@ -1,4 +1,4 @@
-<input type="hide" value="<?= URLSYS ?>" class="urlSys"/>
+<input type="hide" value="<?= URLSYSIMG ?>" class="urlSys"/>
 <!-- Button trigger modal -->
 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
   Agregar nuevo producto
@@ -70,6 +70,18 @@
    Favor de ingresar la URL de Sams
   </div>
   </div>
+        <div class="col-md-6">
+
+          <label for="inputCity" class="form-label">Categoria</label>
+          <select name="id_categoria" class="form-control id_categoria" placeholder="Categoria:">
+            <option>Seleccione:</option>
+            <?php
+            $categoria = $this->categorias;
+            foreach($categoria['id_categoria'] as $i=> $id_cat){ ?>
+              <option value="<?= $id_cat ?>"><?= $categoria['nombre'][$i] ?></option>
+            <?php } ?>
+          </select>
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -102,7 +114,7 @@
        <td><?= $respuesta["categoria"][$i] ?></td>
        <td><?= $respuesta["desc_corta"][$i]?></td>
        <td >
-        <img src="<?= URLSYS.$respuesta["url_imagen"][$i] ?>" width="20%" class="verImagen" data-producto="<?= $id_producto ?>"></td>
+        <img src="<?= URLSYSIMG.$respuesta["url_imagen"][$i] ?>" width="20%" class="verImagen" data-producto="<?= $id_producto ?>"></td>
        <td width="8%">  
        <i class="bi bi-eye ver ver_<?= $id_producto ?>" data-producto="<?= $id_producto ?>"></i>&nbsp;&nbsp; 
        <i class="bi bi-pencil editar editar_<?= $id_producto ?>" data-producto="<?= $id_producto ?>"></i>&nbsp;&nbsp; 

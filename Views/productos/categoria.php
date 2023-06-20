@@ -9,12 +9,12 @@
   <tr>
  <?php } ?>
   <td>
-  <img src="<?= URLSYS.$respuesta["url_imagen"][$i] ?>" width="40%" /><br>
+  <img src="<?= URLSYSIMG.$respuesta["url_imagen"][$i] ?>" width="40%" /><br>
   <b> <?= $respuesta["nombre"][$i] ?></b><br />
-  <b>Descripción:</b> <?= $respuesta["desc_corta"][$i] ?><br />
-  <b>Precio Anterior:</b> $<?= $respuesta["precio_anterior"][$i] ?><br/>
-  <b>Ahorro:</b> $<?= $respuesta["precio_anterior"][$i]-$respuesta["precio"][$i]?><br />
-  <b>Precio:</b> $<?= $respuesta["precio"][$i] ?><br />
+  <b>Descripción:</b> <?= @$respuesta["desc_corta"][$i] ?><br />
+  <b>Precio Anterior:</b> $<?= @$respuesta["precio_anterior"][$i] ?><br/>
+  <b>Ahorro:</b> $<?= @$respuesta["precio_anterior"][$i]-$respuesta["precio"][$i]?><br />
+  <b>Precio:</b> $<?= @$respuesta["precio"][$i] ?><br />
   <a href="<?= URLSYS ?>productos/ver?producto=<?= $respuesta["id_producto"][$i] ?>">Ver más</a>
   </td>
  <?php 

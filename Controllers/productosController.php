@@ -8,11 +8,13 @@
         require_once("Models/generalesModel.php");
         $this->productosModel = new productosModel();
         $this->generalesModel = new generalesModel();
+        $this->categorias = $this->generalesModel->getCategoria();
         $this->js = "assets/js/listado.js";
     }
 
     public function ver(){
         $respuesta = $this->productosModel->getProducto($_GET["producto"]);
+        //var_dump($respuesta);
         require_once("Views/templates/header.php");
         require_once("Views/templates/menu.php");
         require_once("Views/productos/ver.php");
@@ -21,6 +23,8 @@
 
     public function listado(){
       $respuesta = $this->productosModel->getProductos();
+
+      //var_dump($categoria);exit;
       require_once("Views/templates/header.php");
       require_once("Views/templates/menu.php");
       require_once("Views/productos/listado.php");

@@ -1,4 +1,4 @@
-<input type="hide" value="<?= URLSYS ?>" class="urlSys"/>
+<input type="hidden" value="<?= URLSYS ?>" class="urlSys"/>
 <!-- Button trigger modal -->
 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
   Agregar nuevo usuario

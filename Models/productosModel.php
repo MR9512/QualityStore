@@ -55,11 +55,12 @@
     public function getProducto($id){
        $query = "SELECT * , IF(productos.status = 1,'Activo','Inactivo') as estatus, usuarios.nombre as nombreAdministrador,
        productos.nombre as productoNombre 
-       FROM productos INNER JOIN categoria ON productos.id_categoria = categoria.id_categoria
-       INNER JOIN usuarios on usuarios.id_usuario = productos.id_usuario WHERE id_producto = $id";
+       FROM productos LEFT JOIN categoria ON productos.id_categoria = categoria.id_categoria
+       LEFT JOIN usuarios on usuarios.id_usuario = productos.id_usuario WHERE id_producto = $id";
        $res = mysqli_query($this->con, $query);
        if(mysqli_num_rows($res) > 0){
         while($row = mysqli_fetch_assoc($res)){
+            $data['id_rol'] = $row['id_rol'];
         $data["id_producto"] = $row["id_producto"];
         $data["nombre"] = $row["productoNombre"];
         $data["precio"] = $row["precio"];
@@ -84,7 +85,7 @@
 
     public function saveProducto($datos)
     {
-        $query = "INSERT INTO productos(nombre,precio,precio_anterior,desc_large,desc_corta,url_imagen,url_mercado,url_sams,status,fecha_subida) VALUES ('" . $datos['nombre'] . "','" . $datos['precio'] . "','" . $datos['precio_anterior'] . "','" . $datos['descripcionLarga'] . "','" . $datos['descripcionCorta'] . "','','" . $datos['urlML'] . "','" . $datos['urlSMS'] . "',1,'" . $this->fecha . "')";
+        $query = "INSERT INTO productos(nombre,precio,precio_anterior,desc_large,desc_corta,url_imagen,url_mercado,url_sams,id_usuario,status,fecha_subida,id_categoria) VALUES ('" . $datos['nombre'] . "','" . $datos['precio'] . "','" . $datos['precio_anterior'] . "','" . $datos['descripcionLarga'] . "','" . $datos['descripcionCorta'] . "','','" . $datos['urlML'] . "',1,'" . $datos['urlSMS'] . "',1,'" . $this->fecha . "',".$datos['id_categoria'].")";
         mysqli_query($this->con, $query);
         $id = mysqli_insert_id($this->con);
         $queryUpdate = "UPDATE productos SET url_imagen = '".mysqli_insert_id($this->con).'.'.$datos["extensionImagen"]."' WHERE id_producto =".mysqli_insert_id($this->con);

@@ -30,7 +30,7 @@
 
       public function getUsuario(){
         $respuesta = $this->usuariosModel->getUsuario($_POST["id_usuario"]);
-        $respuesta["listaUsuarios"] = $this->generalesModel->getRol();
+        $respuesta["listaUsuarios"] = $this->generalesModel->getRoles();
         echo json_encode($respuesta);
       }
 

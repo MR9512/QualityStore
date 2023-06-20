@@ -63,6 +63,7 @@
             $data["password"] = $row["password"];
             $data["telefono"] = $row["telefono"];
             $data["status"] = $row["status"];
+            $data['id_rol'] = $row['id_rol'];
             $data["fecha_altaUsuario"] = $row["fecha_altaUsuario"];
     }
        }else{

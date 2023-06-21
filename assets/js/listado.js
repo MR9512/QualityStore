@@ -248,6 +248,7 @@ function peticionAjax(obj){
               $("#mensajeSistema").modal("show");
               $(".contenidoSistema").html(res.respuesta);
               break;
+              
        }
     },
     error: function(xhr, status){

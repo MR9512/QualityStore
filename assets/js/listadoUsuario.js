@@ -20,13 +20,13 @@ $(document).ready(function(){
    $("#updateModal").modal("show");
   });
   $(".eliminar").click(function(){
-    id_producto = $(this).data("producto");
+    id_usuario = $(this).data("usuario");
     var obj = {};
-    obj.id_producto = id_producto;
-    obj.url = "deleteProducto";
-    obj.data = {producto:id_producto};
+    obj.id_usuario = id_usuario;
+    obj.url = "deleteUsuario";
+    obj.data = {id_usuario:id_usuario};
     obj.type = "POST";
-    obj.accion = "deleteProducto";
+    obj.accion = "deleteUsuario";
     peticionAjax(obj);
    });
   $("#formulario").on("submit",function(){
@@ -242,6 +242,12 @@ $(document).ready(function(){
                 $("#mensajeSistema").modal("show");
                 $(".contenidoSistema").html(res.respuesta);
                 break;
+
+             case "deleteUsuario":
+                 $(".usuario_"+obj.id_usuario).hide();
+                 $("#mensajeSistema").modal("show");
+                 $(".contenidoSistema").html(res.respuesta);
+                 break;
          }
       },
       error: function(xhr, status){

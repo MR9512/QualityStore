@@ -41,7 +41,7 @@
       }
     
       public function deleteUsuario(){
-        $respuesta = $this->usuariosModel->deleteUsuario($_POST["usuario"]);
+        $respuesta = $this->usuariosModel->deleteUsuario($_POST["id_usuario"]);
         $resp["respuesta"] = 'Usuario eliminado correctamente';
         echo json_encode($resp);
       }

@@ -89,7 +89,7 @@
     }
 
     public function deleteUsuario($id_usuario){
-        $query = "DELETE FROM productos WHERE id_producto = $id_producto";
+        $query = "UPDATE usuarios SET status = 0 WHERE id_usuario = $id_usuario";
         mysqli_query($this->con, $query);
         return true;
     }

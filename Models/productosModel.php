@@ -42,6 +42,7 @@
                $data["id_usuario"][$i] = $row["id_usuario"];
                $data["status"][$i] = $row["status"];
                $data["fecha_subida"][$i] = $row["fecha_subida"];
+               $data["producto"][$i] = $row["nombre"];
                $i++;
            }
                $data["valor"] = 1;

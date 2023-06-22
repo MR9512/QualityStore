@@ -68,8 +68,8 @@ class administradorModel{
       $query_select = "SELECT pv.*, p.nombre AS nombreProducto, p.precio AS precioComprado, vendedor.nombre AS nombreVendedor, 
                         vendedor.apellidos AS apellidosVendedor 
                         FROM productos_vendidos pv 
-                       INNER JOIN productos p ON p.id_producto = pv.id_producto
-                       INNER JOIN usuarios vendedor ON vendedor.id_usuario = pv.id_usuario";
+                       LEFT JOIN productos p ON p.id_producto = pv.id_producto
+                       LEFT JOIN usuarios vendedor ON vendedor.id_usuario = pv.id_usuario";
       if($id_usuario != NULL) {
           if (!empty($id_usuario)) {
               $query_select .= " WHERE pv.id_usuario = $id_usuario AND pagado_vend = 0 ORDER BY pv.id_producto_vendido DESC  limit 5";

@@ -205,7 +205,8 @@
     <tbody id="table_pagination" >
         <?php
         $proVend = $respuesta['datos'];
-        foreach ($proVend['producto'] as $i => $productoVendido){ ?>
+        if($proVend == NULL){
+        foreach (@$proVend['producto'] as $i => $productoVendido){ ?>
             <tr>
                 <td><?= $productoVendido ?></td>
                 <td style="text-align: center"><?= $proVend['precio_comprado'][$i] ?></td>
@@ -218,7 +219,13 @@
                 <td style="text-align: center"><?= $proVend['ganancia_geren2'][$i] ?></td>
                 <td style="text-align: center"><?= $proVend['fecha'][$i] ?></td>
             </tr>
-    <?php } ?>
+    <?php }
+        }else{ ?>
+            <tr>
+                <td colspan="10">No se encontraron registros</td>
+            </tr>
+            <?php
+        }?>
     </tbody>
     </table>
 

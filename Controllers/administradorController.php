@@ -5,6 +5,7 @@ class administradorController extends coreController
 {
     public function __construct()
     {
+        parent::__construct();
         require_once("Models/administradorModel.php");
         require_once("Models/generalesModel.php");
         require_once("Models/productosModel.php");

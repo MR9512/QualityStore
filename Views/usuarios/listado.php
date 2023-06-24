@@ -79,6 +79,7 @@
       <th scope="col">Nombre</th>
       <th scope="col">Apellidos</th>
       <th scope="col">Rol</th>
+      <th scope="col">Estatus</th>
       <th scope="col">Acciones</th>
     </tr>
   </thead>
@@ -90,6 +91,7 @@
        <td><?= $respuesta["nombre"][$i]?></td>
        <td><?= $respuesta["apellidos"][$i]?></td>
        <td><?= $respuesta["rol"][$i]?></td>
+      <td class="<?= $respuesta['colorStatus'][$i] ?>"><?= $respuesta['nombreStatus'][$i] ?></td>
        <td width="8%">  
        <i class="bi bi-eye ver ver_<?= $id_usuario ?>" data-usuario="<?= $id_usuario ?>"></i>&nbsp;&nbsp; 
        <i class="bi bi-pencil editar editar_<?= $id_usuario ?>" data-usuario="<?= $id_usuario ?>"></i>&nbsp;&nbsp; 

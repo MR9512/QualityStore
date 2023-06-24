@@ -72,7 +72,7 @@
           <br>
           <label for="exampleInputPassword1" class="form-label">precio vendido</label>
 
-          <input type="text" name="precio_vendido" class="precio_vendido">
+          <input type="text" name="precio_vendido" onchange="getGanancias()" class="precio_vendido">
       </div>
       <div class="col">
           <br>

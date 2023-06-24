@@ -397,3 +397,27 @@ function pagarVendedor(){
     obj.accion = "updatePagarVendedor";
     peticionAjax(obj);
 }
+
+function getGanancias(){
+    var gananciaProducto;
+    gananciaProducto = parseFloat($('.precio_vendido').val()) - parseFloat($('.precio_actual').val());
+    $('.gananciaProducto').val(gananciaProducto);
+    id_usuario = $('.buscarId_usuario').val();
+    ganancia = gananciaProducto;
+    intermediario = $('input[name="value_intermediario"]').val();
+    if(intermediario == 1){
+        id_intermediario = $('.id_intermediario').val()
+    }else{
+        id_intermediario = 0;
+    }
+
+    var obj = {};
+    obj.intermediario = id_intermediario;
+    obj.vendedor = id_usuario;
+    obj.url = "getGananciasUsuarios";
+    obj.type = "POST";
+    obj.data = {id_usuario:id_usuario,ganancia:ganancia,intermediario:intermediario,id_intermediario:id_intermediario};
+    obj.accion = "getGananciasUsuarios";
+    peticionAjax(obj);
+
+}

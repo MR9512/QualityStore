@@ -11,7 +11,7 @@
     }
 
     public function getUsuarios($condicion = null, $rol = null){
-        $query = "SELECT * FROM usuarios INNER JOIN roles on usuarios.id_rol = roles.id_rol";
+        $query = "SELECT *, IF(usuarios.status = 1,'Activo','Inactivo') as nombreStatus, IF(usuarios.status = 1,'bg-success','bg-warning') as colorStatus FROM usuarios INNER JOIN roles on usuarios.id_rol = roles.id_rol";
         if($condicion != null || $rol != null){
            $query.= " WHERE"; 
         }
@@ -37,6 +37,8 @@
                $data["telefono"][$i] = $row["telefono"];
                $data["status"][$i] = $row["status"];
                $data["fecha_altaUsuario"][$i] = $row["fecha_altaUsuario"];
+               $data['nombreStatus'][$i] = $row['nombreStatus'];
+               $data['colorStatus'][$i] = $row['colorStatus'];
                $i++;
            }
                $data["valor"] = 1;

@@ -212,7 +212,7 @@
             echo '<input type="hidden" class="valor_recorrido" value="0" >';
         }
 
-        if($proVend == NULL){
+        if(!empty($respuesta['datos'])){
         foreach (@$proVend['producto'] as $i => $productoVendido){ ?>
             <tr>
                 <td><?= $productoVendido ?></td>

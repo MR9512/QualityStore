@@ -1,7 +1,8 @@
 $(document).ready(function(){
     $('.deshabilitar').prop('readonly', true);
-    if($('.valor_recorrido').val() == 0) {
-        $('.select-search').select2();
+    $('.select-search').select2();
+    if($('.valor_recorrido').val() == 1) {
+
           $('.tablePaginator').DataTable({
             "language": {
               "decimal": "",

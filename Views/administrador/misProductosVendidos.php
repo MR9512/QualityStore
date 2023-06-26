@@ -203,8 +203,15 @@
 
       </thead>
     <tbody id="table_pagination" >
+
         <?php
         $proVend = $respuesta['datos'];
+        if(!empty($respuesta['datos'])){
+            echo '<input type="hidden" class="valor_recorrido" value="1" >';
+        }else{
+            echo '<input type="hidden" class="valor_recorrido" value="0" >';
+        }
+
         if($proVend == NULL){
         foreach (@$proVend['producto'] as $i => $productoVendido){ ?>
             <tr>

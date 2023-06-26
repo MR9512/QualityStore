@@ -95,6 +95,8 @@ class administradorModel{
                 $data['numeroProducto'][$i] = $row['numeroProducto'];
                 if($row['numeroProducto'] == 5) {
                     $data['numProdTotal'] = $row['numeroProducto'];
+                }else{
+                    $data['numProdTotal'] = 1;
                 }
                 $i++;
             }

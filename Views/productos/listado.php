@@ -1,4 +1,4 @@
-<input type="hide" value="<?= URLSYSIMG ?>" class="urlSys"/>
+<input type="hidden" value="<?= URLSYSIMG ?>" class="urlSys"/>
 <!-- Button trigger modal -->
 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
   Agregar nuevo producto
@@ -162,7 +162,7 @@
   </div>
   <div class="col-md-6">
   <label for="formFile" class="form-label">Ver imagen</label>
-  <img width="20%" class="form-control verImagen">
+  <img width="20%" class="form-control verImagenModal">
   </div>
   <div class="col-md-6">
     <label for="inputCity" class="form-label">URL de MercadoLibre</label>
@@ -173,20 +173,16 @@
     <a class="form-control verUrlSams" target="_blank">Ir a Sams</a>
      </div>
      <div class="col-md-6">
-    <label for="inputCity" class="form-label">Nombre del Vendedor</label>
-    <input type="text" name="editarUsuario"class="form-control verUsuario" id="inputCity" disabled>
-     </div>
-     <div class="col-md-6">
     <label for="inputCity" class="form-label">Status</label>
-    <input type="text" name="editarStatus" class="form-control verStatus" id="inputCity" disabled>
+    <input type="text" name="verStatus" class="form-control verStatus" id="inputCity" disabled>
      </div>
      <div class="col-md-6">
     <label for="inputCity" class="form-label">Fecha de Subida</label>
-    <input type="text" name="editarFecha"class="form-control verFecha" id="inputCity" disabled>
+    <input type="text" name="verFecha"class="form-control verFecha" id="inputCity" disabled>
      </div>
      <div class="col-md-6">
     <label for="inputCity" class="form-label">Categoria</label>
-    <input type="text" name="editarCategoria"class="form-control verCategoria" id="inputCity" disabled>
+    <input type="text" name="verCategoria"class="form-control verCategoria" id="inputCity" disabled>
      </div>
      </form>
       </div>
@@ -231,7 +227,7 @@
   </div>
   <div class="col-md-6">
   <label for="formFile" class="form-label">Cargar imagen</label>
-  <img width="20%" class="form-control editarImagen" name="cargarImg" type="file" id="image">
+  <img width="20%" class="form-control editarImagen" name="editarImagen" type="file" id="image">
   </div>
   <div class="col-md-6">
     <label for="inputCity" class="form-label">URL de MercadoLibre</label>
@@ -240,10 +236,6 @@
   <div class="col-md-6">
     <label for="inputCity" class="form-label">URL de Sams</label>
     <input name="editarUrlSams" class="form-control editarUrlSams">
-     </div>
-     <div class="col-md-6">
-    <label for="inputCity" class="form-label">Nombre del Vendedor</label>
-    <input type="text" name="editarUsuario"class="form-control editarUsuario" id="inputCity">
      </div>
      <div class="col-md-6">
     <label for="inputCity" class="form-label">Status</label>

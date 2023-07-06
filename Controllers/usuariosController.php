@@ -5,9 +5,10 @@
     public function __construct(){
         parent::__construct();
         require_once("Models/usuariosModel.php");
+        require_once("Models/generalesModel.php");
         $this->usuariosModel = new usuariosModel();
         $this->generalesModel = new generalesModel();
-        $this->js = "assets/js/listadoUsuario.js"; //Editar esta parte
+        $this->js = "assets/js/listadoUsuario.js";
     }
 
     public function ver(){
@@ -20,7 +21,6 @@
 
     public function listado(){
       $respuesta = $this->usuariosModel->getUsuarios();
-      $resp = $this->generalesModel->getRoles();
       require_once("Views/templates/header.php");
       require_once("Views/templates/menu.php");
       require_once("Views/usuarios/listado.php");

@@ -85,7 +85,7 @@
     }
     
     public function updateUsuario($datos){
-        $query = "UPDATE productos SET nombre = '".$datos["editarNombre"]."', precio = '".$datos["editarPrecio"]."', precio_anterior = '".$datos["editarPrecioAnterior"]."',desc_large = '".$datos["editarDescL"]."',desc_corta = '".$datos["editarDescC"]."',url_mercado = '".$datos["editarUrlML"]."',url_sams = '".$datos["editarUrlSams"]."',status = '".$datos["editarStatus"]."', fecha_subida = '".$this->fecha."', id_categoria = '".$datos["editarCategoria"]."' WHERE id_producto =".$datos["id_producto"];
+        $query = "UPDATE usuarios SET nombre = '".$datos["editarNombreUsuario"]."', apellidos = '".$datos["editarApellidosUsuario"]."', correo = '".$datos["editarCorreoUsuario"]."',password = '".$datos["editarContrasenaUsuario"]."',telefono = '".$datos["editarTelefonoUsuario"]."',status = '".$datos["editarStatusUsuario"]."', fecha_altaUsuario = '".$this->fecha."', id_rol = '".$datos["editarRolUsuario"]."' WHERE id_usuario =".$datos["id_usuario"];
         mysqli_query($this->con, $query);
         return true;
     }

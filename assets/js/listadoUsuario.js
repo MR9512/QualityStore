@@ -32,49 +32,43 @@ $(document).ready(function(){
   $("#formulario").on("submit",function(){
     event.preventDefault();
     var formulario = $("#formulario").serialize();
-    if($(".nombre").val() == ""){
-      $(".error_nombre").show();
+    if($(".nombreUsuario").val() == ""){
+      $(".error_nombreUsuario").show();
    }else{
-     $(".error_nombre").hide();
+     $(".error_nombreUsuario").hide();
    }
   
-   if($(".precio").val() == ""){
-     $(".error_precio").show();
+   if($(".apellidosUsuario").val() == ""){
+     $(".error_apellidosUsuario").show();
    }else{
-     $(".error_precio").hide();
+     $(".error_apellidosUsuario").hide();
    }
   
-   if($(".precioAnterior").val() == ""){
-    $(".error_precioAnterior").show();
+   if($(".correoUsuario").val() == ""){
+    $(".error_correoUsuario").show();
   }else{
-    $(".error_precioAnterior").hide();
+    $(".error_correoUsuario").hide();
   }
   
-   if($(".descL").val() == ""){
-     $(".error_descL").show();
+   if($(".passwordUsuario").val() == ""){
+     $(".error_passwordUsuario").show();
    }else{
-     $(".error_descL").hide();
+     $(".error_passwordUsuario").hide();
    }
   
-   if($(".descC").val() == ""){
-     $(".error_descC").show();
+   if($(".telefonoUsuario").val() == ""){
+     $(".error_telefonoUsuario").show();
    }else{
-     $(".error_descC").hide();
+     $(".error_telefonoUsuario").hide();
    }
   
-   if($(".urlML").val() == ""){
-     $(".error_urlML").show();
+   if($(".id_rol").val() == ""){
+     $(".error_rolUsuario").show();
    }else{
-     $(".error_urlML").hide();
+     $(".error_rolUsuario").hide();
    }
   
-   if($(".urlSMS").val() == ""){
-     $(".error_urlSMS").show();
-   }else{
-     $(".error_urlSMS").hide();
-   }
-  
-   if($(".nombre").val() == null || $(".precio").val() == null || $(".precioAnterior").val() == null || $(".descL").val() == null || $(".descC").val() == null || $(".urlML").val() == null || $(".urlSMS").val() == null){
+   if($(".nombreUsuario").val() == null || $(".apellidosUsuario").val() == null || $(".correoUsuario").val() == null || $(".passwordUsuario").val() == null || $(".telefonoUsuario").val() == null || $(".id_rol").val() == null){
     return false;
    }
     var formData = new FormData(this);
@@ -82,7 +76,7 @@ $(document).ready(function(){
           formData.append('file',files);
           var datos = $('#formulario').serialize();
     $.ajax({
-      url: 'insertarProducto',
+      url: 'insertarUsuario',
       type: 'post',
       data: formData,datos,
       contentType: false,
@@ -99,66 +93,12 @@ $(document).ready(function(){
   $("#actualizarFormulario").on("submit",function(){
     event.preventDefault();
     var formulario = $("#actualizarFormulario").serialize();
-     if($(".editarNombre").val() == ""){
-       $(".error_nombre").show();
-    }else{
-      $(".error_nombre").hide();
-    }
-  
-    if($(".editarPrecio").val() == ""){
-      $(".error_precio").show();
-    }else{
-      $(".error_precio").hide();
-    }
-  
-    if($(".editarPrecioAnterior").val() == ""){
-      $(".error_precioAnterior").show();
-    }else{
-      $(".error_precioAnterior").hide();
-    }
-  
-    if($(".editarDescL").val() == ""){
-      $(".error_descL").show();
-    }else{
-      $(".error_descL").hide();
-    }
-  
-    if($(".editarDescC").val() == ""){
-      $(".error_descC").show();
-    }else{
-      $(".error_descC").hide();
-    }
-  
-    if($(".editarUrlML").val() == ""){
-      $(".error_urlML").show();
-    }else{
-      $(".error_urlML").hide();
-    }
-  
-    if($(".editarUrlSMS").val() == ""){
-      $(".error_urlSMS").show();
-    }else{
-      $(".error_urlSMS").hide();
-    }
-  
-    if($(".editarNombre").val() == "" || $(".editarPrecio").val() == "" || $(".editarPrecioAnterior").val() == "" || $(".editarDescL").val() == "" || $(".editarDescC").val() == "" || $(".editarUrlML").val() == "" || $(".editarUrlSMS").val() == ""){
-      
-    }
-    var formData = new FormData(this);
-          var files = $('#image')[0].files[0];
-          formData.append('file',files);
-          var datos = $('#formulario').serialize();
-    $.ajax({
-      url: 'updateProducto',
-      type: 'post',
-      data: formData,datos,
-      contentType: false,
-      cache:false,
-      processData: false,
-      success: function(response) {
-          
-      }
-  });
+      var obj = {};
+      obj.url = "updateUsuario";
+      obj.data = formulario;
+      obj.type = "POST";
+      obj.accion = "";
+      peticionAjax(obj);  
   });
   }); 
   
@@ -170,15 +110,6 @@ $(document).ready(function(){
       dataType: "json",
       success: function(res){
          switch(obj.accion){
-             case 'updateUsuario':
-                 console.log(res);
-                 $(".editarNombreUsuario").val(res.nombre);
-                 $(".editarApellidosUsuario").val(res.apellidos);
-                 $(".editarCorreoUsuario").val(res.correo);
-                 $(".editarContrasenaUsuario").val(res.password);
-                 $(".editarTelefonoUsuario").val(res.telefono);
-
-                 break;
             case "getUsuario":
               $(".verNombreUsuario").val(res.nombre);
               $(".verApellidosUsuario").val(res.apellidos);
@@ -188,7 +119,7 @@ $(document).ready(function(){
               $(".verRolUsuario").val(res.rol);
               $(".verFechaUsuario").val(res.fecha_altaUsuario);
               break;
-             case "updateProducto":
+             case "updateUsuario":
              var statusActivo = '';
               var statusInactivo = '';
               if(res.status == 'Activo'){
@@ -198,34 +129,26 @@ $(document).ready(function(){
                 var statusInactivo = 'selected';
               }
               var selectStatus = "";
-              selectStatus+= '<select class="form-select" name="editarStatus" aria-label="Default select example">';
+              selectStatus+= '<select class="form-select" name="editarStatusUsuario" aria-label="Default select example">';
               selectStatus+='<option value="1" '+statusActivo+'>Activo</option>';
               selectStatus+='<option value="0" '+statusInactivo+'>Inactivo</option>';
               selectStatus+= '</select>';
-              var selectCategoria = "";
-              selectCategoria+= '<select class="form-select" name="editarCategoria" aria-label="Default select example">';
-              $.each(res.listaCategorias.id_categoria,function(key,dato){
+              var selectRol = "";
+              selectRol+= '<select class="form-select" name="editarRolUsuario" aria-label="Default select example">';
+              var crearRol = res.listaUsuarios;
+              $.each(crearRol.id_rol,function(key,dato){
                 var selected = "";
-                if(dato == res.id_categoria){
-                   selected = 'selected';
-                }
-                selectCategoria+='<option value="'+dato+'" '+selected+'>'+res.listaCategorias.nombre[key]+'</option>';
+              selectRol+='<option value="'+dato+'" '+selected+'>'+res.listaUsuarios.nombreRol[key]+'</option>';
               });
-              selectCategoria+= '</select>';
-              $(".editarId_producto").val(res.id_producto);
-              $(".editarNombre").val(res.nombre);
-              $(".editarPrecio").val(res.precio);
-              $(".editarPrecioAnterior").val(res.precio_anterior);
-              $(".editarAhorro").val(parseFloat($(".editarPrecioAnterior").val()) - parseFloat($(".editarPrecio").val()));
-              $(".editarDescL").val(res.desc_large);
-              $(".editarDescC").val(res.desc_corta);
-              $(".editarImagen").attr("src",$(".urlSys").val()+res.url_imagen);
-              $(".editarUrlML").val(res.url_mercado);
-              $(".editarUrlSams").val(res.url_sams);
-              $(".editarUsuario").val(res.nombreAdministrador);
-              $(".editarStatus").html(selectStatus);
-              $(".editarFecha").val(res.fecha_subida);
-              $(".editarCategoria").html(selectCategoria);
+              selectRol+= '</select>';
+              $(".editarId_usuario").val(res.id_usuario);
+              $(".editarNombreUsuario").val(res.nombre);
+              $(".editarApellidosUsuario").val(res.apellidos);
+              $(".editarCorreoUsuario").val(res.correo);
+              $(".editarContrasenaUsuario").val(res.password);
+              $(".editarTelefonoUsuario").val(res.telefono);
+              $(".editarRol").html(selectRol);
+              $(".editarStatusUsuario").html(selectStatus);
               break;
               case "verImagen":
                 $(".resumenImg").attr("src",$(".urlSys").val()+res.url_imagen);
@@ -235,7 +158,6 @@ $(document).ready(function(){
                 $(".resumenPrecioActual").html(res.precio);
                 $(".resumenAhorro").html(parseFloat(res.precio_anterior)-parseFloat(res.precio));
                 $("#imagenModal").modal("show");
-  
                 break;
                 case "deleteProducto":
                 $(".producto_"+obj.id_producto).hide();

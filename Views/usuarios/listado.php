@@ -155,6 +155,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
+
       <form class="row g-3 needs-validation" novalidate id="actualizarFormulario">
   <div class="col-md-6">
     <label for="inputCity" class="form-label">Nombre</label>
@@ -177,24 +178,25 @@
     <input type="text" name="editarTelefonoUsuario" class="form-control editarTelefonoUsuario" id="inputCity">
   </div>
   <div class="col-md-6">
-  <label for="formFile" class="form-label">Rol</label>
-  <select name="id_rol" name="id_rol" class="form-control id_rol" placeholder="Rol:">
-  <option>Seleccione:</option>
-                <?php foreach($resp['id_rol'] as $i=>$id_rol){ ?>
-			<option value="<?= $id_rol ?>"><?= $resp['nombreRol'][$i] ?></option>
-            <?php } ?>
-		     </select>
-  </div>
+    <label for="inputCity" class="form-label">Rol</label>
+    <div class="editarRol"></div>
+     </div>
+  <div class="col-md-6">
+    <label for="inputCity" class="form-label">Status</label>
+    <div class="editarStatusUsuario"></div>
+    <input type="hidden" class="editarId_usuario" name="id_usuario">
+     </div>
     <div class="col-md-6">
     <label for="inputCity" class="form-label">Fecha de Subida</label>
     <input type="date" name="editarFechaUsuario"class="form-control editarFechaUsuario" id="inputCity">
-    </div>
-     </form>
-      </div>
-      <div class="modal-footer">
+    <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
         <button type="submit" class="btn btn-primary updateUsuario">Actualizar</button>
       </div>
+    </div>
+     </form>
+      </div>
+      
     </div>
   </div>
 </div>

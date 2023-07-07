@@ -119,8 +119,11 @@ $("#actualizarFormulario").on("submit",function(){
     contentType: false,
     cache:false,
     processData: false,
+    dataType: "json",
     success: function(response) {
-        
+    $("#updateModal").modal("hide");
+    $(".contenidoSistema").html(response.respuesta);
+    $("#mensajeSistema").modal("show");   
     }
 });
 });
@@ -187,6 +190,7 @@ function peticionAjax(obj){
             $(".editarStatus").html(selectStatus);
             $(".editarFecha").val(res.fecha_subida);
             $(".editarCategoria").html(selectCategoria);
+           
             
             break;
             case "verImagen":
@@ -201,8 +205,9 @@ function peticionAjax(obj){
               break;
               case "deleteProducto":
               $(".producto_"+obj.id_producto).hide();
-              $("#mensajeSistema").modal("show");
               $(".contenidoSistema").html(res.respuesta);
+              $("#mensajeSistema").modal("show");
+              
               break;
               
        }

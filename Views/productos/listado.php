@@ -72,7 +72,6 @@
   </div>
   </div>
         <div class="col-md-6">
-
           <label for="inputCity" class="form-label">Categoria</label>
           <select name="id_categoria" class="form-control id_categoria" placeholder="Categoria:">
             <option>Seleccione:</option>
@@ -263,7 +262,7 @@
   <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Agregar un nuevo producto</h5>
+        <h5 class="modal-title" id="exampleModalLabel">QualityStore</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">

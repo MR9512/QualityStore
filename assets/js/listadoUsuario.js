@@ -31,7 +31,7 @@ $(document).ready(function(){
    });
   $("#formulario").on("submit",function(){
     event.preventDefault();
-    var formulario = $("#formulario").serialize();
+  
     if($(".nombreUsuario").val() == ""){
       $(".error_nombreUsuario").show();
    }else{
@@ -71,35 +71,33 @@ $(document).ready(function(){
    if($(".nombreUsuario").val() == null || $(".apellidosUsuario").val() == null || $(".correoUsuario").val() == null || $(".passwordUsuario").val() == null || $(".telefonoUsuario").val() == null || $(".id_rol").val() == null){
     return false;
    }
-    var formData = new FormData(this);
-          var files = $('#image')[0].files[0];
-          formData.append('file',files);
-          var datos = $('#formulario').serialize();
-    $.ajax({
-      url: 'insertarUsuario',
-      type: 'post',
-      data: formData,datos,
-      contentType: false,
-      cache:false,
-      processData: false,
-      dataType: "json",
-      success: function(response) {
-        $('#exampleModal').modal('hide');
-        $('.contenidoSistema').html(response.mensaje); 
-        $('#mensajeSistema').modal('show'); 
-      }
-  });
+   
+   var formulario = $("#formulario").serialize();
+      var obj = {};
+      obj.url = "insertarUsuario";
+      obj.data = formulario;
+      obj.type = "POST";
+      obj.accion = "insertarUsuario";
+      peticionAjax(obj); 
+
   });
   $("#actualizarFormulario").on("submit",function(){
     event.preventDefault();
     var formulario = $("#actualizarFormulario").serialize();
-      var obj = {};
-      obj.url = "updateUsuario";
-      obj.data = formulario;
-      obj.type = "POST";
-      obj.accion = "";
-      peticionAjax(obj);  
+    $.ajax({
+      url: 'updateUsuario',
+      type: 'post',
+      data: formulario,
+      dataType: "json",
+      success: function(response) {
+      $("#updateModal").modal("hide");
+      $(".contenidoSistema").html(response.respuesta);
+      $("#mensajeSistema").modal("show");   
+      }
   });
+  });
+
+  
   }); 
   
   function peticionAjax(obj){
@@ -110,6 +108,11 @@ $(document).ready(function(){
       dataType: "json",
       success: function(res){
          switch(obj.accion){
+            case "insertarUsuario":
+              $("#exampleModal").modal("hide");
+              $(".contenidoSistema").html(res.mensaje);
+              $("#mensajeSistema").modal("show");
+            break;
             case "getUsuario":
               $(".verNombreUsuario").val(res.nombre);
               $(".verApellidosUsuario").val(res.apellidos);
@@ -149,6 +152,7 @@ $(document).ready(function(){
               $(".editarTelefonoUsuario").val(res.telefono);
               $(".editarRol").html(selectRol);
               $(".editarStatusUsuario").html(selectStatus);
+              
               break;
               case "verImagen":
                 $(".resumenImg").attr("src",$(".urlSys").val()+res.url_imagen);
@@ -159,12 +163,6 @@ $(document).ready(function(){
                 $(".resumenAhorro").html(parseFloat(res.precio_anterior)-parseFloat(res.precio));
                 $("#imagenModal").modal("show");
                 break;
-                case "deleteProducto":
-                $(".producto_"+obj.id_producto).hide();
-                $("#mensajeSistema").modal("show");
-                $(".contenidoSistema").html(res.respuesta);
-                break;
-
              case "deleteUsuario":
                  $(".usuario_"+obj.id_usuario).hide();
                  $("#mensajeSistema").modal("show");

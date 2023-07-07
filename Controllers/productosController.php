@@ -8,6 +8,7 @@
         require_once("Models/generalesModel.php");
         $this->productosModel = new productosModel();
         $this->generalesModel = new generalesModel();
+        $this->categorias = $this->generalesModel->getCategoria();
         $this->js = "assets/js/listado.js";
     }
 
@@ -31,9 +32,9 @@
         $imagen = $_FILES["cargarImg"]["name"];
         
         $_POST["extensionImagen"] = str_replace("image/","",$_FILES["cargarImg"]["type"]);
-
-        $respuesta = $this->productosModel->saveProducto($_POST);
         
+        $respuesta = $this->productosModel->saveProducto($_POST);
+
         if($imagen != null && $imagen != ""){
           $temp = $_FILES["cargarImg"]["tmp_name"];
           $nombreImagen = $respuesta.".". $_POST["extensionImagen"];

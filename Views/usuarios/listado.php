@@ -53,8 +53,10 @@
   <label for="formFile" class="form-label">Rol</label>
   <select name="id_rol" name="id_rol" class="form-control id_rol" placeholder="Rol:">
       <option>Seleccione:</option>
-                <?php foreach($resp['id_rol'] as $i=>$id_rol){ ?>
-			<option value="<?= $id_rol ?>"><?= $resp['nombreRol'][$i] ?></option>
+                <?php
+                $rol = $this->roles;
+                foreach($rol['id_rol'] as $i=>$id_rol){ ?>
+			<option value="<?= $id_rol ?>"><?= $rol['nombreRol'][$i] ?></option>
             <?php } ?>
 		     </select>
   <div class="error_rolUsuario" style="display:none;color:red">

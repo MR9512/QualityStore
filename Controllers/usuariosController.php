@@ -8,6 +8,7 @@
         require_once("Models/generalesModel.php");
         $this->usuariosModel = new usuariosModel();
         $this->generalesModel = new generalesModel();
+        $this->rol = $this->generalesModel->getRoles();
         $this->js = "assets/js/listadoUsuario.js";
     }
 
@@ -19,14 +20,23 @@
         require_once("Views/templates/footer.php");
     }
 
-    public function listado(){
-      $respuesta = $this->usuariosModel->getUsuarios();
-      require_once("Views/templates/header.php");
-      require_once("Views/templates/menu.php");
-      require_once("Views/usuarios/listado.php");
-      require_once("Views/templates/footer.php");
-    }
+     public function listado(){
 
+       $respuesta = $this->usuariosModel->getUsuarios();
+       require_once("Views/templates/header.php");
+       require_once("Views/templates/menu.php");
+       require_once("Views/usuarios/listado.php");
+       require_once("Views/templates/footer.php");
+       
+     }
+
+     public function insertarUsuario(){
+     
+       $respuesta = $this->usuariosModel->saveUsuario($_POST);
+       $retornar['mensaje'] ="Usuario creado correctamente";
+       echo json_encode($retornar);  
+
+      }
 
       public function getUsuario(){
         $respuesta = $this->usuariosModel->getUsuario($_POST["id_usuario"]);
@@ -37,7 +47,8 @@
       public function updateUsuario(){
         $_POST["status"] = 1;
         $respuesta = $this->usuariosModel->updateUsuario($_POST);
-        echo json_encode($respuesta);
+        $resp["respuesta"] = 'Usuario modificado correctamente';
+        echo json_encode($resp);
       }
     
       public function deleteUsuario(){

@@ -76,12 +76,9 @@
 
     public function saveUsuario($datos)
     {
-        $query = "INSERT INTO productos(nombre,precio,precio_anterior,desc_large,desc_corta,url_imagen,url_mercado,url_sams,status,fecha_subida) VALUES ('" . $datos['nombre'] . "','" . $datos['precio'] . "','" . $datos['precio_anterior'] . "','" . $datos['descripcionLarga'] . "','" . $datos['descripcionCorta'] . "','','" . $datos['urlML'] . "','" . $datos['urlSMS'] . "',1,'" . $this->fecha . "')";
+        $query = "INSERT INTO usuarios(nombre,apellidos,correo,password,telefono,status,fecha_altaUsuario, id_rol) VALUES ('" . $datos['nombreUsuario'] . "','" . $datos['apellidosUsuario'] . "','" . $datos['correoUsuario'] . "','" . $datos['passwordUsuario'] . "','" . $datos['telefonoUsuario'] . "',1,'" . $this->fecha . "','" . $datos['id_rol']. "')";
         mysqli_query($this->con, $query);
-        $id = mysqli_insert_id($this->con);
-        $queryUpdate = "UPDATE productos SET url_imagen = '".mysqli_insert_id($this->con).'.'.$datos["extensionImagen"]."' WHERE id_producto =".mysqli_insert_id($this->con);
-        mysqli_query($this->con, $queryUpdate);
-        return $id;
+        return true;
     }
     
     public function updateUsuario($datos){

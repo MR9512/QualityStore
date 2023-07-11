@@ -14,7 +14,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-      <form class="row g-3 needs-validation" novalidate id="formulario">
+      <form class="row g-3 needs-validation formulario" novalidate id="formulario">
   <div class="col-md-6">
     <label for="inputCity" class="form-label">Nombre</label>
     <input type="text" name="nombre" class="form-control nombre" id="inputCity" required>
@@ -104,7 +104,7 @@
       <th scope="col">Acciones</th>
     </tr>
   </thead>
-  <tbody>
+  <tbody class="tableProductos">
    <?php
      foreach($respuesta["id_producto"] as $i=>$id_producto){
     ?>  
@@ -123,6 +123,7 @@
        </td>
     </tr> 
      <?php } ?>
+
   </tbody>
 </table>
 

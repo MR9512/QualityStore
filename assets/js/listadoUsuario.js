@@ -152,7 +152,7 @@ $(document).ready(function(){
               $(".editarTelefonoUsuario").val(res.telefono);
               $(".editarRol").html(selectRol);
               $(".editarStatusUsuario").html(selectStatus);
-              
+              $(".editarFechaUsuario").val(res.fecha_altaUsuario);
               break;
               case "verImagen":
                 $(".resumenImg").attr("src",$(".urlSys").val()+res.url_imagen);

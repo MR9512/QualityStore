@@ -6,7 +6,6 @@
         <option>Seleccione:</option>
             <?php
             $productos = $respuesta['productos'];
-            //var_dump($productos['id_producto']);exit;
             foreach ($productos['id_producto'] as $i => $producto){
                 ?>
                 <option value="<?= $producto ?>"><?= $productos['nombre'][$i] ?></option>
@@ -21,7 +20,6 @@
         <option>Seleccione:</option>
             <?php
             $usuarios = $respuesta['usuarios'];
-            //var_dump($productos['id_producto']);exit;
             foreach ($usuarios['id_usuario'] as $i => $usuario){
                 ?>
                 <option value="<?= $usuario ?>"><?= $usuarios['nombre_usuario'][$i] ?></option>

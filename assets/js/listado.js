@@ -1,13 +1,3 @@
-$(document).ready(function(){
-  $(".verImagen").click(function(){
-    id_producto = $(this).data("producto");
-    var obj = {};
-    obj.url = "getProducto";
-    obj.data = {id_producto:id_producto};
-    obj.type = "POST";
-    obj.accion = "verImagen";
-    peticionAjax(obj);
-  });
 $(".ver").click(function(){
   id_producto = $(this).data("producto");
   var obj = {};
@@ -18,6 +8,17 @@ $(".ver").click(function(){
   peticionAjax(obj);
   $("#infoModal").modal("show");
 });
+$(document).ready(function(){
+  $(".verImagen").click(function(){
+    id_producto = $(this).data("producto");
+    var obj = {};
+    obj.url = "getProducto";
+    obj.data = {id_producto:id_producto};
+    obj.type = "POST";
+    obj.accion = "verImagen";
+    peticionAjax(obj);
+  });
+
 $(".editar").click(function(){
  id_producto = $(this).data("producto");
  var obj = {};
@@ -99,12 +100,54 @@ $("#formulario").on("submit",function(){
     processData: false,
     dataType: "json",
     success: function(response) {
+      console.log(response);
+      producto = response.productos;
+        var html = '';
+        var URLSYSIMG = $(".urlSys").val();
+        $.each(producto.id_producto,function(key,productos){
+           html+='<tr>';
+           html+='<td>';
+           html+=producto.nombre[key];
+           html+='</td>';
+           html+='<td style="text-align: center">';
+           html+=producto.precio[key];
+           html+='</td>';
+           html+='<td style="text-align: center">';
+           html+=producto.categoria[key];
+           html+='</td>';
+           html+='<td style="text-align: center">';
+           html+=producto.desc_corta[key];
+           html+='</td>';
+           html+='<td style="text-align: center">';
+           html+='<img src="'+URLSYSIMG+producto.url_imagen[key]+'" width="20%" class="verImagen" data-producto="'+producto.url_imagen[key]+'"></td>';
+           html+='</td>';
+           html+='<td>';
+           html+='<i class="bi bi-eye ver ver_'+producto.id_producto[key]+'" data-producto="'+producto.id_producto[key]+'"></i>&nbsp;&nbsp;';
+           html+='<i class="bi bi-pencil editar editar_'+producto.id_producto[key]+'" data-producto="'+producto.id_producto[key]+'"></i>&nbsp;&nbsp;';
+           html+='<i class="bi bi-trash eliminar eliminar_'+producto.id_producto[key]+'" data-producto="'+producto.id_producto[key]+'"></i>';
+           html+='</td>';
+           html+='</tr>';
+         });
+      $(".tableProductos").html(html);
       $('#exampleModal').modal('hide');
       $('.contenidoSistema').html(response.mensaje); 
       $('#mensajeSistema').modal('show'); 
     }
 });
 });
+
+$(".formulario").on("submit",function(){
+  event.preventDefault();
+  var datos = $(this).serialize();
+  var obj = {};
+  obj.url = "saveProducto";
+  obj.type = "POST";
+  obj.data = datos;
+  obj.accion = "insertarProducto";
+  peticionAjax(obj);
+  
+});
+
 $("#actualizarFormulario").on("submit",function(){
   event.preventDefault();
   var formulario = $("#actualizarFormulario").serialize();

@@ -45,7 +45,14 @@
             }
           }
         }
+        $retornar['productos'] = $this->productosModel->getProductos();
         echo json_encode($retornar);
+      }
+
+      public function saveProducto()
+      {
+          $respuesta = $this->administradorModel->saveProductoVendedor($_POST);
+          echo json_encode($respuesta);
       }
 
       public function getProducto(){

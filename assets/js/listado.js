@@ -1,12 +1,37 @@
-$(".ver").click(function(){
-  id_producto = $(this).data("producto");
-  var obj = {};
-  obj.url = "getProducto";
-  obj.data = {id_producto:id_producto};
-  obj.type = "POST";
-  obj.accion = "getProducto";
-  peticionAjax(obj);
-  $("#infoModal").modal("show");
+$(document).on("click", ".eliminar", function() {
+    id_producto = $(this).data("producto");
+    alert(id_producto);
+    var obj = {};
+    obj.id_producto = id_producto;
+    obj.url = "deleteProducto";
+    obj.data = {producto:id_producto};
+    obj.type = "POST";
+    obj.accion = "deleteProducto";
+    peticionAjax(obj);
+});
+
+$(document).on("click", ".ver", function() {
+    id_producto = $(this).data("producto");
+    var obj = {};
+    obj.url = "getProducto";
+    obj.data = {id_producto:id_producto};
+    obj.type = "POST";
+    obj.accion = "getProducto";
+    peticionAjax(obj);
+    $("#infoModal").modal("show");
+});
+
+
+
+$(document).on("click", ".editar", function() {
+    id_producto = $(this).data("producto");
+    var obj = {};
+    obj.url = "getProducto";
+    obj.data = {id_producto:id_producto};
+    obj.type = "POST";
+    obj.accion = "updateProducto";
+    peticionAjax(obj);
+    $("#updateModal").modal("show");
 });
 $(document).ready(function(){
   $(".verImagen").click(function(){
@@ -19,26 +44,7 @@ $(document).ready(function(){
     peticionAjax(obj);
   });
 
-$(".editar").click(function(){
- id_producto = $(this).data("producto");
- var obj = {};
- obj.url = "getProducto";
- obj.data = {id_producto:id_producto};
- obj.type = "POST";
- obj.accion = "updateProducto";
- peticionAjax(obj);
- $("#updateModal").modal("show");
-});
-$(".eliminar").click(function(){
-  id_producto = $(this).data("producto");
-  var obj = {};
-  obj.id_producto = id_producto;
-  obj.url = "deleteProducto";
-  obj.data = {producto:id_producto};
-  obj.type = "POST";
-  obj.accion = "deleteProducto";
-  peticionAjax(obj);
- });
+
 $("#formulario").on("submit",function(){
   event.preventDefault();
   var formulario = $("#formulario").serialize();
@@ -105,7 +111,7 @@ $("#formulario").on("submit",function(){
         var html = '';
         var URLSYSIMG = $(".urlSys").val();
         $.each(producto.id_producto,function(key,productos){
-           html+='<tr>';
+           html+='<tr class="producto_'+productos+'>';
            html+='<td>';
            html+=producto.nombre[key];
            html+='</td>';
